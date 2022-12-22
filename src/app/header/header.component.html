@@ -1,0 +1,30 @@
+<div class="pos-f-t" style="background-color: rgba(27, 89, 109, 0.692);">
+<div style="width: 75%;">
+
+    <ul style="list-style: none; display:inline-flex;">
+        <li>
+            <ul style="list-style: none;" (mouseover)="showCreditoItem()" (mouseout)="hiddeCreditoItem()">
+                <li [ngStyle]="{'backgroundColor':creditoHeadColor}">
+                    <a class="dropdown-item" href="#">Credito</a></li>
+                <div [ngStyle]="{'display':creditmenuItemVisibilit}" style="background-color: aquamarine;">
+                    <li><a class="dropdown-item" href="#">Criar Credito</a></li>
+                    <li><a class="dropdown-item" href="#">Listar Creditos</a></li>
+                </div>
+            </ul>
+        </li>
+
+        <li>
+            <ul style="list-style: none;"  (mouseover)="showUtilizadorItem()" (mouseout)="hiddeUtilizadorItem()" >
+                <li [ngStyle]="{'backgroundColor': ulizadorHeadColor}"><a class="dropdown-item" href="#">Utilizador</a></li>
+                <div [ngStyle]="{'display':utilizadorMenuVizible}" style="background-color: aquamarine;">
+                    <li><a  class="dropdown-item" routerLink="/credito" routerLinkActive="active">credito</a></li>
+                    <li><a  class="dropdown-item" routerLink="/login" routerLinkActive="active">login</a></li>
+                    <li><a  class="dropdown-item" routerLink="/funcionaria-card" routerLinkActive="active">funcionaria-card</a></li>
+                    <li><a  class="dropdown-item" routerLink="/funcionaio-form" routerLinkActive="active">funcionaio-form</a></li>
+                </div>
+            </ul>
+        </li>
+    </ul> 
+
+</div>
+</div>
