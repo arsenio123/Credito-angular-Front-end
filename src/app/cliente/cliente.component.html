@@ -1,0 +1,94 @@
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">     
+      <div class="form-row">
+        <div class="col-md-4 mb-3">
+          <label for="validationDefault01">Full name</label>
+          <input  [(ngModel)]="nome" type="text" class="form-control"  placeholder="First name" value="Mark" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="validationDefault02">email</label>
+          <input type="text" [(ngModel)]="email" class="form-control"  placeholder="Last name" value="Otto" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="validationDefaultUsername" >telefone</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+            </div>
+            <input [(ngModel)]="telefone" type="text" class="form-control" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="validationDefault03">rendimento</label>
+          <input type="text" [(ngModel)]="rendimento" class="form-control" id="validationDefault03" placeholder="City" required>
+        </div>
+        
+        <div class="col-md-3 mb-3">
+          <label for="validationDefault04">Tipo de documento</label>
+          <input type="text" [(ngModel)]="idDoc" class="form-control" id="validationDefault04" placeholder="State" required>
+       
+          <label for="validationDefault04">numero</label>
+          <input type="text" [(ngModel)]="numberDoc" class="form-control" id="validationDefault04" placeholder="State" required>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="validationDefault05">morada</label>
+          <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
+        </div>
+      
+
+      </div>
+      <div class="form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+          <label class="form-check-label" for="invalidCheck2">
+            Agree to terms and conditions
+          </label>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="adicionarClientes()" >Adcionar Cliente</button>
+
+    <hr>
+
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <h3 class="panel-title">Clientes</h3>
+                <div class="pull-right">
+                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="filters">
+                        <th><input type="text" class="form-control" placeholder="#" ></th>
+                        <th><input type="text" class="form-control" placeholder="Full Name" ></th>
+                        <th><input type="text" class="form-control" placeholder="Data de nascimento" ></th>
+                        <th><input type="text" class="form-control" placeholder="Morada" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Telefone" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="email" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="ID Doc" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="number Doc" disabled></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cliente of clientes">
+                        <td>{{cliente.id}}</td>
+                        <td>{{cliente.nome}}</td>
+                        <td>{{cliente.dataNascimento}}</td>
+                        <td>{{cliente.morada}}</td>
+                        <td>{{cliente.telefone}}</td>
+                        <td>{{cliente.email}}</td>
+                        <td>{{cliente.idDoc}}</td>
+                        <td>{{cliente.numberDoc}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

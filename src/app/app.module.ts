@@ -15,16 +15,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 import { LogInComponent } from './log-in/log-in.component';
 import { Routes } from '@angular/router';
+import { ClienteComponent } from './cliente/cliente.component';
 
 const routes: Routes=[{ path:'credito',component:CreditoComponent},
 {path:'login',component:LogInComponent},
 {path:'funcionaria-card',component:FuncionarioCardComponent},
-{path:'funcionaio-form',component:FuncionarioFormComponent}];
+{path:'funcionaio-form',component:FuncionarioFormComponent},
+{path:'cliente',component:ClienteComponent}];
 
 
 @NgModule({
   declarations: [
-    AppComponent, FuncionarioCardComponent, FuncionarioFormComponent, HeaderComponent, CreditoComponent, CriarCreditoComponent,LogInComponent
+    AppComponent, FuncionarioCardComponent, FuncionarioFormComponent, HeaderComponent, CreditoComponent, CriarCreditoComponent,LogInComponent, ClienteComponent
   ],
   imports: [
     BrowserModule,

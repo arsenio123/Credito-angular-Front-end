@@ -24,9 +24,6 @@ export class LogInComponent
     console.log('iniciate login...');
     this.loginServe.login(this.usrId,this.pwdId);
     alert(this.usrId);
-    //console.log('preparando o reditect');
-    //this.rout.navigate(['/funcionaria-card']);
-    //console.log('fim do rederecionamento');
   }
 
 }

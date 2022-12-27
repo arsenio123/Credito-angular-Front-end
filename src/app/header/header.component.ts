@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+//import { timeStamp } from 'console';
 
 @Component({
   selector: 'app-header',
@@ -8,19 +9,23 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+  
+
   creditmenuItemVisibilit:String='none';
   utilizador:String="";
   utilizadorMenuVizible:string='none'
   ulizadorHeadColor:string='aqua';
   creditoHeadColor:string='aqua';
 
-  constructor() { }
+  constructor(private route: ActivatedRoute){};
 
   ngOnInit(): void {
+  this.route.queryParams.subscribe(params=>{
+  });
   }
 
   showMenuItem(){
-    console.log('showMenuItem called ');
+    //console.log('showMenuItem called ');
   }
 
   showCreditoItem(){

@@ -3,6 +3,7 @@ import { temporaryAllocator } from '@angular/compiler/src/render3/view/util';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Hello } from '../model/hello';
 import { Observable } from 'rxjs/';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-credito',
@@ -33,14 +34,14 @@ export class CreditoComponent
 
 
   consultaCredito():Observable<Hello[]>{
-    return this.http.get<Hello[]>('http://localhost:8080/hello');
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/x-www-form-urlencoded',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzE4OTk5MDUsInVzZXJfbmFtZSI6Intub29wfWFkbWluIiwianRpIjoiZWxKM0VCY3luWFNZN2lteEtuTEZ3RThYdC1JIiwiY2xpZW50X2lkIjoicmVhY3QiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.nAWx9gGul_dyq6MBUfX2BKTIlpTw0Nny2v55EzLGwsU'
+      })
+    };
+    return this.http.get<Hello[]>('http://localhost:8080/hello',httpOptions);
 
-    
-  }
-  consultaPromise():Promise<any>{
-    return  this.http.get<Hello>('http://localhost:8080/hello')
-          .toPromise();
-          //.then(output => output);
     
   }
 
