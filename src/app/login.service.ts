@@ -4,12 +4,21 @@ import { HttpHeaders } from '@angular/common/http';
 //import 'rxjs/add/operator/toPromise';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { Token } from './model/token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-session:string='';
+  
+session:Token={
+  access_token:"",
+  token_type: "",
+  expires_in: 0,
+  scope: "",
+  jti: ""
+};
+
  
 
   constructor(private http:HttpClient) {}
@@ -19,11 +28,8 @@ session:string='';
   });
 
   }
-
-  //url: 'http://localhost:8080/oauth/toke'
-  //body:  '{cliente:react,username:admin,password:strong,grant_type:password}', options: {
   
-  login(username:any, password:any){
+  login(username:any, password:any):any{
 
     const headesrsalga = new Headers();
     headesrsalga.append('Content-Type','application/x-www-form-urlencoded');
@@ -37,9 +43,16 @@ session:string='';
         Authorization: 'Basic cmVhY3Q6cjM0Y3Q='
       })
     };
-    console.log('fazendo login ...');
-    return this.http.post('http://localhost:8080/oauth/token',body, httpOptions )
-    .toPromise().then(response=>{console.log(response)});
+
+    return this.http.post<Token>('http://localhost:8080/oauth/token',body, httpOptions )
+    .subscribe(resp=>{
+      this.session=resp;
+      return this.session;
+    });
+  }
+  getAccess_token(){
+    console.log(this.session.access_token);
+     return this.session.access_token;
   }
 
 }

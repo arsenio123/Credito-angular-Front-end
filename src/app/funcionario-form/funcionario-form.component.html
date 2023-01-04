@@ -1,6 +1,19 @@
+<style></style>
 <div class="container">
 </div>
 <div  class="conteiner" style="background-color: rgba(244, 241, 241, 0.962);width: 75%;">
+
+
+  <div >
+    <label for="validationDefault01">First name</label>
+    <input   type="text" class="form-control"  placeholder="First name" value="Mark" required>
+  </div>
+  <div class="col-md-4 mb-3">
+    <label for="validationDefault02">senha</label>
+    <input type="text"  class="form-control"  placeholder="Last name" value="Otto" required>
+  </div>
+
+
         <div class="form-group">
           <label for="exampleInputEmail1">user name</label>
           <input type="email" [(ngModel)]="nome" (presskey)="limparCampo()" class="form-control"  aria-describedby="emailHelp" placeholder="Enter email">

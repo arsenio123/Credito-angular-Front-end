@@ -3,37 +3,43 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+<style>
+  .fromCell{
+    width: 30%; margin: 1.5px;
+  }
+  </style>
+<!--<div class="form-signin"> class="form-signin"    ---->
 
-
-<div class="container">     
+  <div class="container">
+  
       <div class="form-row">
-        <div class="col-md-4 mb-3">
+        <div class="fromCell">
           <label for="validationDefault01">First name</label>
           <input  [(ngModel)]="name" type="text" class="form-control"  placeholder="First name" value="Mark" required>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="fromCell">
           <label for="validationDefault02">senha</label>
           <input type="text" [(ngModel)]="senha" class="form-control"  placeholder="Last name" value="Otto" required>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="fromCell">
           <label for="validationDefaultUsername" >roles</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
+          <div >
+            <div >
             </div>
             <input [(ngModel)]="roles" type="text" class="form-control" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
           </div>
         </div>
       </div>
       <div class="form-row">
-        <div class="col-md-6 mb-3">
+        <div class="fromCell">
           <label for="validationDefault03">rendimento</label>
           <input type="text" class="form-control" id="validationDefault03" placeholder="City" required>
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="fromCell">
           <label for="validationDefault04">data de nascimento</label>
           <input type="text" class="form-control" id="validationDefault04" placeholder="State" required>
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="fromCell">
           <label for="validationDefault05">morada</label>
           <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
         </div>
@@ -78,5 +84,4 @@
             </table>
         </div>
     </div>
-    <button (click)="showClientes()"> show</button>
 </div>

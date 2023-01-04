@@ -16,6 +16,9 @@ export class HeaderComponent implements OnInit {
   utilizadorMenuVizible:string='none'
   ulizadorHeadColor:string='aqua';
   creditoHeadColor:string='aqua';
+  menuColorBackgroud:string='aquamarine';
+  headerMenuStyle:any={diplay:'none'};
+  showMenu:boolean=true;
 
   constructor(private route: ActivatedRoute){};
 
@@ -46,7 +49,15 @@ export class HeaderComponent implements OnInit {
     this.ulizadorHeadColor="aqua";
   }
 
+  colapesAndShow(){
+    if(this.showMenu){
+      this.headerMenuStyle={display: 'grid'};
+    }
+    else{
+      this.headerMenuStyle={}
+    };
+    this.showMenu=!this.showMenu;
+  }
   
 
-
-}
+  }

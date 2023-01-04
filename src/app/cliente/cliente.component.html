@@ -2,52 +2,63 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+<!------ Include the above in your HEAD tag  class="form-group" ---------->
+<style>
+  .fromCell{
+    width: 30%; margin: 1.5px;
+  }
+  </style>
 
 <div class="container">     
       <div class="form-row">
-        <div class="col-md-4 mb-3">
-          <label for="validationDefault01">Full name</label>
-          <input  [(ngModel)]="nome" type="text" class="form-control"  placeholder="First name" value="Mark" required>
+        <div class="fromCell"> <!--class="col-md-4 mb-3"-->
+          <label for="" >ID_Cliente</label>
+          <input  [(ngModel)]="cur_Cliente.id" type="text"   placeholder="First name" value="{{cur_Cliente.id}}" disabled class="form-control" placeholder="Email address" required="" autofocus="" >
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="fromCell"> <!--class="col-md-4 mb-3"-->
+          <label for="" >Full name</label>
+          <input  [(ngModel)]="cur_Cliente.nome" type="text"   placeholder="First name"  class="form-control" placeholder="Email address" required="" autofocus="" >
+        </div>
+        <div class="fromCell">
           <label for="validationDefault02">email</label>
-          <input type="text" [(ngModel)]="email" class="form-control"  placeholder="Last name" value="Otto" required>
+          <input type="text" [(ngModel)]="cur_Cliente.email" class="form-control"  placeholder="Last name" value="Otto" >
         </div>
-        <div class="col-md-4 mb-3">
-          <label for="validationDefaultUsername" >telefone</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-            </div>
-            <input [(ngModel)]="telefone" type="text" class="form-control" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
-          </div>
-        </div>
+
       </div>
       <div class="form-row">
-        <div class="col-md-6 mb-3">
+        <div class="fromCell">
+          <label for="validationDefaultUsername" >telefone</label>
+          <div > <!--class="input-group""-->
+            <div class="input-group-prepend"> <!--class="input-group-prepend"-->
+            </div>
+            <input [(ngModel)]="cur_Cliente.telefone" type="text" class="form-control" placeholder="telefone" aria-describedby="inputGroupPrepend2" required>
+          </div>
+        </div>
+        <div class="fromCell">
           <label for="validationDefault03">rendimento</label>
-          <input type="text" [(ngModel)]="rendimento" class="form-control" id="validationDefault03" placeholder="City" required>
+          <input type="text" [(ngModel)]="cur_Cliente.rendimento" class="form-control" id="validationDefault03" placeholder="City" required>
         </div>
         
-        <div class="col-md-3 mb-3">
+        <div class="fromCell">
           <label for="validationDefault04">Tipo de documento</label>
-          <input type="text" [(ngModel)]="idDoc" class="form-control" id="validationDefault04" placeholder="State" required>
+          <input type="text" [(ngModel)]="cur_Cliente.idDoc" class="form-control" id="validationDefault04" placeholder="State" required>
        
           <label for="validationDefault04">numero</label>
-          <input type="text" [(ngModel)]="numberDoc" class="form-control" id="validationDefault04" placeholder="State" required>
+          <input type="text" [(ngModel)]="cur_Cliente.numberDoc" class="form-control" id="validationDefault04" placeholder="State" required>
         </div>
-        <div class="col-md-3 mb-3">
-          <label for="validationDefault05">morada</label>
-          <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
-        </div>
+        
       
 
       </div>
-      <div class="form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+      <div class="fromCell">
+        <div class="fromCell">
+          <label for="validationDefault05">morada</label>
+          <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
+        </div>
+        <div >
+          <input class="form-check-input"  type="checkbox" value="" id="invalidCheck2" required>
           <label class="form-check-label" for="invalidCheck2">
-            Agree to terms and conditions
+           Agree to terms and conditions
           </label>
         </div>
       </div>
@@ -77,7 +88,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let cliente of clientes">
+                    <tr *ngFor="let cliente of clientes" (click)="selectedItem(cliente)">
                         <td>{{cliente.id}}</td>
                         <td>{{cliente.nome}}</td>
                         <td>{{cliente.dataNascimento}}</td>

@@ -1,31 +1,108 @@
-<div class="pos-f-t" style="background-color: rgba(38, 54, 124, 0.97);">
-<div style="width: 75%;">
+<div>
+  <style>
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+        background-color: #428bca;
+        float:left;
+        width:100%;
+    
+    }
+    
+    .arrow {
+  border: solid rgb(253, 255, 255);
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+    
+    nav li {
+        float:left;
+        width:14.28%;
+        text-align: center;
+        line-height: 50px;
+    
+        position: relative;
+    }
+    
+    
+    
+    
+    nav li a {
+        font-weight: bold;
+        color: rgb(255, 255, 255);
+        text-align: center;
+        padding: 0px;
+        text-decoration: none;
+        -webkit-transition: color 1s;
+        transition: color 1s;
+    }
+    
+    
+       nav li a:hover {
+        color: #111;
+    
+    }
+    
+    
+    nav ul li ul {
+    
+        position: absolute;
+        display: none;
+        background-color:#428bca;
+        min-width: 160px;
+    
+    }
+    nav ul li ul li {
+      width:100%;}
+      
+    nav ul li:hover > ul{
+      display:block;
+    }
+    nav ul ul ul { 
+    right:-50%;
+    /*top:0*/
+    }
 
-    <ul style="list-style: none; display:inline-flex;">
-        <li>
-            <ul style="list-style: none;" (mouseover)="showCreditoItem()" (mouseout)="hiddeCreditoItem()">
-                <li [ngStyle]="{'backgroundColor':creditoHeadColor}">
-                    <a class="dropdown-item" href="#">Credito</a></li>
-                <div [ngStyle]="{'display':creditmenuItemVisibilit}" style="background-color: aquamarine;">
-                    <li><a class="dropdown-item" href="#">Criar Credito</a></li>
-                    <li><a class="dropdown-item" href="#">Listar Creditos</a></li>
-                </div>
+    .down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+    </style>
+    
+    <div style="position:relative; width: 100%;">
+    <nav>
+    <ul>
+        <ul>
+          <li><a routerLink="/login" routerLinkActive="active">login</a></li>
+          <li><a href="#">Creditos</a>
+              <ul>
+                  <li><a routerLink="/credito" routerLinkActive="active">Criar/Alterar</a></li> 
+                  <li><a routerLink="/credito" routerLinkActive="active">Listar</a></li>
+                  <li><a routerLink="/credito" routerLinkActive="active">Relatorios</a></li>
+              </ul>
+           </li>
+          <li><a href="#">Clientes <i class="arrow down"></i> </a>
+              <ul>
+                  <li><a routerLink="/cliente" routerLinkActive="active">Criar/Alterar</a></li> 
+                  <li><a routerLink="/cliente" routerLinkActive="active">Listar</a></li> 
+                  <li><a routerLink="/cliente" routerLinkActive="active">Relatorios</a></li> 
+                
+              </ul>
+           </li>
+           <li><a routerLink="/funcionaria-card" routerLinkActive="active">Utilizadores</a>
+            <ul>
+                <li><a routerLink="/funcionaria-card" routerLinkActive="active">Criar/Alterar</a></li> 
+                <li><a routerLink="/funcionaio-form" routerLinkActive="active">Listar</a></li> 
+                <li><a routerLink="/Utilizadore" routerLinkActive="active">Relatorios</a></li> 
+              
             </ul>
-        </li>
-
-        <li>
-            <ul style="list-style: none;"  (mouseover)="showUtilizadorItem()" (mouseout)="hiddeUtilizadorItem()" >
-                <li [ngStyle]="{'backgroundColor': ulizadorHeadColor}"><a class="dropdown-item" href="#">Utilizador</a></li>
-                <div [ngStyle]="{'display':utilizadorMenuVizible}" style="background-color: aquamarine;">
-                    <li><a  class="dropdown-item" routerLink="/credito" routerLinkActive="active">credito</a></li>
-                    <li><a  class="dropdown-item" routerLink="/login" routerLinkActive="active">login</a></li>
-                    <li><a  class="dropdown-item" routerLink="/cliente" routerLinkActive="active">clientes</a></li>
-                    <li><a  class="dropdown-item" routerLink="/funcionaria-card" routerLinkActive="active">funcionaria-card</a></li>
-                    <li><a  class="dropdown-item" routerLink="/funcionaio-form" routerLinkActive="active">funcionaio-form</a></li>
-                </div>
-            </ul>
-        </li>
-    </ul> 
-
+         </li>
+        </ul>
+    </ul>
+    </nav>
+    </div>
 </div>
-</div>
+  
