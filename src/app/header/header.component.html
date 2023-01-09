@@ -45,6 +45,10 @@
         color: #111;
     
     }
+    i:hover {
+        color: #111;
+    
+    }
     
     
     nav ul li ul {
@@ -72,11 +76,11 @@
 }
     </style>
     
-    <div style="position:relative; width: 100%;">
+    <div style="position:relative; width: 100%;" >
     <nav>
     <ul>
         <ul>
-          <li><a routerLink="/login" routerLinkActive="active">login</a></li>
+          <li><a routerLink="/login" routerLinkActive="active">login<img routerLink="/login" routerLinkActive="active" src="assets/login.png" style="height: 20px;width: 20px;"></a></li>
           <li><a href="#">Creditos</a>
               <ul>
                   <li><a routerLink="/credito" routerLinkActive="active">Criar/Alterar</a></li> 
@@ -100,6 +104,7 @@
               
             </ul>
          </li>
+         <li><a  (click)="logOff()">logoff<img routerLink="/login" routerLinkActive="active" src="assets/login.png" style="height: 20px;width: 20px;"></a></li>
         </ul>
     </ul>
     </nav>

@@ -20,10 +20,10 @@ export class HeaderComponent implements OnInit {
   headerMenuStyle:any={diplay:'none'};
   showMenu:boolean=true;
 
-  constructor(private route: ActivatedRoute){};
+  constructor(private activeRoute: ActivatedRoute, private route:Router){};
 
   ngOnInit(): void {
-  this.route.queryParams.subscribe(params=>{
+  this.activeRoute.queryParams.subscribe(params=>{
   });
   }
 
@@ -59,5 +59,9 @@ export class HeaderComponent implements OnInit {
     this.showMenu=!this.showMenu;
   }
   
+  logOff(){
+    localStorage.removeItem("token");
+    this.route.navigate(["/login"])
+  }
 
   }

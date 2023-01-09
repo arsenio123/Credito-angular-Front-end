@@ -8,23 +8,27 @@ import { Router, RouterEvent, RouterLink } from '@angular/router';
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css']
 })
-export class LogInComponent   
+export class LogInComponent   implements OnInit
 {
   usrId:string="";
   pwdId:string="";
-  
+   constructor(public loginServe: LoginService,private rout:Router){};
 
 
+  i:number=0;
+  ngOnInit(){
+}
   
-  constructor(private loginServe: LoginService,private rout:Router){};
+ 
 
 
 
   login(){
     console.log('iniciate login... para o user '+this.usrId+' pass: '+ this.pwdId);
     const tokken=this.loginServe.login(this.usrId,this.pwdId);
-    console.log('o tokken e: '+tokken.access_token);
-    if(tokken.access_token!=null || tokken.access_token==""){
+    
+    console.log('***** o tokken e: '+localStorage.getItem("token"));
+    if(localStorage.getItem("token")!=null || localStorage.getItem("token")==""){
       this.rout.navigate(["/credito"]);
     }
     else{

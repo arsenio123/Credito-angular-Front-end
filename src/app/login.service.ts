@@ -5,12 +5,13 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Token } from './model/token';
+//import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  
+  public jwtPayLoad:any;
 session:Token={
   access_token:"",
   token_type: "",
@@ -21,13 +22,9 @@ session:Token={
 
  
 
-  constructor(private http:HttpClient) {}
-  sayHello(){
-   this.http.get('http://localhost:8080/hello').toPromise().then(response =>{
-    //console.log(response);
-  });
-
-  }
+  constructor(private http:HttpClient
+    //,private jwtHelper:JwtHelperService
+     ) {}
   
   login(username:any, password:any):any{
 
@@ -43,10 +40,13 @@ session:Token={
         Authorization: 'Basic cmVhY3Q6cjM0Y3Q='
       })
     };
-
-    return this.http.post<Token>('http://localhost:8080/oauth/token',body, httpOptions )
+    //return 
+    this.http.post<Token>('http://localhost:8080/oauth/token',body, httpOptions )
     .subscribe(resp=>{
-      this.session=resp;
+      this.session.access_token=resp.access_token;
+      //this.jwtPayLoad=this.jwtHelper.decodeToken(resp.access_token);
+      //localStorage.setItem("payLoad", this.jwtPayLoad);
+      localStorage.setItem("token",this.session.access_token);
       return this.session;
     });
   }

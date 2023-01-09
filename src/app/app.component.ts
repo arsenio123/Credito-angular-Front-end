@@ -13,13 +13,14 @@ export class AppComponent implements OnInit {
   pwdId:string="";
   
   //import do servico de login
-  constructor(private loginservica: LoginService){}
- 
-  ngOnInit(): void {
-    console.log('hello not from java');
-    this.loginservica.sayHello();
-    console.log('hello after send http request');
-    
+  constructor(private loginservica: LoginService, private router: Router){}
+  
+  ngOnInit(): void { 
+   
+  }
+
+  isOnLogin():boolean{
+    return this.router.url!="/login";
   }
  
   funcionarios:{id:number,nome:string}[]= [];
@@ -37,7 +38,6 @@ export class AppComponent implements OnInit {
 
   login(){
     console.log('username: '+this.usrId+', password:'+this.pwdId);
-    alert('username: '+this.usrId+', password:'+this.pwdId);
     this.loginservica.login(this.usrId,this.pwdId);
 
   }
