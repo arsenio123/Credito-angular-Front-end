@@ -7,6 +7,7 @@
   .fromCell{
     width: 30%; margin: 1.5px;
   }
+  tr:hover {background-color: rgba(211, 231, 247, 0.965);}
   </style>
 <!--<div class="form-signin"> class="form-signin"    ---->
 
@@ -14,37 +15,43 @@
   
       <div class="form-row">
         <div class="fromCell">
-          <label for="validationDefault01">First name</label>
-          <input  [(ngModel)]="name" type="text" class="form-control"  placeholder="First name" value="Mark" required>
+          <label for="validationDefault01">Numero do Credito</label>
+          <input  [(ngModel)]="credito.id" type="text" class="form-control"  placeholder="First name" value="Mark" required>
         </div>
         <div class="fromCell">
-          <label for="validationDefault02">senha</label>
-          <input type="text" [(ngModel)]="senha" class="form-control"  placeholder="Last name" value="Otto" required>
+          <label for="validationDefault02">Capital</label>
+          <input type="text" [(ngModel)]="credito.valor" class="form-control"  placeholder="Last name" value="Otto" required>
         </div>
         <div class="fromCell">
-          <label for="validationDefaultUsername" >roles</label>
+          <label for="validationDefaultUsername" >Data de concecao</label>
           <div >
             <div >
             </div>
-            <input [(ngModel)]="roles" type="text" class="form-control" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+            <input [(ngModel)]="credito.beginDate" type="text" class="form-control" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
           </div>
         </div>
       </div>
       <div class="form-row">
         <div class="fromCell">
           
-          <label for="validationDefault03">rendimento</label>
-          <input type="text" class="form-control" id="validationDefault03" placeholder="City" required>
+          <label for="validationDefault03">Data de fim</label>
+          <input [(ngModel)]="credito.doDate" type="text" class="form-control" id="validationDefault03" placeholder="City" required>
         </div>
         <div class="fromCell">
-          <label for="validationDefault04">data de nascimento</label>
-          <input type="text" class="form-control" id="validationDefault04" placeholder="State" required>
+          
+          <label for="validationDefault03">Saldo</label>
+          <input [(ngModel)]="credito.balance" type="text" class="form-control" id="validationDefault03" placeholder="City" required>
         </div>
         <div class="fromCell">
-          <label for="validationDefault05">morada</label>
-          <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
+          <label for="validationDefault04">Estado</label>
+          <input [(ngModel)]="credito.estado" type="text" class="form-control" id="validationDefault04" placeholder="State" required>
         </div>
+        <div class="fromCell">
+          <label for="validationDefault05">Jurus</label>
+          <input  [(ngModel)]="credito.jurus" stype="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
+        </div>balance
       </div>
+
       <div class="form-group">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
@@ -68,21 +75,58 @@
             <table class="table">
                 <thead>
                     <tr class="filters">
-                        <th><input type="text" class="form-control" placeholder="#" ></th>
-                        <th><input type="text" class="form-control" placeholder="First Name" ></th>
-                        <th><input type="text" class="form-control" placeholder="Last Name" ></th>
-                        <th><input type="text" class="form-control" placeholder="Username" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="ID Credito" ></th>
+                        <th><input type="text" class="form-control" placeholder="Valor" ></th>
+                        <th><input type="text" class="form-control" placeholder="Jurus" ></th>
+                        <th><input type="text" class="form-control" placeholder="Estado" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="nome Cliente" disabled></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let cliente of clientes">
-                        <td>{{cliente.id}}</td>
-                        <td>{{cliente.name}}</td>
-                        <td>{{cliente.senha}}</td>
-                        <td>{{cliente.roles}}</td>
-                    </tr>
+                    <tr *ngFor="let credito of creditos" (click)="selecterdItem(credito)">
+                        <td>{{credito.id}}</td>
+                        <td>{{credito.valor}}</td>
+                        <td>{{credito.jurus}}</td>
+                        <td>{{credito.estado}}</td>
+                        <td>{{credito.cliente.nome}}</td>
+                    </tr>   
                 </tbody>
             </table>
         </div>
     </div>
+
+    Lista de prestacoes
+
+    <div class="row">
+      <div class="panel panel-primary filterable">
+          <div class="panel-heading">
+              <h3 class="panel-title">Prestacoes {{credito.cliente.nome}}</h3>
+              <div class="pull-right">
+                  <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+              </div>
+          </div>
+          <table class="table">
+              <thead>
+                  <tr class="filters">
+                      <th><input type="text" class="form-control" placeholder="ID Prestacao" ></th>
+                      <th><input type="text" class="form-control" placeholder="estado" ></th>
+                      <th><input type="text" class="form-control" placeholder="Data de vencimento" ></th>
+                      <th><input type="text" class="form-control" placeholder="Capital da prestacao" disabled></th>
+                      <th><input type="text" class="form-control" placeholder="Valor pago" disabled></th>
+                      <th><input type="text" class="form-control" placeholder="Jurus da prestacao" disabled></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let prestacao of prestacoes" (click)="selectedPrestacao()">
+                      <td>{{prestacao.id}}</td>
+                      <td>{{prestacao.estado}}</td>
+                      <td>{{prestacao.vencimento}}</td>
+                      <td>{{prestacao.valorCapitaPorPagar}}</td>
+                      <td>{{prestacao.capitalPago}}</td>
+                      <td>{{prestacao.jurusPago}}</td>
+                  </tr>   
+              </tbody>
+          </table>
+      </div>
+  </div>
 </div>

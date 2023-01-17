@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { temporaryAllocator } from '@angular/compiler/src/render3/view/util';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Hello } from '../model/hello';
 import { Observable } from 'rxjs/';
 import { HttpHeaders } from '@angular/common/http';
 import { LoginService } from '../login.service';
+import { CreditoInterface } from '../model/credito';
+import { Credito } from '../model/credito';
+import { Prestacao } from '../model/prestacao';
+import { PrestacoesService } from '../prestacoes.service';
 
 
 @Component({
@@ -16,53 +18,59 @@ export class CreditoComponent
  implements OnInit
   {
     usrId:string="";
-  clientes:Hello[]=[];
-  id:any=0;
-   name:any="";
-   senha:any='';
-  roles:any='';
+  creditos:Credito[]=[];
+  prestacoes:Prestacao[]=[];
+  prestacao:Prestacao=new Prestacao();
+  credito:Credito=new Credito();
   
-  constructor(private http:HttpClient,private login:LoginService ) { }
+  constructor(private http:HttpClient,private login:LoginService, private prestacaoServ:PrestacoesService ) { }
 
   ngOnInit(){
     this.consultaCredito().subscribe(data=>{
-      this.clientes=data;
+      this.creditos=data;
       console.log(data);
     
     })
 
-      console.log(this.clientes);
+      console.log(this.creditos);
   }
 
 
-  consultaCredito():Observable<Hello[]>{
+  consultaCredito():Observable<CreditoInterface[]>{
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/x-www-form-urlencoded',
-        Authorization: 'Bearer '+this.login.getAccess_token()
+        Authorization: 'Bearer '+localStorage.getItem(this.login.TOKEN)
       })
     };
     console.log(httpOptions.headers)
-    console.log(this.login.getAccess_token())
-    return this.http.get<Hello[]>('http://localhost:8080/hello',httpOptions);
+    console.log("CreditoComponent consultando com o token: "+ localStorage.getItem(this.login.TOKEN))
+    return this.http.get<Credito[]>('http://localhost:8080/credito/list',httpOptions);
 
     
   }
 
   showClientes(){
-    console.log(this.clientes)
+    console.log(this.creditos)
   }
 
   adicionarClientes(){
-    const tempCliente:Hello={
-      id:	this.id,
-      name:this.name,
-      senha:this.senha,
-      roles:	this.roles
-  };
-    this.clientes.push(tempCliente);
+      this.credito.createdDate=new Date();
+      this.credito.updateDate=this.credito.createdDate;
+  
+    this.creditos.push(this.credito);
   }
 
-  
+  selecterdItem(curCredito:Credito){
+    this.credito=curCredito;
+    this.prestacoes=[];
+    this.prestacaoServ.getPrestacaoFromCredito(this.credito.id)
+    .subscribe(resp=>{
+      this.prestacoes=resp;
+    });
+  }
+  selectedPrestacao(){
+    
+  }
 
 }

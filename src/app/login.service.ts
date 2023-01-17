@@ -12,6 +12,7 @@ import { Token } from './model/token';
 })
 export class LoginService {
   public jwtPayLoad:any;
+  TOKEN:string="token";
 session:Token={
   access_token:"",
   token_type: "",
@@ -43,10 +44,18 @@ session:Token={
     //return 
     this.http.post<Token>('http://localhost:8080/oauth/token',body, httpOptions )
     .subscribe(resp=>{
+      console.log("LoginService: resp{"+resp);
       this.session.access_token=resp.access_token;
       //this.jwtPayLoad=this.jwtHelper.decodeToken(resp.access_token);
       //localStorage.setItem("payLoad", this.jwtPayLoad);
       localStorage.setItem("token",this.session.access_token);
+      if(this.session.access_token!=null){
+        console.log("autenicado com sucesso "+this.session.access_token);
+      }
+      else{
+        console.log("autenicacao falhada "+this.session.access_token);
+      }
+      
       return this.session;
     });
   }

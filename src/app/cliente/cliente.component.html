@@ -7,21 +7,22 @@
   .fromCell{
     width: 30%; margin: 1.5px;
   }
+  tr:hover {background-color: rgba(211, 231, 247, 0.965);}
   </style>
 
 <div class="container">     
       <div class="form-row">
         <div class="fromCell"> <!--class="col-md-4 mb-3"-->
           <label for="" >ID_Cliente</label>
-          <input  [(ngModel)]="cur_Cliente.id" type="text"   placeholder="First name" value="{{cur_Cliente.id}}" disabled class="form-control" placeholder="Email address" required="" autofocus="" >
+          <input  [(ngModel)]="cliente.id" type="text"   placeholder="First name" value="{{cliente.id}}" disabled class="form-control" placeholder="Email address" required="" autofocus="" >
         </div>
         <div class="fromCell"> <!--class="col-md-4 mb-3"-->
           <label for="" >Full name</label>
-          <input  [(ngModel)]="cur_Cliente.nome" type="text"   placeholder="First name"  class="form-control" placeholder="Email address" required="" autofocus="" >
+          <input  [(ngModel)]="cliente.nome" type="text"   placeholder="First name"  class="form-control" placeholder="Email address" required="" autofocus="" >
         </div>
         <div class="fromCell">
           <label for="validationDefault02">email</label>
-          <input type="text" [(ngModel)]="cur_Cliente.email" class="form-control"  placeholder="Last name" value="Otto" >
+          <input type="text" [(ngModel)]="cliente.email" class="form-control"  placeholder="Last name" value="Otto" >
         </div>
 
       </div>
@@ -31,26 +32,26 @@
           <div > <!--class="input-group""-->
             <div class="input-group-prepend"> <!--class="input-group-prepend"-->
             </div>
-            <input [(ngModel)]="cur_Cliente.telefone" type="text" class="form-control" placeholder="telefone" aria-describedby="inputGroupPrepend2" required>
+            <input [(ngModel)]="cliente.telefone" type="text" class="form-control" placeholder="telefone" aria-describedby="inputGroupPrepend2" required>
           </div>
         </div>
         <div class="fromCell">
           <label for="validationDefault03">rendimento</label>
-          <input type="text" [(ngModel)]="cur_Cliente.rendimento" class="form-control" id="validationDefault03" placeholder="City" required>
+          <input type="text" [(ngModel)]="cliente.rendimento" class="form-control" id="validationDefault03" placeholder="City" required>
         </div>
         
         <div class="fromCell">
           <label for="validationDefault04">Tipo de documento</label>
-          <input type="text" [(ngModel)]="cur_Cliente.idDoc" class="form-control" id="validationDefault04" placeholder="State" required>
+          <input type="text" [(ngModel)]="cliente.idDoc" class="form-control" id="validationDefault04" placeholder="State" required>
        
           <label for="validationDefault04">numero</label>
-          <input type="text" [(ngModel)]="cur_Cliente.numberDoc" class="form-control" id="validationDefault04" placeholder="State" required>
+          <input type="text" [(ngModel)]="cliente.numberDoc" class="form-control" id="validationDefault04" placeholder="State" required>
         </div>
         
       
 
       </div>
-      <div class="fromCell">
+      <div class="form-row">
         <div class="fromCell">
           <label for="validationDefault05">morada</label>
           <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
@@ -63,7 +64,13 @@
         </div>
       </div>
       <button class="btn btn-primary" (click)="adicionarClientes()" >Adcionar Cliente</button>
+<!--
+  div de apresentacao de prestacoes
+  <listar prestacoes> 
+-->
+<div >
 
+</div>
     <hr>
 
     <div class="row">
@@ -85,6 +92,7 @@
                         <th><input type="text" class="form-control" placeholder="email" disabled></th>
                         <th><input type="text" class="form-control" placeholder="ID Doc" disabled></th>
                         <th><input type="text" class="form-control" placeholder="number Doc" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Prestacoes" disabled></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -97,6 +105,7 @@
                         <td>{{cliente.email}}</td>
                         <td>{{cliente.idDoc}}</td>
                         <td>{{cliente.numberDoc}}</td>
+                        <td><button class="btn btn-primary" (click)="mostrarCredito(cliente.id)">Dividas</button></td>
                     </tr>
                 </tbody>
             </table>
