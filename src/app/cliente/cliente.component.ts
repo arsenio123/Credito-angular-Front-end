@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ClienteRestService } from '../cliente-rest.service';
 import { Cliente } from '../model/cliente';
 
@@ -12,12 +13,22 @@ export class ClienteComponent implements OnInit {
   clientes:Cliente[]=[];
   cliente:Cliente=new Cliente();
 
-  constructor(private clienteRest:ClienteRestService) { }
+  constructor(private clienteRest:ClienteRestService,private router:Router) { }
 
   ngOnInit(): void {
-  this.clienteRest.getAllcliente().subscribe(respose=>{
-    this.clientes=respose;
-  });
+
+    if(localStorage.getItem("token")==null){
+      console.log("Sessao expirada");
+      alert("Sessao expirada")
+      this.router.navigate(["/login"]);
+    }else{
+      this.clienteRest.getAllcliente().subscribe(respose=>{
+        this.clientes=respose;
+        
+      });
+    }
+    
+ /* */
 
   }
 

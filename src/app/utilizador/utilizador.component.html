@@ -1,0 +1,80 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<style>
+  .fromCell{
+    width: 30%; margin: 1.5px;
+  }
+  tr:hover {background-color: rgba(211, 231, 247, 0.965);}
+  </style>
+<!--<div class="form-signin"> class="form-signin"    ---->
+
+  <div class="container">
+  
+      <div class="form-row">
+        <div class="fromCell">
+          <label for="validationDefault01">Numero do user</label>
+          <input  [(ngModel)]="user.id" type="text" class="form-control"  placeholder="First name" required>
+        </div>
+        <div class="fromCell">
+          <label for="validationDefault02">Full Name</label>
+          <input type="text" [(ngModel)]="user.name" class="form-control"  placeholder="Last name"  required>
+        </div>
+        <div class="fromCell">
+          <label for="validationDefaultUsername" >Perfil</label>
+          <div >
+            <div >
+            </div>
+            <input [(ngModel)]="user.roles" type="text" class="form-control" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+	  Utilizadors Role
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+          <label class="form-check-label" for="invalidCheck2">
+            Agree to terms and conditions
+          </label>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="adicionarUtilizadors()" >Adcionar Utilizador</button>
+
+    <hr>
+
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <h3 class="panel-title">Utilizadors</h3>
+                <div class="pull-right">
+                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="filters">
+                        <th><input type="text" class="form-control" placeholder="User ID" ></th>
+                        <th><input type="text" class="form-control" placeholder="Name" ></th>
+                        <th><input type="text" class="form-control" placeholder="roles" ></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users"  (click)="selecterdItem(user)">
+                        <td>{{user.id}}</td>
+                        <td>{{user.name}}</td>
+                        <td>
+                          <ul *ngFor="let role of user.roles" style="display:inline">
+                            <li>{{role.descricao}}</li>
+                          </ul> 
+						<!--<label{{user.roles[1].descricao}} *ngFor="let user.role os user.roles" class="form-check-label" for="invalidCheck2">-->
+						
+						<!--</label>-->
+						</td>
+                    </tr>   
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

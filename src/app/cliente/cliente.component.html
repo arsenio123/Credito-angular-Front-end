@@ -10,7 +10,8 @@
   tr:hover {background-color: rgba(211, 231, 247, 0.965);}
   </style>
 
-<div class="container">     
+<div class="container">
+  <div></div>     
       <div class="form-row">
         <div class="fromCell"> <!--class="col-md-4 mb-3"-->
           <label for="" >ID_Cliente</label>
@@ -22,7 +23,7 @@
         </div>
         <div class="fromCell">
           <label for="validationDefault02">email</label>
-          <input type="text" [(ngModel)]="cliente.email" class="form-control"  placeholder="Last name" value="Otto" >
+          <input type="email" [(ngModel)]="cliente.email" class="form-control"  placeholder="Last name" value="Otto" >
         </div>
 
       </div>
@@ -32,12 +33,12 @@
           <div > <!--class="input-group""-->
             <div class="input-group-prepend"> <!--class="input-group-prepend"-->
             </div>
-            <input [(ngModel)]="cliente.telefone" type="text" class="form-control" placeholder="telefone" aria-describedby="inputGroupPrepend2" required>
+            <input [(ngModel)]="cliente.telefone" type="number" class="form-control" placeholder="telefone" aria-describedby="inputGroupPrepend2" required>
           </div>
         </div>
         <div class="fromCell">
           <label for="validationDefault03">rendimento</label>
-          <input type="text" [(ngModel)]="cliente.rendimento" class="form-control" id="validationDefault03" placeholder="City" required>
+          <input type="number" [(ngModel)]="cliente.rendimento" class="form-control" id="validationDefault03" placeholder="City" required>
         </div>
         
         <div class="fromCell">
@@ -99,7 +100,7 @@
                     <tr *ngFor="let cliente of clientes" (click)="selectedItem(cliente)">
                         <td>{{cliente.id}}</td>
                         <td>{{cliente.nome}}</td>
-                        <td>{{cliente.dataNascimento}}</td>
+                        <td>{{cliente.dataNascimento| date:'shortDate'}}</td>
                         <td>{{cliente.morada}}</td>
                         <td>{{cliente.telefone}}</td>
                         <td>{{cliente.email}}</td>

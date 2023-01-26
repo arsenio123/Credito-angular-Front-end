@@ -5,6 +5,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Token } from './model/token';
+import { Route, Router } from '@angular/router';
 //import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
@@ -18,16 +19,19 @@ session:Token={
   token_type: "",
   expires_in: 0,
   scope: "",
-  jti: ""
+  jti: "",
+  error: "",
+    error_description: ""
 };
 
  
 
   constructor(private http:HttpClient
     //,private jwtHelper:JwtHelperService
+    ,private router:Router
      ) {}
   
-  login(username:any, password:any):any{
+  login(username:any, password:any, ):any{
 
     const headesrsalga = new Headers();
     headesrsalga.append('Content-Type','application/x-www-form-urlencoded');
@@ -46,14 +50,13 @@ session:Token={
     .subscribe(resp=>{
       console.log("LoginService: resp{"+resp);
       this.session.access_token=resp.access_token;
-      //this.jwtPayLoad=this.jwtHelper.decodeToken(resp.access_token);
-      //localStorage.setItem("payLoad", this.jwtPayLoad);
       localStorage.setItem("token",this.session.access_token);
-      if(this.session.access_token!=null){
+      if(resp.access_token!=""){
         console.log("autenicado com sucesso "+this.session.access_token);
+        this.router.navigate(["/credito"]);
       }
       else{
-        console.log("autenicacao falhada "+this.session.access_token);
+        alert("autenicacao falhada "+this.session.access_token);
       }
       
       return this.session;

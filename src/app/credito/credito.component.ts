@@ -17,11 +17,16 @@ import { PrestacoesService } from '../prestacoes.service';
 export class CreditoComponent
  implements OnInit
   {
-    usrId:string="";
+  usrId:string="";
+  saveCreditoBt:string="Adcionar Credito";
+  
   creditos:Credito[]=[];
   prestacoes:Prestacao[]=[];
   prestacao:Prestacao=new Prestacao();
   credito:Credito=new Credito();
+  estados:string[]=["CANCELADO","VIGOR"]
+  popupDivida:string="display: none;opacity: 1;";
+  mainDivStile:string=""  
   
   constructor(private http:HttpClient,private login:LoginService, private prestacaoServ:PrestacoesService ) { }
 
@@ -50,11 +55,11 @@ export class CreditoComponent
     
   }
 
-  showClientes(){
+ /* showCerdito(){
     console.log(this.creditos)
-  }
+  }*/
 
-  adicionarClientes(){
+  adicionarCredito(){
       this.credito.createdDate=new Date();
       this.credito.updateDate=this.credito.createdDate;
   
@@ -64,6 +69,8 @@ export class CreditoComponent
   selecterdItem(curCredito:Credito){
     this.credito=curCredito;
     this.prestacoes=[];
+    this.saveCreditoBt="Editar Credito";
+
     this.prestacaoServ.getPrestacaoFromCredito(this.credito.id)
     .subscribe(resp=>{
       this.prestacoes=resp;
@@ -71,6 +78,12 @@ export class CreditoComponent
   }
   selectedPrestacao(){
     
+  }
+  cancelarCredito(){
+    this.credito=new Credito();
+  }
+  fazerPagamento(cred_id:number){
+    this.popupDivida="";
   }
 
 }

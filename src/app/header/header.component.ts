@@ -10,7 +10,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   
-
+  routs:string[]=["/home","/credito"];
   creditmenuItemVisibilit:String='none';
   utilizador:String="";
   utilizadorMenuVizible:string='none'

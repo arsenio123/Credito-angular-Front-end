@@ -8,10 +8,17 @@
     width: 30%; margin: 1.5px;
   }
   tr:hover {background-color: rgba(211, 231, 247, 0.965);}
-  </style>
-<!--<div class="form-signin"> class="form-signin"    ---->
 
-  <div class="container">
+  </style>
+
+  <div class="container" >
+
+
+
+
+
+    
+
   
       <div class="form-row">
         <div class="fromCell">
@@ -27,7 +34,7 @@
           <div >
             <div >
             </div>
-            <input [(ngModel)]="credito.beginDate" type="text" class="form-control" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+            <input [(ngModel)]="credito.beginDate" type="date" class="form-control" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
           </div>
         </div>
       </div>
@@ -35,7 +42,7 @@
         <div class="fromCell">
           
           <label for="validationDefault03">Data de fim</label>
-          <input [(ngModel)]="credito.doDate" type="text" class="form-control" id="validationDefault03" placeholder="City" required>
+          <input [(ngModel)]="credito.doDate" type="date" class="form-control" id="validationDefault03" placeholder="City" required>
         </div>
         <div class="fromCell">
           
@@ -44,7 +51,10 @@
         </div>
         <div class="fromCell">
           <label for="validationDefault04">Estado</label>
-          <input [(ngModel)]="credito.estado" type="text" class="form-control" id="validationDefault04" placeholder="State" required>
+          <select ngFor="let credito.estado of estados" [(ngModel)]="credito.estado" class="form-control">
+              <option class="form-control">{{estados[0]}}</option>
+              <option class="form-control">{{estados[1]}}</option>
+          </select>
         </div>
         <div class="fromCell">
           <label for="validationDefault05">Jurus</label>
@@ -60,14 +70,15 @@
           </label>
         </div>
       </div>
-      <button class="btn btn-primary" (click)="adicionarClientes()" >Adcionar Cliente</button>
+      <button class="btn btn-primary" (click)="adicionarCredito()" style="margin-right: 5px; background-color: rgb(69, 144, 69);border-color:  rgb(69, 144, 69);">{{saveCreditoBt}}</button>
 
+      <button class="btn btn-primary" (click)="cancelarCredito()" style="background-color: rgb(226, 63, 63);border-bottom:  rgb(226, 63, 63);">cancelar/limpar</button>
     <hr>
 
     <div class="row">
         <div class="panel panel-primary filterable">
             <div class="panel-heading">
-                <h3 class="panel-title">Clientes</h3>
+                <h3 class="panel-title">Creditos</h3>
                 <div class="pull-right">
                     <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
                 </div>
@@ -89,6 +100,7 @@
                         <td>{{credito.jurus}}</td>
                         <td>{{credito.estado}}</td>
                         <td>{{credito.cliente.nome}}</td>
+                        
                     </tr>   
                 </tbody>
             </table>
@@ -107,23 +119,25 @@
           </div>
           <table class="table">
               <thead>
-                  <tr class="filters">
+                  <tr >
                       <th><input type="text" class="form-control" placeholder="ID Prestacao" ></th>
                       <th><input type="text" class="form-control" placeholder="estado" ></th>
                       <th><input type="text" class="form-control" placeholder="Data de vencimento" ></th>
                       <th><input type="text" class="form-control" placeholder="Capital da prestacao" disabled></th>
                       <th><input type="text" class="form-control" placeholder="Valor pago" disabled></th>
                       <th><input type="text" class="form-control" placeholder="Jurus da prestacao" disabled></th>
+                      <th><input type="text" class="form-control" placeholder="Fazer fazerPagamento" disabled></th>
                   </tr>
               </thead>
               <tbody>
                   <tr *ngFor="let prestacao of prestacoes" (click)="selectedPrestacao()">
                       <td>{{prestacao.id}}</td>
                       <td>{{prestacao.estado}}</td>
-                      <td>{{prestacao.vencimento}}</td>
+                      <td>{{prestacao.vencimento| date:'shortDate'}}</td>
                       <td>{{prestacao.valorCapitaPorPagar}}</td>
                       <td>{{prestacao.capitalPago}}</td>
                       <td>{{prestacao.jurusPago}}</td>
+                      <td><button class="btn btn-primary" (click)="fazerPagamento(credito.id)">pay</button></td>
                   </tr>   
               </tbody>
           </table>

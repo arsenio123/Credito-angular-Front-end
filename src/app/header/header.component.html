@@ -100,14 +100,19 @@
             <ul>
                 <li><a routerLink="/funcionaria-card" routerLinkActive="active">Criar/Alterar</a></li> 
                 <li><a routerLink="/funcionaio-form" routerLinkActive="active">Listar</a></li> 
-                <li><a routerLink="/Utilizadore" routerLinkActive="active">Relatorios</a></li> 
+                <li><a routerLink="/Utilizador" routerLinkActive="active">Relatorios</a></li> 
               
             </ul>
          </li>
-         <li><a  (click)="logOff()">logoff<img routerLink="/login" routerLinkActive="active" src="assets/login.png" style="height: 20px;width: 20px;"></a></li>
+         <li><a  (click)="logOff()">logoff<img routerLink="/login" routerLinkActive="active" src="assets/settings.png   " style="height: 20px;width: 20px;"></a></li>
         </ul>
     </ul>
     </nav>
     </div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" *ngFor="let rout routs">
+          <li class="breadcrumb-item active" aria-current="page">{{rout}}</li>
+        </ol>
+      </nav>
 </div>
   

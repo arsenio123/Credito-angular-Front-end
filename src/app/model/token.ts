@@ -3,5 +3,7 @@ export interface Token {
     token_type: string,
     expires_in: number,
     scope: string,
-    jti: string
+    jti: string,
+    error: string,
+    error_description: string
   }

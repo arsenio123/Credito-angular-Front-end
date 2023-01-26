@@ -26,14 +26,6 @@ export class LogInComponent   implements OnInit
   login(){
     console.log('iniciate login... para o user '+this.usrId+' pass: '+ this.pwdId);
     const tokken=this.loginServe.login(this.usrId,this.pwdId);
-    
-    console.log('***** o tokken e: '+localStorage.getItem("token"));
-    if(localStorage.getItem("token")!=null || localStorage.getItem("token")==""){
-      this.rout.navigate(["/credito"]);
-    }
-    else{
-      alert("User name ou password invalida");
-    }
   }
 
 }
