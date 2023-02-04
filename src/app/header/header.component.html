@@ -96,15 +96,15 @@
                 
               </ul>
            </li>
-           <li><a routerLink="/funcionaria-card" routerLinkActive="active">Utilizadores</a>
+           <li><a  routerLinkActive="active">Administracao <img   src="assets/settings.png   " style="height: 20px;width: 20px;"></a>
             <ul>
-                <li><a routerLink="/funcionaria-card" routerLinkActive="active">Criar/Alterar</a></li> 
-                <li><a routerLink="/funcionaio-form" routerLinkActive="active">Listar</a></li> 
+                <li><a routerLink="/Utilizador" routerLinkActive="active">Utilizadores</a></li> 
+                <li><a routerLink="/funcionaio-form" routerLinkActive="active">Roles</a></li> 
                 <li><a routerLink="/Utilizador" routerLinkActive="active">Relatorios</a></li> 
               
             </ul>
          </li>
-         <li><a  (click)="logOff()">logoff<img routerLink="/login" routerLinkActive="active" src="assets/settings.png   " style="height: 20px;width: 20px;"></a></li>
+         <li style="float: right;"><a  (click)="logOff()">logoff</a></li>
         </ul>
     </ul>
     </nav>

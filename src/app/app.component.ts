@@ -1,6 +1,6 @@
 import { NUMBER_TYPE } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from './login.service';
+import { LoginService } from './service/login.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({

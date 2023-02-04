@@ -8,8 +8,7 @@ import { FuncionarioCardComponent } from './funcionario-card/funcionario-card.co
 import { FuncionarioFormComponent } from './funcionario-form/funcionario-form.component';
 import { HeaderComponent } from './header/header.component';
 import { CreditoComponent } from './credito/credito.component';
-import { CriarCreditoComponent } from './criar-credito/criar-credito.component';
-import { LoginService } from './login.service';
+import { LoginService } from './service/login.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
@@ -31,7 +30,7 @@ const routes: Routes=[{ path:'credito',component:CreditoComponent},
   declarations: [
     AppComponent, FuncionarioCardComponent, FuncionarioFormComponent,
      HeaderComponent, CreditoComponent,UtilizadorComponent,
-     CriarCreditoComponent,LogInComponent, ClienteComponent, UtilizadorComponent
+     LogInComponent, ClienteComponent, UtilizadorComponent
   ],
   imports: [
     BrowserModule,

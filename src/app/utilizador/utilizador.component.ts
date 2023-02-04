@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Role } from '../model/role';
 import { User } from '../model/user';
-import { UserServiceService } from '../user-service.service';
+import { UserServiceService } from '../service/user-service.service';
 
 @Component({
   selector: 'app-utilizador',
@@ -12,7 +12,6 @@ export class UtilizadorComponent implements OnInit {
 
   user:User=new User();
   users:User[]=[];
-  //role:Role=new Role();
 
   constructor(private userService:UserServiceService ) { }
 

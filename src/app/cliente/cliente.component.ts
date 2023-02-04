@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ClienteRestService } from '../cliente-rest.service';
+import { ClienteRestService } from '../service/cliente-rest.service';
 import { Cliente } from '../model/cliente';
 
 @Component({
@@ -12,6 +12,7 @@ export class ClienteComponent implements OnInit {
 
   clientes:Cliente[]=[];
   cliente:Cliente=new Cliente();
+  saveClientBt:string="Adicionar";
 
   constructor(private clienteRest:ClienteRestService,private router:Router) { }
 
@@ -32,19 +33,28 @@ export class ClienteComponent implements OnInit {
 
   }
 
-  adicionarClientes(){
+  adicionarCliente(){
 
     this.clienteRest.createCliente(this.cliente).subscribe(resp=>{
       this.cliente=resp;
-    });
+      
+    },error=>{
+      alert("erro ao adicionar Cliente");
+    }
+    );
     this.clientes.push(this.cliente);
   }
 
   selectedItem(curCliente:Cliente){
     this.cliente=curCliente;
+    this.saveClientBt="Alterar Cliente";
   }
   mostrarCredito(clieteID:any){
     alert(clieteID)
+  }
+
+  cancelarCliente(){
+    this.saveClientBt="Adicionar";
   }
 
 }

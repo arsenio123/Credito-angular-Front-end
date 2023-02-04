@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../login.service';
+import { LoginService } from '../service/login.service';
 import { Router, RouterEvent, RouterLink } from '@angular/router';
 
 
@@ -19,10 +19,6 @@ export class LogInComponent   implements OnInit
   ngOnInit(){
 }
   
- 
-
-
-
   login(){
     console.log('iniciate login... para o user '+this.usrId+' pass: '+ this.pwdId);
     const tokken=this.loginServe.login(this.usrId,this.pwdId);
