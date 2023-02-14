@@ -40,7 +40,7 @@
         <div class="fromCell">
           
           <label for="validationDefault03">Saldo</label>
-          <input [(ngModel)]="credito.balance" type="text" class="form-control" id="validationDefault03" placeholder="City" required>
+          <input [(ngModel)]="credito.balance" type="text" class="form-control" id="validationDefault03" placeholder="City" disabled>
         </div>
         <div class="fromCell">
           <label for="validationDefault04" style="width: 100%;height: 30%;float: top;">Estado</label>
@@ -56,7 +56,7 @@
         <div class="fromCell">
           <label for="validationDefault04" style="width: 100%;height: 30%;float: top;">Produto</label>
           <select  [(ngModel)]="credito.producto"  style="width: 100%;height: 60%;margin-bottom: 10px;float: top;">
-            <option *ngFor="let producto of productos"> {{producto.descricao}}</option>   <!--  [ngValue]="producto">{{producto.descricao}}  -->
+            <option *ngFor="let producto of productos" [ngValue]="producto">{{producto}}> {{producto.descricao}}</option>   <!--    -->
         </select>
         </div>
       </div>

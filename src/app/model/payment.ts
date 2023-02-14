@@ -1,3 +1,4 @@
+import { Prestacao } from "./prestacao";
 import { User } from "./user"
 
 export interface PaymentInterface {
@@ -6,7 +7,8 @@ export interface PaymentInterface {
     createdBay:User,
     conta:number,
     valorPago:number,
-    formaPagamento:string
+    formaPagamento:string,
+    prestacao:Prestacao
 }
 export class Payment implements PaymentInterface{
     
@@ -16,7 +18,8 @@ export class Payment implements PaymentInterface{
     conta: number=0;
     valorPago: number=0;
     formaPagamento: string="";
+    prestacao:Prestacao=new Prestacao();
     constructor(){
-        
+
     }
 }

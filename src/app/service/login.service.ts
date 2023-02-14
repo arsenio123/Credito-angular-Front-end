@@ -4,6 +4,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { Token } from '../model/token';
 import {  Router } from '@angular/router';
 import { RestGenericService } from '../service/rest-generic.service';
+import { User } from '../model/user';
+import { UserService } from './user-service.service';
 //import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
@@ -21,10 +23,12 @@ session:Token={
     error_description: ""
 };
 
+  public static logedUser: User;
+
  
 
   constructor(private http:HttpClient
-    ,private router:Router
+    ,private router:Router,private userservice:UserService
      ) {
     super();
   }
@@ -41,6 +45,9 @@ session:Token={
       if(resp.access_token!=""){
         console.log("autenicado com sucesso "+this.session.access_token);
         this.router.navigate(["/credito"]);
+        this.userservice.getOne(`/user/login?userName=${username}`,"",this.http).subscribe(respUser=>{
+          LoginService.logedUser=respUser;
+        })
       }
       else{
         alert("autenicacao falhada "+this.session.error_description);

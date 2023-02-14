@@ -7,7 +7,7 @@ import { RestGenericService } from './rest-generic.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UserServiceService extends RestGenericService<User>{
+export class UserService extends RestGenericService<User>{
 
 
   constructor(public http:HttpClient) {

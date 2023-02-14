@@ -1,6 +1,6 @@
-import { ClienteComponent } from "../cliente/cliente.component";
 import { Cliente } from "./cliente";
 import { Producto } from "./producto";
+import { User } from "./user";
 //import { Cliente } from "./cliente"
 
 export interface CreditoInterface {
@@ -15,7 +15,10 @@ export interface CreditoInterface {
     balance:number,
     proxima_Prestacao:Date,
     cliente:Cliente,
-    producto:Producto
+    producto:Producto,
+    createdBy:User,
+    aprovadoPOr:User
+
 }
 
 export class Credito implements CreditoInterface{
@@ -31,6 +34,8 @@ export class Credito implements CreditoInterface{
   proxima_Prestacao: Date=new Date();
   cliente: Cliente=new Cliente();
   producto:Producto=new Producto();
+  createdBy:User=new User();
+  aprovadoPOr:User=new User();
 
   constructor(){
 

@@ -10,6 +10,7 @@ import { ProductService } from '../service/product-service.service';
 import { PaymentService } from '../service/payment-service.service';
 import { Payment } from '../model/payment';
 import { CreditoService } from '../service/credito-service.service';
+import { LoginService } from '../service/login.service';
 
 
 @Component({
@@ -76,14 +77,17 @@ export class CreditoComponent
   }
   adicionarCredito(){
     console.log("adicionando um novo credito");
+    console.log(LoginService.logedUser);
+    this.credito.createdBy=LoginService.logedUser;
+    this.credito.aprovadoPOr=LoginService.logedUser;
       this.credito.createdDate=new Date();
       this.credito.updateDate=this.credito.createdDate;
       this.creditoAPI.createCredito(this.credito).subscribe(resp=>{
         alert("SUCESSO credito adicionado com ");
         console.log("SUCESSO credito adicionado com ")
-      },error=>{
-        alert("ERRO ao adicionar o credito");
-        console.log("ERRO ao adicionar o credito")
+      //}//,error=>{
+        //alert("ERRO ao adicionar o credito");
+        //console.log("ERRO ao adicionar o credito")
       });
     this.creditos.push(this.credito);
   }
@@ -104,6 +108,8 @@ export class CreditoComponent
       this.payments=resp;
       this.makingPay_DIV=true
     });
+    this.prestacao=curPrestacao;
+    console.log(this.prestacao);
   }
   cancelarCredito(){
     this.credito=new Credito();
@@ -136,6 +142,9 @@ export class CreditoComponent
     this.pagamento=new Payment();
   }
   pagar(){
+    this.pagamento.createdBay=LoginService.logedUser;
+    this.prestacao.credito=this.credito;
+    this.pagamento.prestacao=this.prestacao;
     this.payService.makePayment(this.pagamento).subscribe(resp=>{
       console.log("Pagamento efectuado com sucesso");
       alert("SUCESSO no pagamento")
