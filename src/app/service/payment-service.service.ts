@@ -19,6 +19,7 @@ export class PaymentService extends RestGenericService<Payment>{
    }  
    
    public makePayment(pagamento: Payment):Observable<Payment> {
+    console.log("A efectuar pagamento: "+pagamento);
     return this.post("/pagamento/create","application/json",this.http,pagamento)
   }
 }

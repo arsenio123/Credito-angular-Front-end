@@ -8,6 +8,7 @@ import { RestGenericService } from './rest-generic.service';
   providedIn: 'root'
 })
 export class PrestacoesService extends RestGenericService<Prestacao>{
+ 
 
   constructor(private http:HttpClient) {
     super();
@@ -16,9 +17,14 @@ export class PrestacoesService extends RestGenericService<Prestacao>{
 
  
 
-  getPrestacaoFromCredito(creditoId:number):Observable<Prestacao[]>{
+ public getPrestacaoFromCredito(creditoId:number):Observable<Prestacao[]>{
     console.debug(`PrestacoesService [pedindo as prestacoes para o credito numero ${creditoId}`);
    return this.get('/prestacao/list/credit_id?'+`id=${creditoId}`,"",this.http);
     
+  }
+
+  public  creatUpdate(prestacao: Prestacao):Observable<Prestacao> {
+    console.log("criando prestacao .. "+prestacao.capitalPago+" vencimento :"+prestacao.vencimento)
+   return this.post("/prestacao/atualizarAndUpdate","application/json",this.http,prestacao);
   }
 }

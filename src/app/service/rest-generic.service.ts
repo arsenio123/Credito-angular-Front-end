@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class RestGenericService <T>{
   serverUrl:string="http://localhost:8080";
+  ssoUrl:string="http://localhost:8081";
   TOKEN:string="token";
   barrerPass="cmVhY3Q6cjM0Y3Q=";
 
@@ -34,9 +35,7 @@ export class RestGenericService <T>{
   protected post(uri:string,contentType:String,http:HttpClient,t:T):Observable<T>{
 
     const fullUrl=this.serverUrl+uri;
-    return http.post<T>(fullUrl,
-      t,
-      this.preparHeadersReqs(contentType));
+    return http.post<T>(fullUrl,t,this.preparHeadersReqs(contentType));
   }
 
 
@@ -48,7 +47,7 @@ export class RestGenericService <T>{
         Authorization: `Basic ${this.barrerPass}`
       })
     };
-    return   http.post<Token>(this.serverUrl+'/oauth/token',body, httpOptions );
+    return   http.post<Token>(this.ssoUrl+'/oauth/token',body, httpOptions );
   }
 
   private preparHeadersReqs(contentType:String){
@@ -62,6 +61,7 @@ export class RestGenericService <T>{
         Authorization: 'Bearer '+localStorage.getItem(this.TOKEN)
       })
     };
+    console.log("********: "+Headers.toString);
     return httpOptions;
 
   }

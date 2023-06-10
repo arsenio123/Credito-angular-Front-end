@@ -7,7 +7,23 @@
   .fromCell{
     width: 30%; margin: 1.5px;
   }
-  tr:hover {background-color: rgba(211, 231, 247, 0.965);}
+  tr:hover {background-color: rgba(211, 231, 247, 0.965); color:black}
+  .bt-save{margin-right: 5px; background-color:#044076;border-color:  044076;color: white;}
+  .bt-cancel{background-color: rgb(226, 63, 63);border-bottom:  rgb(226, 63, 63);color:white}
+  .fomTitle{
+    text-decoration: underline;
+    color: #428bca;
+  }
+  .selectItem{
+    width: 100%;
+    height: 40%;
+    margin-bottom: 10px;
+    float: top;
+  }
+  .selectTableItem{
+    background-color: #063f70;
+    color:#f6f7f9;
+  }
 
   </style>
 
@@ -44,9 +60,8 @@
         </div>
         <div class="fromCell">
           <label for="validationDefault04" style="width: 100%;height: 30%;float: top;">Estado</label>
-          <select ngFor="let credito.estado of estados" [(ngModel)]="credito.estado" style="width: 100%;height: 60%;margin-bottom: 10px;float: top;">
-              <option >{{estados[0]}}</option>
-              <option >{{estados[1]}}</option>
+          <select  [(ngModel)]="credito.estado" class="slectItem" style="width: 100%;">
+              <option *ngFor="let estado of estados" value="{{estado}}">{{estado}}</option>
           </select>
         </div>
         <div class="fromCell">
@@ -55,8 +70,8 @@
         </div>
         <div class="fromCell">
           <label for="validationDefault04" style="width: 100%;height: 30%;float: top;">Produto</label>
-          <select  [(ngModel)]="credito.producto"  style="width: 100%;height: 60%;margin-bottom: 10px;float: top;">
-            <option *ngFor="let producto of productos" [ngValue]="producto">{{producto}}> {{producto.descricao}}</option>   <!--    -->
+          <select  [(ngModel)]="credito.producto"  class="selectItem" style="width: 100%;">
+            <option *ngFor="let producto of productos" [ngValue]="producto">{{producto.descricao}}</option>
         </select>
         </div>
       </div>
@@ -66,17 +81,17 @@
           <label for="validationDefault05">numero Cliente</label>
             <div>
               <input  [(ngModel)]="credito.cliente.id" stype="number" class="form-control" style="width: 85%; float: left"   required>
-              <button class="btn btn-primary" (click)="findCliente()" style="float: right;width: 13%"> find</button>
+              <button class="btn btn-primary, bt-save" (click)="findCliente()" style="float: right;width: 13%"> find</button>
               <label style="float: left;width: 100%">{{credito.cliente.nome}}</label>
             </div>
           </div>
       </div>
     <br>
-      <div class="form-row">
+      <div class="form-row">  
         <div class="fromCell">
-      <button class="btn btn-primary" (click)="adicionarCredito()" style="margin-right: 5px; background-color: rgb(69, 144, 69);border-color:  rgb(69, 144, 69);">{{saveCreditoBt}}</button>
+      <button class="btn btn-primary, bt-save" (click)="adicionarCredito()" >{{saveCreditoBt}}</button>
 
-      <button class="btn btn-primary" (click)="cancelarCredito()" style="background-color: rgb(226, 63, 63);border-bottom:  rgb(226, 63, 63);">cancelar/limpar</button>
+      <button class="btn btn-primary, bt-cancel" (click)="cancelarCredito()">cancelar/limpar</button>
         </div>
       </div>
       <hr>
@@ -85,8 +100,11 @@
         <div class="panel panel-primary filterable">
             <div class="panel-heading">
                 <h3 class="panel-title">Creditos</h3>
+                
                 <div class="pull-right">
-                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                  <button class="btn btn-default btn-xs btn-filter" style="margin-right: 5px"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                  <button (click)="consultaCreditopageDown()" class="btn btn-default btn-xs btn-filter, bt-save"><span ></span> &#8249;</button>
+                    <button (click)="consultaCredito()" class="btn btn-default btn-xs btn-filter, bt-save"><span ></span> &#8250;</button>
                 </div>
             </div>
             <table class="table">
@@ -94,16 +112,20 @@
                     <tr class="filters">
                         <th><input type="text" class="form-control" placeholder="ID Credito" ></th>
                         <th><input type="text" class="form-control" placeholder="Valor" ></th>
+                        <th><input type="text" class="form-control" placeholder="Saldo" ></th>
                         <th><input type="text" class="form-control" placeholder="Jurus" ></th>
-                        <th><input type="text" class="form-control" placeholder="Estado" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="nome Cliente" disabled></th>
-                        <th><input type="text" class="form-control" placeholder="Produto" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Estado" ></th>
+                        <th><input type="text" class="form-control" placeholder="nome Cliente" ></th>
+                        <th><input type="text" class="form-control" placeholder="Produto" ></th>
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let credito of creditos" (click)="selecterdItem(credito)">
+                    <tr *ngFor="let credito of creditos" (click)="selecterdCreditItem(credito)" 
+                    [class.selectTableItem]="credito===curCredito">
                         <td>{{credito.id}}</td>
                         <td>{{credito.valor}}</td>
+                        <td>{{credito.balance}}</td>
                         <td>{{credito.jurus}}</td>
                         <td>{{credito.estado}}</td>
                         <td>{{credito.cliente.nome}}</td>
@@ -115,12 +137,66 @@
         </div>
     </div>
 
+
+
+    <div class="row" *ngIf="showPrestacaoForm()" >
+      <hr>
+      <h4 class="fomTitle">Criação de Prestação</h4>
+      <br>
+      Criando prestacao para cliente <label style="color:red"> {{credito.id}}</label> Numero credito <label style="color:red">{{credito.cliente.nome}}</label>
+      <div>
+        <div class="form-row">
+          <div class="fromCell">
+            <label for="validationDefault01">estado da prestacao</label>
+            <select [(ngModel)]="prestacao.estado" class="form-control" style="width: 100%;"> 
+              <option *ngFor="let prestacao_estado of prestacao_estados" >
+                {{prestacao_estado}}
+              </option>
+            </select>
+          </div>
+          <div class="fromCell">
+            <label for="validationDefault02">Capital da prestacao (Jurus+capiral)</label>
+            <input type="number" [(ngModel)]="prestacao.valorCapitaPorPagar" class="form-control"  placeholder="000000"  required>
+          </div>
+          <div class="fromCell">
+            <label for="validationDefault02">valor do jurus</label>
+            <input type="number" [(ngModel)]="prestacao.jurusPago" class="form-control"  placeholder="000000"  required>
+          </div>
+          <div class="fromCell">
+            <label for="validationDefault02">Data de liquidacao</label>
+            <input [(ngModel)]="prestacao.dataPagamento" type="date" class="form-control" placeholder="data liquidacao" aria-describedby="inputGroupPrepend2" required>
+          </div>
+          <div class="fromCell">
+            <label for="validationDefaultUsername" >Data de expericao</label>
+            <div >
+              <div >
+              </div>
+              <input [(ngModel)]="prestacao.vencimento" type="date" class="form-control" placeholder="data limite de pagamento" aria-describedby="inputGroupPrepend2" required>
+            </div>
+          </div>
+        </div>
+  
+        <br>
+        <div class="form-row">
+          <div class="fromCell">
+        <button class="btn btn-primary, bt-save" (click)="criarPrestacao()" style="margin-right: 5px; background-color: rgb(34, 14, 104);border-color:  rgb(69, 144, 69);">Confirmar Prestacao</button>
+  
+        <button class="btn btn-primary, bt-cancel" (click)="limparPrestacao()" style="background-color: rgb(226, 63, 63);border-bottom:  rgb(226, 63, 63);">cancelar/limpar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     Lista de prestacoes
 
     <div class="row">
       <div class="panel panel-primary filterable">
           <div class="panel-heading">
               <h3 class="panel-title">Prestacoes {{credito.cliente.nome}}</h3>
+              Criar<button (click)="switchVisibilitePrestacaoForm()" class="btn btn-primary, bt-save" ><span>&#43;</span></button>
+
+              
               <div class="pull-right">
                   <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
               </div>
@@ -139,7 +215,8 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr *ngFor="let prestacao of prestacoes" (click)="selectedPrestacao(prestacao)">
+                  <tr *ngFor="let prestacao of prestacoes" (click)="selectedPrestacao(prestacao)"
+                  [class.selectTableItem]="prestacao===curPrestacao">
                       <td>{{prestacao.id}}</td>
                       <td>{{prestacao.estado}}</td>
                       <td>{{prestacao.vencimento| date:'shortDate'}}</td>
@@ -157,6 +234,8 @@
 
   <div class="row"  *ngIf="showPagamentos()">
     <hr>
+    <h4 class="fomTitle">Criacao de Pagamento</h4>
+    <br>
     <div>
       <div class="form-row">
         <div class="fromCell">
@@ -184,9 +263,9 @@
       <br>
       <div class="form-row">
         <div class="fromCell">
-      <button class="btn btn-primary" (click)="pagar()" style="margin-right: 5px; background-color: rgb(69, 144, 69);border-color:  rgb(69, 144, 69);">Confirmar Pagamento</button>
+      <button class="btn btn-primary, bt-save" (click)="pagar()" >Confirmar Pagamento</button>
 
-      <button class="btn btn-primary" (click)="limparPagamento()" style="background-color: rgb(226, 63, 63);border-bottom:  rgb(226, 63, 63);">cancelar/limpar</button>
+      <button class="btn btn-primary, bt-cancel" (click)="limparPagamento()">cancelar/limpar</button>
         </div>
       </div>
     </div>
@@ -223,7 +302,4 @@
         </table>
     </div>
 </div>
-
-
-
 </div>
