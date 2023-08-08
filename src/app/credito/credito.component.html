@@ -99,7 +99,7 @@
     <div class="row">
         <div class="panel panel-primary filterable">
             <div class="panel-heading">
-                <h3 class="panel-title">Creditos</h3>
+                <h3 class="panel-title">Investimentos</h3>
                 
                 <div class="pull-right">
                   <button class="btn btn-default btn-xs btn-filter" style="margin-right: 5px"><span class="glyphicon glyphicon-filter"></span> Filter</button>
@@ -129,7 +129,7 @@
                         <td>{{credito.jurus}}</td>
                         <td>{{credito.estado}}</td>
                         <td>{{credito.cliente.nome}}</td>
-                        <td>{{credito.producto.descricao}}</td>
+                        <td><!--{{credito.producto.descricao}}--></td>
                         
                     </tr>   
                 </tbody>
@@ -207,9 +207,9 @@
                       <th><input type="text" class="form-control" placeholder="ID Prestacao" ></th>
                       <th><input type="text" class="form-control" placeholder="estado" ></th>
                       <th><input type="text" class="form-control" placeholder="Data de vencimento" ></th>
-                      <th><input type="text" class="form-control" placeholder="Capital da prestacao" disabled></th>
+                      <th><input type="text" class="form-control" placeholder="Data de pagamento" disabled></th>
                       <th><input type="text" class="form-control" placeholder="Valor pago" disabled></th>
-                      <th><input type="text" class="form-control" placeholder="Jurus da prestacao" disabled></th>
+                      <th><input type="text" class="form-control" placeholder="fee da prestacao" disabled></th>
                       <th><input type="text" class="form-control" placeholder="Fazer fazerPagamento" disabled></th>
                       <th><input type="text" class="form-control" placeholder="Listar pagamento" disabled></th>
                   </tr>
@@ -220,7 +220,7 @@
                       <td>{{prestacao.id}}</td>
                       <td>{{prestacao.estado}}</td>
                       <td>{{prestacao.vencimento| date:'shortDate'}}</td>
-                      <td>{{prestacao.valorCapitaPorPagar}}</td>
+                      <td>{{prestacao.dataPagamento| date:'shortDate' }}</td>
                       <td>{{prestacao.capitalPago}}</td>
                       <td>{{prestacao.jurusPago}}</td>
                       <td><button class="btn btn-primary" (click)="fazerPagamento(credito.id)">pagamentos</button></td>

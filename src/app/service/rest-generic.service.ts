@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 export class RestGenericService <T>{
   serverUrl:string="http://localhost:8080";
   ssoUrl:string="http://localhost:8081";
+  //serverUrl:string="http://146.190.124.219:8080";
+  //ssoUrl:string="http://146.190.124.219:8081";
   TOKEN:string="token";
   barrerPass="cmVhY3Q6cjM0Y3Q=";
 
@@ -26,7 +28,7 @@ export class RestGenericService <T>{
   }
 
   getOne(uri: string, contentType: string, http: HttpClient): Observable<T> {
-    const fullUrl=this.serverUrl+uri;
+    const fullUrl=this.ssoUrl+uri;
     console.log(`RestGenericService [uri=${fullUrl}, contentType=${contentType}`)
     return http.get<T>(fullUrl,this.preparHeadersReqs(contentType));
   }

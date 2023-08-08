@@ -40,7 +40,7 @@ export class CreditoComponent
   estados:string[]=["CANCELADO","VIGOR"]//deve ser inicilizado por API
   popupDivida:string="display: none;opacity: 1;";
   mainDivStile:string=""  
-  recordsForPage:number=10;
+  recordsForPage:number=5;
   lastCreditId:number=0;
   prestacao_estados:string[]=["NAO_PAGA","PAGA"];
   
@@ -73,7 +73,7 @@ export class CreditoComponent
   }
 
 
-  consultaCredito(){
+  consultaCredito_old(){
 
     this.creditoAPI.getAllCredits().subscribe(data=>{
       this.creditos=data;
@@ -83,7 +83,7 @@ export class CreditoComponent
 
     
   }
-  consultaCredito_new(){
+  consultaCredito(){
 
     this.creditoAPI
     .getCreditsWithPagination(this.recordsForPage,this.lastCreditId)
@@ -156,6 +156,8 @@ export class CreditoComponent
     });
     this.makingPay_DIV=false;
     this.divFormPrestacao=false;
+    console.log("corrente state:");
+    console.log(this.credito);
   }
   selectedPrestacao(curPrestacao:Prestacao){
     this.payService.getPaymentByPrestacao(curPrestacao.id).subscribe(resp=>{
