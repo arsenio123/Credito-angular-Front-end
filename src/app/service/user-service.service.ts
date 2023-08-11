@@ -8,6 +8,7 @@ import { RestGenericService } from './rest-generic.service';
   providedIn: 'root'
 })
 export class UserService extends RestGenericService<User>{
+  URLpath:string="http://localhost:8081";
 
 
   constructor(public http:HttpClient) {
@@ -16,7 +17,7 @@ export class UserService extends RestGenericService<User>{
 
   getUser():Observable<User[]>{
     console.log("UserServiceService: chamando o servico generico")
-    return this.get("/user/list","",this.http)
+    return this.getFullpath(this.URLpath+"/user/list","",this.http)
 
   }
 }

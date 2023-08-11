@@ -2,6 +2,7 @@ import { NUMBER_TYPE } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './service/login.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { DialogComponent } from './dialog/dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,9 @@ export class AppComponent implements OnInit {
   pwdId:string="";
   
   //import do servico de login
-  constructor(private loginservica: LoginService, private router: Router){}
+  constructor(private loginservica: LoginService, private router: Router
+    //, private dialog:DialogComponent 
+    ){}
   
   ngOnInit(): void { 
    

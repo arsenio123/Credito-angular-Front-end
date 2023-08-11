@@ -27,6 +27,14 @@ export class RestGenericService <T>{
     return http.get<T[]>(fullUrl,this.preparHeadersReqs(contentType));
   }
 
+  protected getFullpath(uri:string,contentType:String,http:HttpClient):Observable<T[]>{
+    const fullUrl=uri;
+    console.log(`RestGenericService [uri=${fullUrl}, contentType=${contentType}`);
+ //console.log("RestGenericService [sessao e: "+localStorage.getItem(this.TOKEN))
+
+return http.get<T[]>(fullUrl,this.preparHeadersReqs(contentType));
+}
+
   getOne(uri: string, contentType: string, http: HttpClient): Observable<T> {
     const fullUrl=this.ssoUrl+uri;
     console.log(`RestGenericService [uri=${fullUrl}, contentType=${contentType}`)

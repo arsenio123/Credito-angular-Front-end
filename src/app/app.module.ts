@@ -16,6 +16,7 @@ import { LogInComponent } from './log-in/log-in.component';
 import { Routes } from '@angular/router';
 import { ClienteComponent } from './cliente/cliente.component';
 import { UtilizadorComponent } from './utilizador/utilizador.component';
+import { DialogComponent } from './dialog/dialog.component';
 //import { JwtHelperService } from '@auth0/angular-jwt';
 
 const routes: Routes=[{ path:'credito',component:CreditoComponent},
@@ -29,8 +30,8 @@ const routes: Routes=[{ path:'credito',component:CreditoComponent},
 @NgModule({
   declarations: [
     AppComponent, FuncionarioCardComponent, FuncionarioFormComponent,
-     HeaderComponent, CreditoComponent,UtilizadorComponent,
-     LogInComponent, ClienteComponent, UtilizadorComponent
+     HeaderComponent, CreditoComponent,
+     LogInComponent, ClienteComponent, UtilizadorComponent, DialogComponent
   ],
   imports: [
     BrowserModule,
