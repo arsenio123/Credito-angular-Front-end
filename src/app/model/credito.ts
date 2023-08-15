@@ -16,8 +16,10 @@ export interface CreditoInterface {
     proxima_Prestacao:Date,
     cliente:Cliente,
     producto:Producto,
-    createdBy:User,
-    aprovadoPOr:User
+    //createdBy:User,
+    //aprovadoPOr:User
+    createdBy:number,
+    aprovadoPOr:number
 
 }
 
@@ -34,8 +36,10 @@ export class Credito implements CreditoInterface{
   proxima_Prestacao: Date=new Date();
   cliente: Cliente=new Cliente();
   producto:Producto=new Producto();
-  createdBy:User=new User();
-  aprovadoPOr:User=new User();
+  //createdBy:User=new User();
+  //aprovadoPOr:User=new User();
+  createdBy:number=0;
+  aprovadoPOr:number=0;
 
   constructor(){
 

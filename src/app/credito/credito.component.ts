@@ -11,6 +11,9 @@ import { PaymentService } from '../service/payment-service.service';
 import { Payment } from '../model/payment';
 import { CreditoService } from '../service/credito-service.service';
 import { LoginService } from '../service/login.service';
+import { Dialog } from '../model/dialog';
+import { Type } from '../model/Type';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -22,6 +25,7 @@ export class CreditoComponent
  implements OnInit
   {
   makingPay_DIV:boolean=false;
+  dialog:Dialog=new Dialog();
 
   divFormPrestacao:boolean=false;
   usrId:string="";
@@ -56,13 +60,17 @@ export class CreditoComponent
 
     if(localStorage.getItem("token")==null){
       console.log("Sessao expirada");
-      alert("Sessao expirada")
+      //alert("Sessao expirada");
+      this.dialog.message="Sessao expirada";
+      this.dialog.type=Type.ERROR;
+      this.alertError(this.dialog.message);
       this.router.navigate(["/login"]);
     }else{
       this.productService.getAllProduct().subscribe(resp=>{
         this.productos=resp;
         console.log("response Productos"+resp);
       },error=>{
+        this.alertError(this.dialog.message);
         console.log(error);
       })
       this.productos
@@ -111,7 +119,6 @@ export class CreditoComponent
     .subscribe(data=>{
       this.creditos=data;
       console.log(data);
-      //this.lastCreditId=this.creditos.;
       
      this.lastCreditId=this.creditos[0].id;
      console.log("laste index is "+this.lastCreditId);
@@ -128,13 +135,23 @@ export class CreditoComponent
   adicionarCredito(){
     console.log("adicionando um novo credito");
     console.log(LoginService.logedUser);
-    this.credito.createdBy=LoginService.logedUser;
-    this.credito.aprovadoPOr=LoginService.logedUser;
+    this.credito.createdBy=LoginService.logedUser.id;
+    this.credito.aprovadoPOr=LoginService.logedUser.id;
       this.credito.createdDate=new Date();
       this.credito.updateDate=this.credito.createdDate;
       this.creditoAPI.createCredito(this.credito).subscribe(resp=>{
-        alert("SUCESSO credito adicionado com ");
+        //alert("SUCESSO credito adicionado com ");
         console.log("SUCESSO credito adicionado com ")
+        this.dialog.message="SUCESSO credito adicionado com";
+        this.dialog.type=Type.SUCESSO;
+
+        Swal.fire({
+          position: 'bottom-right',
+          icon: 'error',
+          title: this.dialog.message,
+          showConfirmButton: false,
+          timer: 3500
+        });
       //}//,error=>{
         //alert("ERRO ao adicionar o credito");
         //console.log("ERRO ao adicionar o credito")
@@ -191,6 +208,7 @@ export class CreditoComponent
     },
     error=>{
       alert(`cliente com o id:${this.credito.cliente.id} nao existe`)
+      this.alertError(`cliente com o id:${this.credito.cliente.id} nao existe`);
     })
    
   }
@@ -215,11 +233,14 @@ export class CreditoComponent
     this.prestacao.credito=this.credito;
     this.pagamento.prestacao=this.prestacao;
     this.payService.makePayment(this.pagamento).subscribe(resp=>{
-      console.log("Pagamento efectuado com sucesso");
-      alert("SUCESSO no pagamento")
+        this.dialog.message="SUCESSO no pagamento";
+        this.dialog.type=Type.SUCESSO;
+        this.alertSuccess(this.dialog.message);
 
     },error=>{
-      alert("ERROR ao fazer carregar o pagamento");
+      this.dialog.message="ERROR ao fazer carregar o pagamento";
+        this.dialog.type=Type.ERROR;
+        this.alertError(this.dialog.message);
     })
   }
 
@@ -229,8 +250,13 @@ export class CreditoComponent
     this.prestacaoServ.creatUpdate(this.prestacao).subscribe(response=>{
       this.prestacao=response;
       console.log(response);
+      this.dialog.message="SUCESSO na criacao/atulizacao da prestacao";
+        this.dialog.type=Type.SUCESSO;
+        this.alertSuccess(this.dialog.message);
     },error=>{
-      alert("nao foi possivel ");
+      this.dialog.message="ERRO na criacao/atulizacao da prestacao";
+        this.dialog.type=Type.ERROR;
+        this.alertError(this.dialog.message);
       console.log(error);
     });
     
@@ -243,6 +269,28 @@ export class CreditoComponent
 
   switchVisibilitePrestacaoForm () {
     return this.divFormPrestacao=!this.divFormPrestacao;
+  }
+
+  alertError(titleParam:string){
+
+    Swal.fire({
+      position: 'top-right',
+      icon: 'error',
+      title: titleParam,
+      showConfirmButton: false,
+      timer: 3500
+    });
+  }
+
+  alertSuccess(titleParam:string){
+
+    Swal.fire({
+      position: 'top-right',
+      icon: 'success',
+      title: titleParam,
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 
 }

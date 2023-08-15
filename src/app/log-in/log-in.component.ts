@@ -6,6 +6,7 @@ import { Type } from '../model/Type';
 import { Token } from '../model/token';
 import { UserService } from '../service/user-service.service';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class LogInComponent   implements OnInit
   ngOnInit(){
 }
   
+
   login(){
     console.log('iniciate login... para o user '+this.usrId+' pass: '+ this.pwdId);
       this.loginServe.login(this.usrId,this.pwdId).subscribe(resp=>{
@@ -55,6 +57,15 @@ export class LogInComponent   implements OnInit
           this.dialog.message="autenicacao falhada "+error.error.error_description;
           console.log('entrando para o 2 error');
           console.log(this.dialog);
+
+          
+          Swal.fire({
+            position: 'bottom-right',
+            icon: 'error',
+            title: this.dialog.message,
+            showConfirmButton: false,
+            timer: 3500
+          });
       });     
 
   }
