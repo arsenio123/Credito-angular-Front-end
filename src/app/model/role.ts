@@ -1,11 +1,17 @@
 export interface RoleInterface {
       id:number,
-      descricao:string
+      description:string,
+      name:string
 }
 
 export class Role implements RoleInterface{
     id: number=0;
-    descricao: string="sem Role";
-    constructor(){ };
+    description: string="sem Role";
+    name: string="";
+    constructor(){ 
+        this.id=0;
+        this.description="";
+        this.name="";
+    };
 
 }

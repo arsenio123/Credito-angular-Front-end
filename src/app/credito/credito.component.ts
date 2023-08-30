@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit,  } from '@angular/core';
 import { Credito } from '../model/credito';
 import { Prestacao } from '../model/prestacao';
@@ -56,6 +56,7 @@ export class CreditoComponent
     private productService:ProductService,
     private payService:PaymentService ) { }
 
+
   ngOnInit(){
 
     if(localStorage.getItem("token")==null){
@@ -66,6 +67,7 @@ export class CreditoComponent
       this.alertError(this.dialog.message);
       this.router.navigate(["/login"]);
     }else{
+      console.log("sessao que passa a ser usada "+localStorage.getItem("token"))
       this.productService.getAllProduct().subscribe(resp=>{
         this.productos=resp;
         console.log("response Productos"+resp);
@@ -85,7 +87,11 @@ export class CreditoComponent
 
     this.creditoAPI.getAllCredits().subscribe(data=>{
       this.creditos=data;
-      console.log(data);}
+      console.log(data);},
+      error=>{
+        console.log(error);
+        this.alertError(error);
+      }
     
     );
 
@@ -97,7 +103,7 @@ export class CreditoComponent
     .getCreditsWithPagination(this.recordsForPage,this.lastCreditId)
     .subscribe(data=>{
       this.creditos=data;
-      console.log(data);
+      console.log("resposta de consulta de creditos "+data);
       //this.lastCreditId=this.creditos.;
       
      this.lastCreditId=this.creditos[1].id;

@@ -1,16 +1,10 @@
-interface TestInterface {
-    config: string;
+interface ConfigInterface {
+    url:string;
+    token:string;
   }
-  interface TestWithConsturctor {
-    new(): { config: string };
-  }
-  class Config implements TestInterface {
-    public config: string;
+  class Config implements ConfigInterface {
+    url:string="http://localhost:8080";
+    token:string="token";
     constructor () {
-      this.config = "";
     }
   }
-  function setTheState(n: TestWithConsturctor) {
-    return new n();
-  }
-  console.log(setTheState(Config).config);

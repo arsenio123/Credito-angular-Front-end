@@ -13,6 +13,6 @@ export class ProductService extends RestGenericService<Producto>{
     super();
   }
   public getAllProduct():Observable<Producto[]>{
-    return this.get("/producto/list","",this.http)
+    return this.get("/producto/list","",this.http);
   }
 }

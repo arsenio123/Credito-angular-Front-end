@@ -13,7 +13,8 @@ export class RestGenericService <T>{
   //ssoUrl:string="http://146.190.124.219:8081";
   TOKEN:string="token";
   barrerPass="cmVhY3Q6cjM0Y3Q=";
-
+  headers:HttpHeaders=new HttpHeaders();
+ 
   
   constructor( ) {
    }
@@ -22,7 +23,8 @@ export class RestGenericService <T>{
    protected get(uri:string,contentType:String,http:HttpClient):Observable<T[]>{
         const fullUrl=this.serverUrl+uri;
         console.log(`RestGenericService [uri=${fullUrl}, contentType=${contentType}`);
-     //console.log("RestGenericService [sessao e: "+localStorage.getItem(this.TOKEN))
+        console.log("RestGenericService [sessao e: "+localStorage.getItem(this.TOKEN));
+       // var headers =this.preparHeadersReqs(contentType);
   
     return http.get<T[]>(fullUrl,this.preparHeadersReqs(contentType));
   }
@@ -38,7 +40,9 @@ return http.get<T[]>(fullUrl,this.preparHeadersReqs(contentType));
   getOne(uri: string, contentType: string, http: HttpClient): Observable<T> {
     const fullUrl=this.ssoUrl+uri;
     console.log(`RestGenericService [uri=${fullUrl}, contentType=${contentType}`)
-    return http.get<T>(fullUrl,this.preparHeadersReqs(contentType));
+    var headers =this.preparHeadersReqs(contentType);
+    console.log("headers: "+headers)
+    return http.get<T>(fullUrl,headers);
   }
 
 
@@ -71,7 +75,8 @@ return http.get<T[]>(fullUrl,this.preparHeadersReqs(contentType));
         Authorization: 'Bearer '+localStorage.getItem(this.TOKEN)
       })
     };
-    console.log("********: "+Headers.toString);
+    console.log("********: "+httpOptions.headers.get("Authorization"));
+    
     return httpOptions;
 
   }
