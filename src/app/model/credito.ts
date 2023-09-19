@@ -30,7 +30,7 @@ export class Credito implements CreditoInterface{
   valor: number=0;
   doDate: Date=new Date();
   beginDate: Date=new Date();
-  estado: string="";
+  estado: string="VIGOR";
   jurus: number=0;
   balance: number=0;
   proxima_Prestacao: Date=new Date();

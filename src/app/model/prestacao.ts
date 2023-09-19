@@ -1,4 +1,6 @@
+import { Capital } from "./capital";
 import { Credito } from "./credito";
+import { Intrest } from "./intrest";
 
 export interface PrestacaoInterface {
 
@@ -11,6 +13,8 @@ export interface PrestacaoInterface {
     capitalPago:number;
     estado:string;
     credito:Credito;
+    intrest:Intrest;
+    capital:Capital;
 }
 
 export class Prestacao implements PrestacaoInterface{
@@ -23,6 +27,8 @@ export class Prestacao implements PrestacaoInterface{
     capitalPago: number=0;
     estado: string="";
     credito:Credito=new Credito();
+    intrest: Intrest=new Intrest();
+    capital: Capital=new Capital();
     constructor(){
 
     }

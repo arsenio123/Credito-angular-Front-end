@@ -46,7 +46,7 @@ export class LogInComponent   implements OnInit
         if(resp.access_token!=""){
           console.log("autenicado com sucesso "+this.session.access_token);
           this.router.navigate(["/credito"]);
-          return this.userservice.getOne(`/user/login?userName=${this.usrId}`,"",this.http).subscribe(respUser=>{
+          return this.userservice.getOneFull('http://localhost:8081',`/user/login?userName=${this.usrId}`,"",this.http).subscribe(respUser=>{
             LoginService.logedUser=respUser;
           })
         } 

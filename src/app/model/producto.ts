@@ -14,7 +14,7 @@ export class Producto implements ProductoInterface{
     capitalMin: number=0;
     capitalMax: number=0;
     descricao: string="";
-    estado: string="";
+    estado: string="NORMAL";
     intervaloPrestacao: number=0;
     constructor(){
 

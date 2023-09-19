@@ -38,12 +38,21 @@ return http.get<T[]>(fullUrl,this.preparHeadersReqs(contentType));
 }
 
   getOne(uri: string, contentType: string, http: HttpClient): Observable<T> {
-    const fullUrl=this.ssoUrl+uri;
+   //const fullUrl=this.ssoUrl+uri;
+    const fullUrl=this.serverUrl+uri;
     console.log(`RestGenericService [uri=${fullUrl}, contentType=${contentType}`)
     var headers =this.preparHeadersReqs(contentType);
     console.log("headers: "+headers)
     return http.get<T>(fullUrl,headers);
   }
+
+  getOneFull(server:string ,uri: string, contentType: string, http: HttpClient): Observable<T> {
+     const fullUrl=server+uri;
+     console.log(`RestGenericService [uri=${fullUrl}, contentType=${contentType}`)
+     var headers =this.preparHeadersReqs(contentType);
+     console.log("headers: "+headers)
+     return http.get<T>(fullUrl,headers);
+   }
 
 
   protected post(uri:string,contentType:String,http:HttpClient,t:T):Observable<T>{

@@ -24,12 +24,49 @@
     background-color: #063f70;
     color:#f6f7f9;
   }
+  .saldos{
+  background-color: #4692b9;
+  height: 100px;
+  text-align: center;
+  margin-right: 30px;
+  border-radius:100px;
+  }
 
   </style>
 
   <div class="container">
     <div > <app-dialog [dialog]="dialog" ></app-dialog></div>
 
+    <br/><br/><br/>
+<!-- dashboard de saldo do laon-->
+    <div class="form-row">
+      <div class="fromCell">
+        <!--[(ngModel)]="credito.id"    class="box effect7" -->
+        <div class="saldos">
+          <label for="validationDefault01">Capital</label>
+          <h3 style="vertical-align: middle;">{{curCapital.valor}}</h3>
+          </div>
+      </div>
+      <div class="fromCell"><!---->
+        
+        <!--[(ngModel)]="credito.valor"     class="box effect7"-->
+        <div  class="saldos">
+          <label for="validationDefault02">Intrest</label>
+          <h3> {{curIntrest.valor}}</h3>
+          </div>
+      </div>
+      <div class="fromCell"><!---->
+        
+        <!--[(ngModel)]="credito.valor"     class="box effect7"-->
+        <div  class="saldos">
+          <label for="validationDefault02">saldo</label>
+          <h3> {{curSaldo}}</h3>
+          </div>
+      </div>
+    </div>
+    <hr>
+<!--fim do dashboard de saldos do laon-->
+<!-- inicio do formulario de laon-->
       <div class="form-row">
         <div class="fromCell">
           <label for="validationDefault01">Numero do Credito</label>
@@ -48,6 +85,7 @@
           </div>
         </div>
       </div>
+      <!--fim do formulario de laon-->
       <div class="form-row">
         <div class="fromCell">
           
@@ -122,7 +160,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let credito of creditos" (click)="selecterdCreditItem(credito)" 
+                    <tr *ngFor="let credito of creditos" (click)="selectedCreditItem(credito)" 
                     [class.selectTableItem]="credito===curCredito">
                         <td>{{credito.id}}</td>
                         <td>{{credito.valor}}</td>
@@ -211,8 +249,10 @@
                       <th><input type="text" class="form-control" placeholder="Data de pagamento" disabled></th>
                       <th><input type="text" class="form-control" placeholder="Valor pago" disabled></th>
                       <th><input type="text" class="form-control" placeholder="fee da prestacao" disabled></th>
+                      <th><input type="text" class="form-control" placeholder="Saldo Total de juros" disabled></th>
                       <th><input type="text" class="form-control" placeholder="Fazer fazerPagamento" disabled></th>
                       <th><input type="text" class="form-control" placeholder="Listar pagamento" disabled></th>
+                      
                   </tr>
               </thead>
               <tbody>
@@ -224,6 +264,7 @@
                       <td>{{prestacao.dataPagamento| date:'shortDate' }}</td>
                       <td>{{prestacao.capitalPago}}</td>
                       <td>{{prestacao.jurusPago}}</td>
+                      <td>{{prestacao.intrest.valor}}</td>
                       <td><button class="btn btn-primary" (click)="fazerPagamento(credito.id)">pagamentos</button></td>
                       <td><button class="btn btn-primary" (click)="selectedPrestacao(prestacao)">Lista Pagamentos</button></td>
                   </tr>   
@@ -283,20 +324,24 @@
                 <tr >
                     <th><input type="text" class="form-control" placeholder="ID Pagamento" ></th>
                     <th><input type="text" class="form-control" placeholder="Data do pagamento" ></th>
-                    <th><input type="text" class="form-control" placeholder="funcionario que carregou" ></th>
+                    <!--<th><input type="text" class="form-control" placeholder="funcionario que carregou" ></th>-->
                     <th><input type="text" class="form-control" placeholder="Conta creditada" disabled></th>
                     <th><input type="text" class="form-control" placeholder="Valor pago" disabled></th>
                     <th><input type="text" class="form-control" placeholder="Forma de Pagamento" disabled></th>
+                    <th><input type="text" class="form-control" placeholder="Intrest" disabled></th>
+                    <th><input type="text" class="form-control" placeholder="Capital" disabled></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let payment of payments">
                     <td>{{payment.id}}</td> 
                     <td>{{payment.dataDePagametno| date:'shortDate'}}</td>
-                    <td>{{payment.createdBay.name}}</td>
+                    <!--<td>{{payment.createdBay.name}}</td>-->
                     <td>{{payment.conta}}</td>
                     <td>{{payment.valorPago}}</td>
                     <td>{{payment.formaPagamento}}</td>
+                    <td>{{payment.intrest.valor}}</td>
+                    <td>{{payment.capital.valor}}</td>
                     <td><button class="btn btn-primary" (click)="editarPagamento(payment)">editar</button></td>
                 </tr>   
             </tbody>

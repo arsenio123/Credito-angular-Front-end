@@ -25,6 +25,6 @@ export class PrestacoesService extends RestGenericService<Prestacao>{
 
   public  creatUpdate(prestacao: Prestacao):Observable<Prestacao> {
     console.log("criando prestacao .. "+prestacao.capitalPago+" vencimento :"+prestacao.vencimento)
-   return this.post("/prestacao/atualizarAndUpdate","application/json",this.http,prestacao);
+   return this.post("/prestacao/create","application/json",this.http,prestacao);
   }
 }

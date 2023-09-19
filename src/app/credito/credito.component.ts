@@ -14,6 +14,10 @@ import { LoginService } from '../service/login.service';
 import { Dialog } from '../model/dialog';
 import { Type } from '../model/Type';
 import Swal from 'sweetalert2';
+import { Intrest } from '../model/intrest';
+import { Capital } from '../model/capital';
+import { IntrestSevice } from '../service/Intrest-service.service';
+import { CapitalServiceService } from '../service/capital-service.service';
 
 
 @Component({
@@ -46,6 +50,9 @@ export class CreditoComponent
   mainDivStile:string=""  
   recordsForPage:number=5;
   lastCreditId:number=0;
+  curIntrest:Intrest=new Intrest();
+  curCapital:Capital=new Capital();
+  curSaldo:number=0;
   prestacao_estados:string[]=["NAO_PAGA","PAGA"];
   
   constructor(private creditoAPI:CreditoService,
@@ -54,7 +61,9 @@ export class CreditoComponent
     private http:HttpClient,
     private clienteService:ClienteRestService,
     private productService:ProductService,
-    private payService:PaymentService ) { }
+    private payService:PaymentService,
+    private intrestService:IntrestSevice,
+    private capiralService:CapitalServiceService) { }
 
 
   ngOnInit(){
@@ -105,7 +114,6 @@ export class CreditoComponent
       this.creditos=data;
       console.log("resposta de consulta de creditos "+data);
       //this.lastCreditId=this.creditos.;
-      
      this.lastCreditId=this.creditos[1].id;
      console.log("laste index is "+this.lastCreditId);
     }/*,error=>{
@@ -165,7 +173,10 @@ export class CreditoComponent
     this.creditos.push(this.credito);
   }
 
-  selecterdCreditItem(curCredito:Credito){
+  selectedCreditItem(curCredito:Credito){
+    this.curCapital=new Capital();
+    this.curIntrest=new Intrest();
+    this.curSaldo=0;
     console.debug();
     this.credito=curCredito;
     this.curCredito=curCredito;
@@ -177,11 +188,16 @@ export class CreditoComponent
       this.prestacoes=resp;
       console.log(resp);
     });
+    
+    this.refreshIntressAndCapital(curCredito);
+
     this.makingPay_DIV=false;
     this.divFormPrestacao=false;
     console.log("corrente state:");
     console.log(this.credito);
   }
+
+
   selectedPrestacao(curPrestacao:Prestacao){
     this.payService.getPaymentByPrestacao(curPrestacao.id).subscribe(resp=>{
       this.payments=resp;
@@ -191,6 +207,7 @@ export class CreditoComponent
     this.curPrestacao=curPrestacao;
     console.log(this.prestacao);
     this.divFormPrestacao=false;
+    this.refreshIntressAndCapital(curPrestacao.credito);
   }
   cancelarCredito(){
     this.curCredito=new Credito();
@@ -235,7 +252,7 @@ export class CreditoComponent
     this.pagamento=new Payment();
   }
   pagar(){
-    this.pagamento.createdBay=LoginService.logedUser;
+    this.pagamento.createdBay=LoginService.logedUser.id;
     this.prestacao.credito=this.credito;
     this.pagamento.prestacao=this.prestacao;
     this.payService.makePayment(this.pagamento).subscribe(resp=>{
@@ -252,7 +269,11 @@ export class CreditoComponent
 
   criarPrestacao(){
     this.prestacao.credito=this.credito;
+    this.prestacao.intrest.credito=this.credito;
+    this.prestacao.capital.credito=this.credito;
+    console.log("cirando prestacao ");
     console.log(this.prestacao);
+    
     this.prestacaoServ.creatUpdate(this.prestacao).subscribe(response=>{
       this.prestacao=response;
       console.log(response);
@@ -296,6 +317,24 @@ export class CreditoComponent
       title: titleParam,
       showConfirmButton: false,
       timer: 1500
+    });
+  }
+
+
+  refreshIntressAndCapital(curCredito:Credito){
+    this.intrestService.getIntrest(curCredito).subscribe(resp=>{
+      this.curIntrest=resp;
+      
+      if(this.curIntrest==null){
+        this.curIntrest=new Intrest();
+        this.curIntrest.credito=this.curCredito
+      }else{
+        this.curSaldo=this.curSaldo+this.curIntrest.valor;
+      }
+    });
+    this.capiralService.getCapital(curCredito).subscribe(resp=>{
+      this.curCapital=resp;
+      this.curSaldo=this.curSaldo+this.curCapital.valor;
     });
   }
 
