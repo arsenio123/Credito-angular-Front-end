@@ -15,4 +15,11 @@ export class ProductService extends RestGenericService<Producto>{
   public getAllProduct():Observable<Producto[]>{
     return this.get("/producto/list","",this.http);
   }
+
+  public createProducto(producto:Producto):Observable<Producto>{
+    console.log("criando novo producto ");
+    console.log(producto);
+    return this.post("/producto/create","application/json",this.http,producto);
+  
+  }
 }

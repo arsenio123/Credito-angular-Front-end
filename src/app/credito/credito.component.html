@@ -151,11 +151,14 @@
                     <tr class="filters">
                         <th><input type="text" class="form-control" placeholder="ID Credito" ></th>
                         <th><input type="text" class="form-control" placeholder="Valor" ></th>
+                        <th><input type="text" class="form-control" placeholder="Data de concecao" ></th>
+                        <th><input type="text" class="form-control" placeholder="Data de termino" ></th>
                         <th><input type="text" class="form-control" placeholder="Saldo" ></th>
                         <th><input type="text" class="form-control" placeholder="Jurus" ></th>
                         <th><input type="text" class="form-control" placeholder="Estado" ></th>
                         <th><input type="text" class="form-control" placeholder="nome Cliente" ></th>
                         <th><input type="text" class="form-control" placeholder="Produto" ></th>
+                        
                         
                     </tr>
                 </thead>
@@ -164,6 +167,8 @@
                     [class.selectTableItem]="credito===curCredito">
                         <td>{{credito.id}}</td>
                         <td>{{credito.valor}}</td>
+                        <td>{{credito.beginDate | date:'yyyy-MM-dd'}}</td>
+                        <td>{{credito.doDate | date:'yyyy-MM-dd'}}</td>
                         <td>{{credito.balance}}</td>
                         <td>{{credito.jurus}}</td>
                         <td>{{credito.estado}}</td>
@@ -260,8 +265,8 @@
                   [class.selectTableItem]="prestacao===curPrestacao">
                       <td>{{prestacao.id}}</td>
                       <td>{{prestacao.estado}}</td>
-                      <td>{{prestacao.vencimento| date:'shortDate'}}</td>
-                      <td>{{prestacao.dataPagamento| date:'shortDate' }}</td>
+                      <td>{{prestacao.vencimento| date:'yyyy-MM-dd'}}</td>
+                      <td>{{prestacao.dataPagamento| date:'yyyy-MM-dd' }}</td>
                       <td>{{prestacao.capitalPago}}</td>
                       <td>{{prestacao.jurusPago}}</td>
                       <td>{{prestacao.intrest.valor}}</td>
@@ -335,7 +340,7 @@
             <tbody>
                 <tr *ngFor="let payment of payments">
                     <td>{{payment.id}}</td> 
-                    <td>{{payment.dataDePagametno| date:'shortDate'}}</td>
+                    <td>{{payment.dataDePagametno| date:'yyyy-MM-dd'}}</td>
                     <!--<td>{{payment.createdBay.name}}</td>-->
                     <td>{{payment.conta}}</td>
                     <td>{{payment.valorPago}}</td>

@@ -84,7 +84,8 @@ return http.get<T[]>(fullUrl,this.preparHeadersReqs(contentType));
         Authorization: 'Bearer '+localStorage.getItem(this.TOKEN)
       })
     };
-    console.log("********: "+httpOptions.headers.get("Authorization"));
+    console.log("fim do preparacao dos headers")
+    //console.log("********: "+httpOptions.headers.get("Authorization"));
     
     return httpOptions;
 

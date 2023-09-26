@@ -1,0 +1,96 @@
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag  class="form-group" ---------->
+<style>
+  .fromCell{
+    width: 30%; margin: 1.5px;
+  }
+  tr:hover {background-color: rgba(211, 231, 247, 0.965);}
+  </style>
+
+
+
+<div class="container">
+  <div></div>     
+      <div class="form-row">
+        <div class="fromCell"> <!--class="col-md-4 mb-3"-->
+          <label for="" >ID_Producto</label>
+          <input  [(ngModel)]="producto.id" type="text"   placeholder="ID" value="{{producto.id}}" disabled class="form-control" placeholder="id do producto" required="" autofocus="" >
+        </div>
+        <div class="fromCell"> <!--class="col-md-4 mb-3"-->
+          <label for="" >Taxa</label>
+          <input  [(ngModel)]="producto.taxa" type="number"   placeholder="Taxa"  class="form-control" placeholder="Taxa" required="" autofocus="" >
+        </div>
+        <div class="fromCell">
+          <label for="validationDefault02">Valor minimo</label>
+          <input type="number" [(ngModel)]="producto.capitalMin" class="Valor minimo"  placeholder="Last name" value="Otto" >
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fromCell">
+          <label for="validationDefaultUsername" >valor maximo</label>
+          <div > <!--class="input-group""-->
+            <div class="input-group-prepend"> <!--class="input-group-prepend"-->
+            </div>
+            <input [(ngModel)]="producto.capitalMax" type="number" class="form-control" placeholder="valor maximo" aria-describedby="inputGroupPrepend2" required>
+          </div>
+        </div>
+        <div class="fromCell">
+          <label for="validationDefault03">descricao</label>
+          <input type="text" [(ngModel)]="producto.descricao" class="form-control" id="validationDefault03" placeholder="descricao" required>
+        </div>
+        
+        <div class="fromCell">
+          <label for="validationDefault04">Estado do Producto em dias</label>
+          <input type="text" [(ngModel)]="producto.estado" class="form-control" id="validationDefault04" placeholder="Estado" required>
+       
+          <label for="validationDefault04">Tempo de cobranca</label>
+          <input type="text" [(ngModel)]="producto.intervaloPrestacao" class="form-control" id="validationDefault04" placeholder="Tempo de cobranca" required>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="adicionarProducto()" style="margin-right: 5px; background-color: rgb(69, 144, 69);border-color:  rgb(69, 144, 69);">{{saveProductBt}}</button>
+      <button class="btn btn-primary" (click)="cancelarProducto()" style="background-color: rgb(226, 63, 63);border-bottom:  rgb(226, 63, 63);">cancelar/limpar</button>
+
+<div >
+
+</div>
+    <hr>
+
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <h3 class="panel-title">Productos</h3>
+                <div class="pull-right">
+                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="filters">
+                        <th><input type="text" class="form-control" placeholder="#" ></th>
+                        <th><input type="text" class="form-control" placeholder="Taxa" ></th>
+                        <th><input type="text" class="form-control" placeholder="Capital Minimo" ></th>
+                        <th><input type="text" class="form-control" placeholder="Capital Maximo" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="estado" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="intervalo de prestacao" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="descricao" disabled></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let producto of productos" (click)="selectedItem(producto)">
+                        <td>{{producto.id}}</td>
+                        <td>{{producto.taxa}}</td>
+                        <td>{{producto.capitalMin}}</td>
+                        <td>{{producto.capitalMax}}</td>
+                        <td>{{producto.estado}}</td>
+                        <td>{{producto.intervaloPrestacao}}</td>
+                        <td>{{producto.descricao}}</td>
+                        <td><button class="btn btn-primary" (click)="mostrarProducto(producto.id)">Dividas</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

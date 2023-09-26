@@ -48,7 +48,7 @@ export class CreditoComponent
   estados:string[]=["CANCELADO","VIGOR"]//deve ser inicilizado por API
   popupDivida:string="display: none;opacity: 1;";
   mainDivStile:string=""  
-  recordsForPage:number=5;
+  recordsForPage:number=1;
   lastCreditId:number=0;
   curIntrest:Intrest=new Intrest();
   curCapital:Capital=new Capital();
@@ -92,7 +92,7 @@ export class CreditoComponent
   }
 
 
-  consultaCredito_old(){
+  consultaCredito(){
 
     this.creditoAPI.getAllCredits().subscribe(data=>{
       this.creditos=data;
@@ -106,19 +106,19 @@ export class CreditoComponent
 
     
   }
-  consultaCredito(){
+  consultaCredito_new(){
 
     this.creditoAPI
     .getCreditsWithPagination(this.recordsForPage,this.lastCreditId)
-    .subscribe(data=>{
-      this.creditos=data;
-      console.log("resposta de consulta de creditos "+data);
-      //this.lastCreditId=this.creditos.;
+    .subscribe(resp=>{
+      this.creditos=resp;
+      console.log("resposta de consulta de creditos "+resp);
      this.lastCreditId=this.creditos[1].id;
      console.log("laste index is "+this.lastCreditId);
-    }/*,error=>{
-      alert("");
-      }*/
+    },error=>{
+      console.log("consultaCredito com erro");
+      console.log(error);
+      }
       
     
     );
@@ -136,9 +136,10 @@ export class CreditoComponent
       
      this.lastCreditId=this.creditos[0].id;
      console.log("laste index is "+this.lastCreditId);
-    }/*,error=>{
+    },error=>{
+      console.log("erro no ")
       alert("");
-      }*/
+      }
       
     
     );
@@ -158,17 +159,11 @@ export class CreditoComponent
         console.log("SUCESSO credito adicionado com ")
         this.dialog.message="SUCESSO credito adicionado com";
         this.dialog.type=Type.SUCESSO;
-
-        Swal.fire({
-          position: 'bottom-right',
-          icon: 'error',
-          title: this.dialog.message,
-          showConfirmButton: false,
-          timer: 3500
-        });
-      //}//,error=>{
-        //alert("ERRO ao adicionar o credito");
-        //console.log("ERRO ao adicionar o credito")
+        this.alertSuccess(this.dialog.message);
+      },error=>{
+        console.log(error);
+        this.alertError(error.error);
+        console.log("ERRO ao adicionar o credito")
       });
     this.creditos.push(this.credito);
   }
@@ -305,7 +300,7 @@ export class CreditoComponent
       icon: 'error',
       title: titleParam,
       showConfirmButton: false,
-      timer: 3500
+      timer: 7500
     });
   }
 
@@ -322,6 +317,7 @@ export class CreditoComponent
 
 
   refreshIntressAndCapital(curCredito:Credito){
+    this.curSaldo=0;
     this.intrestService.getIntrest(curCredito).subscribe(resp=>{
       this.curIntrest=resp;
       

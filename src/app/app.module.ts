@@ -17,6 +17,7 @@ import { Routes } from '@angular/router';
 import { ClienteComponent } from './cliente/cliente.component';
 import { UtilizadorComponent } from './utilizador/utilizador.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { ProductComponent } from './product/product.component';
 //import { JwtHelperService } from '@auth0/angular-jwt';
 
 const routes: Routes=[{ path:'credito',component:CreditoComponent},
@@ -24,14 +25,15 @@ const routes: Routes=[{ path:'credito',component:CreditoComponent},
 {path:'funcionaria-card',component:FuncionarioCardComponent},
 {path:'funcionaio-form',component:FuncionarioFormComponent},
 {path:'cliente',component:ClienteComponent},
-{path:'Utilizador',component:UtilizadorComponent}];
+{path:'Utilizador',component:UtilizadorComponent},
+{path:'producto',component:ProductComponent}];
 
 
 @NgModule({
   declarations: [
     AppComponent, FuncionarioCardComponent, FuncionarioFormComponent,
      HeaderComponent, CreditoComponent,
-     LogInComponent, ClienteComponent, UtilizadorComponent, DialogComponent
+     LogInComponent, ClienteComponent, UtilizadorComponent, DialogComponent, ProductComponent
   ],
   imports: [
     BrowserModule,
