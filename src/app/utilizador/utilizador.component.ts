@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Role } from '../model/role';
 import { User } from '../model/user';
 import { UserService } from '../service/user-service.service';
+import { MessageServiceService } from '../service/message-service.service';
 
 @Component({
   selector: 'app-utilizador',
@@ -13,15 +14,18 @@ export class UtilizadorComponent implements OnInit {
   user:User=new User();
   users:User[]=[];
 
-  constructor(private userService:UserService ) { }
+  constructor(private userService:UserService, private messageAlert:MessageServiceService) { }
 
   ngOnInit(): void {
-    console.log("pedindo a lista de users")
+    if(this.messageAlert.isSessiovalide()==true){
+      console.log("pedindo a lista de users")
     this.userService.getUser().subscribe(resp=>{
       console.log("[UtilizadorComponent: ngOnInit ]"+resp)
       this.users=resp
 
     });
+    }
+    
   }
   adicionarUtilizadors(){
   }

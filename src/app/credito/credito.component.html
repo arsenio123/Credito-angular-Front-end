@@ -69,15 +69,15 @@
 <!-- inicio do formulario de laon-->
       <div class="form-row">
         <div class="fromCell">
-          <label for="validationDefault01">Numero do Credito</label>
-          <input  [(ngModel)]="credito.id" type="number" class="form-control"  placeholder="First name" value="Mark" disabled>
+          <label for="validationDefault01">Número do Crédito</label>
+          <input  [(ngModel)]="credito.id" type="number" class="form-control"  placeholder="0"  disabled>
         </div>
         <div class="fromCell">
           <label for="validationDefault02">Capital</label>
-          <input type="text" [(ngModel)]="credito.valor" class="form-control"  placeholder="Last name" value="Otto" required>
+          <input type="text" [(ngModel)]="credito.valor" class="form-control"  placeholder="Valor do crédito"  required>
         </div>
         <div class="fromCell">
-          <label for="validationDefaultUsername" >Data de concecao</label>
+          <label for="validationDefaultUsername" >Data de conceção</label>
           <div >
             <div >
             </div>
@@ -153,8 +153,7 @@
                         <th><input type="text" class="form-control" placeholder="Valor" ></th>
                         <th><input type="text" class="form-control" placeholder="Data de concecao" ></th>
                         <th><input type="text" class="form-control" placeholder="Data de termino" ></th>
-                        <th><input type="text" class="form-control" placeholder="Saldo" ></th>
-                        <th><input type="text" class="form-control" placeholder="Jurus" ></th>
+                        <th><input type="text" class="form-control" placeholder="Taxa de Jurus" ></th>
                         <th><input type="text" class="form-control" placeholder="Estado" ></th>
                         <th><input type="text" class="form-control" placeholder="nome Cliente" ></th>
                         <th><input type="text" class="form-control" placeholder="Produto" ></th>
@@ -169,11 +168,10 @@
                         <td>{{credito.valor}}</td>
                         <td>{{credito.beginDate | date:'yyyy-MM-dd'}}</td>
                         <td>{{credito.doDate | date:'yyyy-MM-dd'}}</td>
-                        <td>{{credito.balance}}</td>
                         <td>{{credito.jurus}}</td>
                         <td>{{credito.estado}}</td>
                         <td>{{credito.cliente.nome}}</td>
-                        <td><!--{{credito.producto.descricao}}--></td>
+                        <td>{{credito.producto.descricao}} |{{credito.producto.taxa}}</td>
                         
                     </tr>   
                 </tbody>
@@ -198,7 +196,7 @@
               </option>
             </select>
           </div>
-          <div class="fromCell">
+         <!-- <div class="fromCell">
             <label for="validationDefault02">Capital da prestacao (Jurus+capiral)</label>
             <input type="number" [(ngModel)]="prestacao.valorCapitaPorPagar" class="form-control"  placeholder="000000"  required>
           </div>
@@ -218,6 +216,7 @@
               <input [(ngModel)]="prestacao.vencimento" type="date" class="form-control" placeholder="data limite de pagamento" aria-describedby="inputGroupPrepend2" required>
             </div>
           </div>
+          -->
         </div>
   
         <br>
@@ -237,7 +236,7 @@
     <div class="row">
       <div class="panel panel-primary filterable">
           <div class="panel-heading">
-              <h3 class="panel-title">Prestacoes {{credito.cliente.nome}}</h3>
+              <h3 class="panel-title">Prestacoes do(a) {{credito.cliente.nome}} para o credito {{credito.id}}</h3>
               Criar<button (click)="switchVisibilitePrestacaoForm()" class="btn btn-primary, bt-save" ><span>&#43;</span></button>
 
               
@@ -298,7 +297,7 @@
           <input type="text" [(ngModel)]="pagamento.conta" class="form-control"  placeholder="Last name" value="Otto" required>
         </div>
         <div class="fromCell">
-          <label for="validationDefaultUsername" >Data de concecao</label>
+          <label for="validationDefaultUsername" >Data de Pagamento</label>
           <div >
             <div >
             </div>

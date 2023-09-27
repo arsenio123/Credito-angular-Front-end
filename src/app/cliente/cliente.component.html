@@ -11,41 +11,42 @@
   </style>
 
 <div class="container">
+  <br/>
   <div></div>     
       <div class="form-row">
         <div class="fromCell"> <!--class="col-md-4 mb-3"-->
           <label for="" >ID_Cliente</label>
-          <input  [(ngModel)]="cliente.id" type="text"   placeholder="First name" value="{{cliente.id}}" disabled class="form-control" placeholder="Email address" required="" autofocus="" >
+          <input  [(ngModel)]="cliente.id" type="text"    value="{{cliente.id}}" disabled class="form-control"  autofocus="" >
         </div>
         <div class="fromCell"> <!--class="col-md-4 mb-3"-->
-          <label for="" >Full name</label>
-          <input  [(ngModel)]="cliente.nome" type="text"   placeholder="First name"  class="form-control" placeholder="Email address" required="" autofocus="" >
+          <label for="" >Nome completo</label>
+          <input  [(ngModel)]="cliente.nome" type="text"    class="form-control"  required="" autofocus="" >
         </div>
         <div class="fromCell">
-          <label for="validationDefault02">email</label>
-          <input type="email" [(ngModel)]="cliente.email" class="form-control"  placeholder="Last name" value="Otto" >
+          <label for="validationDefault02">E-mail</label>
+          <input type="email" [(ngModel)]="cliente.email" class="form-control"  placeholder="exmplo@xpto.com" value="Otto" >
         </div>
 
       </div>
       <div class="form-row">
         <div class="fromCell">
-          <label for="validationDefaultUsername" >telefone</label>
+          <label for="validationDefaultUsername" >Contacto Telefonico</label>
           <div > <!--class="input-group""-->
             <div class="input-group-prepend"> <!--class="input-group-prepend"-->
             </div>
-            <input [(ngModel)]="cliente.telefone" type="number" class="form-control" placeholder="telefone" aria-describedby="inputGroupPrepend2" required>
+            <input [(ngModel)]="cliente.telefone" type="number" class="form-control" placeholder="8x0000000" aria-describedby="inputGroupPrepend2" required>
           </div>
         </div>
         <div class="fromCell">
-          <label for="validationDefault03">rendimento</label>
-          <input type="number" [(ngModel)]="cliente.rendimento" class="form-control" id="validationDefault03" placeholder="City" required>
+          <label for="validationDefault03">Rendimento</label>
+          <input type="number" [(ngModel)]="cliente.rendimento" class="form-control" id="validationDefault03" placeholder="5000" required>
         </div>
         
         <div class="fromCell">
           <label for="validationDefault04">Tipo de documento</label>
           <input type="text" [(ngModel)]="cliente.idDoc" class="form-control" id="validationDefault04" placeholder="State" required>
        
-          <label for="validationDefault04">numero</label>
+          <label for="validationDefault04">Número do documento</label>
           <input type="text" [(ngModel)]="cliente.numberDoc" class="form-control" id="validationDefault04" placeholder="State" required>
         </div>
         
@@ -54,22 +55,14 @@
       </div>
       <div class="form-row">
         <div class="fromCell">
-          <label for="validationDefault05">morada</label>
+          <label for="validationDefault05">Morada</label>
           <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
         </div>
-        <div >
-          <input class="form-check-input"  type="checkbox" value="" id="invalidCheck2" required>
-          <label class="form-check-label" for="invalidCheck2">
-           Agree to terms and conditions
-          </label>
-        </div>
+
       </div>
       <button class="btn btn-primary" (click)="adicionarCliente()" style="margin-right: 5px; background-color: rgb(69, 144, 69);border-color:  rgb(69, 144, 69);">{{saveClientBt}}</button>
       <button class="btn btn-primary" (click)="cancelarCliente()" style="background-color: rgb(226, 63, 63);border-bottom:  rgb(226, 63, 63);">cancelar/limpar</button>
-<!--
-  div de apresentacao de prestacoes
-  <listar prestacoes> 
--->
+
 <div >
 
 </div>
@@ -114,3 +107,12 @@
         </div>
     </div>
 </div>
+
+<!--
+        <div >
+          <input class="form-check-input"  type="checkbox" value="" id="invalidCheck2" required>
+          <label class="form-check-label" for="invalidCheck2">
+           Agree to terms and conditions
+          </label>
+        </div>
+-->

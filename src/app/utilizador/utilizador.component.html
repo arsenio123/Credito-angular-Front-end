@@ -3,6 +3,23 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 <style>
+
+  .componentWrapper {
+  border: solid cadetblue;
+  border-radius: 40px;
+  padding: 15px 10px 10px;
+  width: 95%;
+}
+
+.componentWrapper .header {
+  position:absolute;
+  margin-top:-25px;
+  margin-left:10px;
+  color:white;
+  background:cadetblue;
+  border-radius:10px;
+  padding:2px 10px;
+}
   .fromCell{
     width: 30%; margin: 1.5px;
   }
@@ -11,36 +28,44 @@
 <!--<div class="form-signin"> class="form-signin"    ---->
 
   <div class="container">
-  
-      <div class="form-row">
-        <div class="fromCell">
-          <label for="validationDefault01">Numero do user</label>
-          <input  [(ngModel)]="user.id" type="text" class="form-control"  placeholder="First name" required>
-        </div>
-        <div class="fromCell">
-          <label for="validationDefault02">Full Name</label>
-          <input type="text" [(ngModel)]="user.name" class="form-control"  placeholder="Last name"  required>
-        </div>
-        <div class="fromCell">
-          <label for="validationDefaultUsername" >Perfil</label>
-          <div >
+    <h4><label for="validationDefault02" style="color: #428bca;">Criação de Utilizador</label></h4>
+    <div class="panel panel-primary filterable" style="margin: 10px;">
+      
+      <div   style="margin: 10px;">
+    
+        <div class="form-row">
+          <div class="fromCell">
+            <label for="validationDefault01">Número do user</label>
+            <input  [(ngModel)]="user.id" type="text" class="form-control"  placeholder="First name" required>
+          </div>
+          <div class="fromCell">
+            <label for="validationDefault02">Nome Completo</label>
+            <input type="text" [(ngModel)]="user.name" class="form-control"  placeholder="Nome Completo"  required>
+          </div>
+          <div class="fromCell">
+            <label for="validationDefaultUsername" >Perfil</label>
             <div >
+              <div >
+              </div>
+              <input [(ngModel)]="user.roles" type="text" class="form-control" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
             </div>
-            <input [(ngModel)]="user.roles" type="text" class="form-control" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
           </div>
         </div>
+  
+        <!--<div class="form-group">
+      Utilizadors Role
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+            <label class="form-check-label" for="invalidCheck2">
+              Agree to terms and conditions
+            </label>
+          </div>
+        </div>-->
+        <button class="btn btn-primary" (click)="adicionarUtilizadors()" >Adcionar Utilizador</button>
       </div>
-
-      <!--<div class="form-group">
-	  Utilizadors Role
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-          <label class="form-check-label" for="invalidCheck2">
-            Agree to terms and conditions
-          </label>
-        </div>
-      </div>-->
-      <button class="btn btn-primary" (click)="adicionarUtilizadors()" >Adcionar Utilizador</button>
+    </div>
+    
+      
 
     <hr>
 

@@ -7,6 +7,7 @@ import { Token } from '../model/token';
 import { UserService } from '../service/user-service.service';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { MessageServiceService } from '../service/message-service.service';
 
 
 @Component({
@@ -29,7 +30,11 @@ export class LogInComponent   implements OnInit
       error: "",
       error_description: ""
   };
-   constructor(public loginServe: LoginService,private router:Router, private userservice:UserService, private http:HttpClient){};
+   constructor(public loginServe: LoginService,
+    private router:Router,
+     private userservice:UserService,
+      private http:HttpClient,
+      private messageAlert:MessageServiceService){};
 
 
   i:number=0;
@@ -58,14 +63,7 @@ export class LogInComponent   implements OnInit
           console.log('entrando para o 2 error');
           console.log(this.dialog);
 
-          
-          Swal.fire({
-            position: 'bottom-right',
-            icon: 'error',
-            title: this.dialog.message,
-            showConfirmButton: false,
-            timer: 3500
-          });
+          this.messageAlert.alertError(error.error.error_description);
       });     
 
   }

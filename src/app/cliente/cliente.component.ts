@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClienteRestService } from '../service/cliente-rest.service';
 import { Cliente } from '../model/cliente';
+import Swal from 'sweetalert2';
+import { MessageServiceService } from '../service/message-service.service';
 
 @Component({
   selector: 'app-cliente',
@@ -14,22 +16,17 @@ export class ClienteComponent implements OnInit {
   cliente:Cliente=new Cliente();
   saveClientBt:string="Adicionar";
 
-  constructor(private clienteRest:ClienteRestService,private router:Router) { }
+  constructor(private clienteRest:ClienteRestService,private router:Router,private messageAlert:MessageServiceService) { }
 
   ngOnInit(): void {
-
-    if(localStorage.getItem("token")==null){
-      console.log("Sessao expirada");
-      alert("Sessao expirada")
-      this.router.navigate(["/login"]);
-    }else{
+    if(this.messageAlert.isSessiovalide()==true){
       this.clienteRest.getAllcliente().subscribe(respose=>{
         this.clientes=respose;
         
       });
     }
     
- /* */
+    
 
   }
 
@@ -37,12 +34,15 @@ export class ClienteComponent implements OnInit {
 
     this.clienteRest.createCliente(this.cliente).subscribe(resp=>{
       this.cliente=resp;
-      
+      this.clientes.push(this.cliente);
+      this.messageAlert.alertSuccess("Cleinte adicionado com Sucesso");
     },error=>{
-      alert("erro ao adicionar Cliente");
+      console.log(error);
+      this.messageAlert.alertError(error);
     }
     );
-    this.clientes.push(this.cliente);
+    
+    
   }
 
   selectedItem(curCliente:Cliente){

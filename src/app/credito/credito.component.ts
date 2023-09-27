@@ -18,6 +18,7 @@ import { Intrest } from '../model/intrest';
 import { Capital } from '../model/capital';
 import { IntrestSevice } from '../service/Intrest-service.service';
 import { CapitalServiceService } from '../service/capital-service.service';
+import { MessageServiceService } from '../service/message-service.service';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class CreditoComponent
   curIntrest:Intrest=new Intrest();
   curCapital:Capital=new Capital();
   curSaldo:number=0;
-  prestacao_estados:string[]=["NAO_PAGA","PAGA"];
+  prestacao_estados:string[]=["EM_VIGOR","EXPIRADO"];
   
   constructor(private creditoAPI:CreditoService,
     private prestacaoServ:PrestacoesService,
@@ -63,32 +64,28 @@ export class CreditoComponent
     private productService:ProductService,
     private payService:PaymentService,
     private intrestService:IntrestSevice,
-    private capiralService:CapitalServiceService) { }
+    private capiralService:CapitalServiceService,
+    private messageAlert:MessageServiceService) { }
 
 
   ngOnInit(){
 
-    if(localStorage.getItem("token")==null){
-      console.log("Sessao expirada");
-      //alert("Sessao expirada");
-      this.dialog.message="Sessao expirada";
-      this.dialog.type=Type.ERROR;
-      this.alertError(this.dialog.message);
-      this.router.navigate(["/login"]);
-    }else{
-      console.log("sessao que passa a ser usada "+localStorage.getItem("token"))
+    if(this.messageAlert.isSessiovalide()==true){
       this.productService.getAllProduct().subscribe(resp=>{
         this.productos=resp;
         console.log("response Productos"+resp);
       },error=>{
-        this.alertError(this.dialog.message);
+        this.messageAlert.alertError(this.dialog.message);
         console.log(error);
       })
       this.productos
       this.consultaCredito();
-    }
+    
 
       console.log(this.creditos);
+    }
+     
+      
   }
 
 
@@ -99,7 +96,7 @@ export class CreditoComponent
       console.log(data);},
       error=>{
         console.log(error);
-        this.alertError(error);
+        this.messageAlert.alertError(error);
       }
     
     );
@@ -116,6 +113,7 @@ export class CreditoComponent
      this.lastCreditId=this.creditos[1].id;
      console.log("laste index is "+this.lastCreditId);
     },error=>{
+      this.messageAlert.alertError("erro ao consultar os creditos")
       console.log("consultaCredito com erro");
       console.log(error);
       }
@@ -137,11 +135,10 @@ export class CreditoComponent
      this.lastCreditId=this.creditos[0].id;
      console.log("laste index is "+this.lastCreditId);
     },error=>{
+      this.messageAlert.alertError("erro na paginacao dos creditos");
       console.log("erro no ")
       alert("");
       }
-      
-    
     );
 
     
@@ -157,15 +154,14 @@ export class CreditoComponent
       this.creditoAPI.createCredito(this.credito).subscribe(resp=>{
         //alert("SUCESSO credito adicionado com ");
         console.log("SUCESSO credito adicionado com ")
-        this.dialog.message="SUCESSO credito adicionado com";
-        this.dialog.type=Type.SUCESSO;
-        this.alertSuccess(this.dialog.message);
+        this.creditos.push(this.credito);
+        this.messageAlert.alertSuccess(this.dialog.message);
       },error=>{
         console.log(error);
-        this.alertError(error.error);
+        this.messageAlert.alertError(error.error);
         console.log("ERRO ao adicionar o credito")
       });
-    this.creditos.push(this.credito);
+    
   }
 
   selectedCreditItem(curCredito:Credito){
@@ -226,7 +222,7 @@ export class CreditoComponent
     },
     error=>{
       alert(`cliente com o id:${this.credito.cliente.id} nao existe`)
-      this.alertError(`cliente com o id:${this.credito.cliente.id} nao existe`);
+      this.messageAlert.alertError(`cliente com o id:${this.credito.cliente.id} nao existe`);
     })
    
   }
@@ -253,12 +249,12 @@ export class CreditoComponent
     this.payService.makePayment(this.pagamento).subscribe(resp=>{
         this.dialog.message="SUCESSO no pagamento";
         this.dialog.type=Type.SUCESSO;
-        this.alertSuccess(this.dialog.message);
+        this.messageAlert.alertSuccess(this.dialog.message);
 
     },error=>{
       this.dialog.message="ERROR ao fazer carregar o pagamento";
         this.dialog.type=Type.ERROR;
-        this.alertError(this.dialog.message);
+        this.messageAlert.alertError(this.dialog.message);
     })
   }
 
@@ -274,11 +270,11 @@ export class CreditoComponent
       console.log(response);
       this.dialog.message="SUCESSO na criacao/atulizacao da prestacao";
         this.dialog.type=Type.SUCESSO;
-        this.alertSuccess(this.dialog.message);
+        this.messageAlert.alertSuccess(this.dialog.message);
     },error=>{
       this.dialog.message="ERRO na criacao/atulizacao da prestacao";
         this.dialog.type=Type.ERROR;
-        this.alertError(this.dialog.message);
+        this.messageAlert.alertError(this.dialog.message);
       console.log(error);
     });
     
@@ -291,28 +287,6 @@ export class CreditoComponent
 
   switchVisibilitePrestacaoForm () {
     return this.divFormPrestacao=!this.divFormPrestacao;
-  }
-
-  alertError(titleParam:string){
-
-    Swal.fire({
-      position: 'top-right',
-      icon: 'error',
-      title: titleParam,
-      showConfirmButton: false,
-      timer: 7500
-    });
-  }
-
-  alertSuccess(titleParam:string){
-
-    Swal.fire({
-      position: 'top-right',
-      icon: 'success',
-      title: titleParam,
-      showConfirmButton: false,
-      timer: 1500
-    });
   }
 
 

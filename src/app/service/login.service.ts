@@ -38,28 +38,7 @@ session:Token={
   login(username:any, password:any, ):Observable<any>{
 
     const body=`cliente=react&username=${username}&password=${password}&grant_type=password`;
-    
-    
-    return this.auth(body,this.http);/*.subscribe(resp=>{
-      console.log("LoginService: resp{ "+resp);
-      this.session=resp;
-      localStorage.setItem("token",this.session.access_token);
-      if(resp.access_token!=""){
-        console.log("autenicado com sucesso "+this.session.access_token);
-        this.router.navigate(["/credito"]);
-         this.userservice.getOne(`/user/login?userName=${username}`,"",this.http).subscribe(respUser=>{
-          LoginService.logedUser=respUser;
-        })
-      } 
-      return this.session;
-    },error=>{
-      console.log(error.error.error_description);
-      this.dialog.type=Type.ERROR;
-        this.dialog.message="autenicacao falhada "+error.error.error_description;
-        console.log('entrando para o 2 error');
-        console.log(this.dialog);
-        return this.dialog;
-    });*/
+    return this.auth(body,this.http);
   }
   getAccess_token(){
     console.log(this.session.access_token);

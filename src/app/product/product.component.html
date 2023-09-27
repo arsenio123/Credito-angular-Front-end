@@ -24,13 +24,13 @@
           <input  [(ngModel)]="producto.taxa" type="number"   placeholder="Taxa"  class="form-control" placeholder="Taxa" required="" autofocus="" >
         </div>
         <div class="fromCell">
-          <label for="validationDefault02">Valor minimo</label>
-          <input type="number" [(ngModel)]="producto.capitalMin" class="Valor minimo"  placeholder="Last name" value="Otto" >
+          <label for="validationDefault02">Valor mínimo</label>
+          <input type="number" [(ngModel)]="producto.capitalMin" class="form-control"  placeholder="Last name" value="Otto" >
         </div>
       </div>
       <div class="form-row">
         <div class="fromCell">
-          <label for="validationDefaultUsername" >valor maximo</label>
+          <label for="validationDefaultUsername" >Valor máximo</label>
           <div > <!--class="input-group""-->
             <div class="input-group-prepend"> <!--class="input-group-prepend"-->
             </div>
@@ -38,16 +38,16 @@
           </div>
         </div>
         <div class="fromCell">
-          <label for="validationDefault03">descricao</label>
+          <label for="validationDefault03">Descrição</label>
           <input type="text" [(ngModel)]="producto.descricao" class="form-control" id="validationDefault03" placeholder="descricao" required>
         </div>
         
         <div class="fromCell">
-          <label for="validationDefault04">Estado do Producto em dias</label>
+          <label for="validationDefault04">Estado do Producto </label>
           <input type="text" [(ngModel)]="producto.estado" class="form-control" id="validationDefault04" placeholder="Estado" required>
        
-          <label for="validationDefault04">Tempo de cobranca</label>
-          <input type="text" [(ngModel)]="producto.intervaloPrestacao" class="form-control" id="validationDefault04" placeholder="Tempo de cobranca" required>
+          <label for="validationDefault04">Tempo de cobrança (Dias)</label>
+          <input type="text" [(ngModel)]="producto.intervaloPrestacao" class="form-control" id="validationDefault04" placeholder="Tempo de cobranca" required> 
         </div>
       </div>
       <button class="btn btn-primary" (click)="adicionarProducto()" style="margin-right: 5px; background-color: rgb(69, 144, 69);border-color:  rgb(69, 144, 69);">{{saveProductBt}}</button>

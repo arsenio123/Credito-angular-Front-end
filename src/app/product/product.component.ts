@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Producto } from '../model/producto';
 import { Router } from '@angular/router';
 import { ProductService } from '../service/product-service.service';
+import { MessageServiceService } from '../service/message-service.service';
 
 @Component({
   selector: 'app-product',
@@ -15,26 +16,32 @@ export class ProductComponent implements OnInit {
   producto:Producto=new Producto();
   saveClientBt:string="Adicionar";
   saveProductBt: string="Adicionar";
-  constructor(private productoService:ProductService, private router:Router) { }
+  constructor(private productoService:ProductService, private router:Router,
+    private messageAlert:MessageServiceService) { }
 
   ngOnInit(): void {
-    this.productoService.getAllProduct().subscribe(resp=>{
-      this.productos=resp;
-    })
+    if(this.messageAlert.isSessiovalide()==true){
+      this.productoService.getAllProduct().subscribe(resp=>{
+        this.productos=resp;
+      })
+    }
+    
   }
 
   adicionarProducto(){
 
     this.productoService.createProducto(this.producto).subscribe(resp=>{
       this.producto=resp;
+      this.productos.push(this.producto);
       
     },error=>{
+      this.messageAlert.alertError(error)
       alert("erro ao adicionar Producto");
       console.log("ProductComponent/ adicionarProducto");
       console.log(error)
     }
     );
-    this.productos.push(this.producto);
+    
   }
 
   selectedItem(curProducto:Producto){
