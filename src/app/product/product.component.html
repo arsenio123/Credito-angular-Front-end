@@ -41,11 +41,14 @@
           <label for="validationDefault03">Descrição</label>
           <input type="text" [(ngModel)]="producto.descricao" class="form-control" id="validationDefault03" placeholder="descricao" required>
         </div>
-        
         <div class="fromCell">
-          <label for="validationDefault04">Estado do Producto </label>
-          <input type="text" [(ngModel)]="producto.estado" class="form-control" id="validationDefault04" placeholder="Estado" required>
-       
+            <label for="validationDefault04" style="width: 100%;height: 30%;float: top;">Estado do Producto</label>
+            <select  [(ngModel)]="producto.estado" class="slectItem" style="width: 100%;">
+                <option *ngFor="let estado of estados" value="{{estado}}">{{estado}}</option>
+            </select>
+          </div>
+
+        <div class="fromCell">
           <label for="validationDefault04">Tempo de cobrança (Dias)</label>
           <input type="text" [(ngModel)]="producto.intervaloPrestacao" class="form-control" id="validationDefault04" placeholder="Tempo de cobranca" required> 
         </div>

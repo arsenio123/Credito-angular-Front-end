@@ -13,6 +13,7 @@ export class ProductComponent implements OnInit {
 
 
   productos:Producto[]=[];
+  estados:string[]=["PENDENTE","NORMAL","EXPIRADO"];
   producto:Producto=new Producto();
   saveClientBt:string="Adicionar";
   saveProductBt: string="Adicionar";
@@ -30,17 +31,33 @@ export class ProductComponent implements OnInit {
 
   adicionarProducto(){
 
-    this.productoService.createProducto(this.producto).subscribe(resp=>{
-      this.producto=resp;
-      this.productos.push(this.producto);
+    if(this.producto.id==0){
+      this.productoService.createProducto(this.producto).subscribe(resp=>{
+        this.producto=resp;
+        this.productos.push(this.producto);
+        this.ngOnInit();
+      },error=>{
+        this.messageAlert.alertError(error)
+        console.log("ProductComponent/ adicionarProducto");
+        console.log(error)
+      }
+      );
       
-    },error=>{
-      this.messageAlert.alertError(error)
-      alert("erro ao adicionar Producto");
-      console.log("ProductComponent/ adicionarProducto");
-      console.log(error)
+    }else{
+
+      this.productoService.actulizarProducto(this.producto).subscribe(resp=>{
+        this.producto=resp;
+        this.productos.push(this.producto);
+        this.ngOnInit();
+      },error=>{
+        this.messageAlert.alertError(error)
+        console.log("ProductComponent/ adicionarProducto");
+        console.log(error)
+      }
+      );
+
     }
-    );
+    
     
   }
 

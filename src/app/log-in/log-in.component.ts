@@ -59,7 +59,6 @@ export class LogInComponent   implements OnInit
       },error=>{
         console.log(error.error.error_description);
         this.dialog.type=Type.ERROR;
-          this.dialog.message="autenicacao falhada "+error.error.error_description;
           console.log('entrando para o 2 error');
           console.log(this.dialog);
 

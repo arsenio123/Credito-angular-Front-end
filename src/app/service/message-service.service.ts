@@ -9,7 +9,15 @@ export class MessageServiceService {
 
   constructor(private router:Router) { }
 
-  alertError(titleParam:string){
+  alertError(titleParam:any){
+    if(titleParam.error!=null && titleParam.error!=undefined){
+      titleParam=titleParam.error
+    }
+    var titleParamStr=new String(titleParam);
+    if(titleParamStr.includes(": 401 ")){
+      titleParam="sem autoridade para fazer a operacao"
+    }
+    
 
     Swal.fire({
       position: 'top-right',

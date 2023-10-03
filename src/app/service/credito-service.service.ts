@@ -8,6 +8,9 @@ import { RestGenericService } from './rest-generic.service';
   providedIn: 'root'
 })
 export class CreditoService extends RestGenericService<Credito>{
+  
+  
+  
   getCreditsWithPaginationDown(recordsForPage: number, lastCreditId: number):Observable<Credito[]> {
     return this.get(`/credito/list/critirea/previes?id=${lastCreditId}&records=${recordsForPage}`,"",this.http);
   }
@@ -24,6 +27,12 @@ createCredito(credito:Credito):Observable<Credito>{
   console.log("criando o novo credito ");
   console.log(credito);
   return this.post("/credito/creat","application/json",this.http,credito);
+}
+
+atualizaCredito(credito: Credito):Observable<Credito>{
+  console.log(`atualizando credito de numero ${credito.id} `);
+  console.log(credito);
+  return this.post("/credito/atualiza","application/json",this.http,credito);
 }
 
 getCreditsWithPagination(recordsForPage: number, lastCreditId: number):Observable<Credito[]> {

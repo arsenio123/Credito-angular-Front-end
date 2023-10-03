@@ -71,7 +71,7 @@ export class CreditoComponent
   ngOnInit(){
 
     if(this.messageAlert.isSessiovalide()==true){
-      this.productService.getAllProduct().subscribe(resp=>{
+      this.productService.getProductByStatus("NORMAL").subscribe(resp=>{
         this.productos=resp;
         console.log("response Productos"+resp);
       },error=>{
@@ -89,7 +89,7 @@ export class CreditoComponent
   }
 
 
-  consultaCredito(){
+  consultaCredito_old(){
 
     this.creditoAPI.getAllCredits().subscribe(data=>{
       this.creditos=data;
@@ -103,7 +103,7 @@ export class CreditoComponent
 
     
   }
-  consultaCredito_new(){
+  consultaCredito(){
 
     this.creditoAPI
     .getCreditsWithPagination(this.recordsForPage,this.lastCreditId)
@@ -151,16 +151,36 @@ export class CreditoComponent
     this.credito.aprovadoPOr=LoginService.logedUser.id;
       this.credito.createdDate=new Date();
       this.credito.updateDate=this.credito.createdDate;
-      this.creditoAPI.createCredito(this.credito).subscribe(resp=>{
-        //alert("SUCESSO credito adicionado com ");
-        console.log("SUCESSO credito adicionado com ")
-        this.creditos.push(this.credito);
-        this.messageAlert.alertSuccess(this.dialog.message);
-      },error=>{
-        console.log(error);
-        this.messageAlert.alertError(error.error);
-        console.log("ERRO ao adicionar o credito")
-      });
+      if(this.credito.id!=0){
+        //Atualiza o Credito
+        this.credito.estado="PENDENTE";
+        this.creditoAPI.atualizaCredito(this.credito).subscribe(resp=>{
+          //alert("SUCESSO credito adicionado com ");
+          console.log("SUCESSO credito adicionado com ")
+          this.creditos.push(this.credito);
+          this.messageAlert.alertSuccess(this.dialog.message);
+          
+        },error=>{
+          console.log(error);
+          this.messageAlert.alertError(error.error);
+          console.log("ERRO ao adicionar o credito")
+        });
+        this.ngOnInit();
+
+      }else{
+        //Cria um Credito
+        this.creditoAPI.createCredito(this.credito).subscribe(resp=>{
+          //alert("SUCESSO credito adicionado com ");
+          console.log("SUCESSO credito adicionado com ")
+          this.creditos.push(this.credito);
+          this.messageAlert.alertSuccess(this.dialog.message);
+        },error=>{
+          console.log(error);
+          this.messageAlert.alertError(error.error);
+          console.log("ERRO ao adicionar o credito")
+        });
+      }
+      
     
   }
 
@@ -221,7 +241,7 @@ export class CreditoComponent
       this.credito.cliente=resp
     },
     error=>{
-      alert(`cliente com o id:${this.credito.cliente.id} nao existe`)
+      //alert(`cliente com o id:${this.credito.cliente.id} nao existe`)
       this.messageAlert.alertError(`cliente com o id:${this.credito.cliente.id} nao existe`);
     })
    
@@ -262,6 +282,7 @@ export class CreditoComponent
     this.prestacao.credito=this.credito;
     this.prestacao.intrest.credito=this.credito;
     this.prestacao.capital.credito=this.credito;
+    this.prestacao.id=0;
     console.log("cirando prestacao ");
     console.log(this.prestacao);
     

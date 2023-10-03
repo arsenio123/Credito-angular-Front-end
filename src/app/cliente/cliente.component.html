@@ -44,11 +44,7 @@
         
         <div class="fromCell">
           <label for="validationDefault04">Tipo de documento</label>
-          <input type="text" [(ngModel)]="cliente.idDoc" class="form-control" id="validationDefault04" placeholder="State" required>
-       
-          <label for="validationDefault04">Número do documento</label>
-          <input type="text" [(ngModel)]="cliente.numberDoc" class="form-control" id="validationDefault04" placeholder="State" required>
-        </div>
+          <input type="text" [(ngModel)]="cliente.idDoc" class="form-control" id="validationDefault04" placeholder="State" required></div>
         
       
 
@@ -58,8 +54,13 @@
           <label for="validationDefault05">Morada</label>
           <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
         </div>
+        <div class="fromCell">
+          <label for="validationDefault04">Número do documento</label>
+          <input type="text" [(ngModel)]="cliente.numberDoc" class="form-control" id="validationDefault04" placeholder="State" required>
+        </div>
 
       </div>
+      <br/>
       <button class="btn btn-primary" (click)="adicionarCliente()" style="margin-right: 5px; background-color: rgb(69, 144, 69);border-color:  rgb(69, 144, 69);">{{saveClientBt}}</button>
       <button class="btn btn-primary" (click)="cancelarCliente()" style="background-color: rgb(226, 63, 63);border-bottom:  rgb(226, 63, 63);">cancelar/limpar</button>
 
