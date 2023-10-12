@@ -110,7 +110,7 @@ export class CreditoComponent
     .subscribe(resp=>{
       this.creditos=resp;
       console.log("resposta de consulta de creditos "+resp);
-     this.lastCreditId=this.creditos[1].id;
+     this.lastCreditId=this.creditos[0].id;
      console.log("laste index is "+this.lastCreditId);
     },error=>{
       this.messageAlert.alertError("erro ao consultar os creditos")

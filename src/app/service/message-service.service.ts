@@ -14,7 +14,7 @@ export class MessageServiceService {
       titleParam=titleParam.error
     }
     var titleParamStr=new String(titleParam);
-    if(titleParamStr.includes(": 401 ")){
+    if(titleParamStr.includes(": 401 ")||titleParam.status==401){
       titleParam="sem autoridade para fazer a operacao"
     }
     

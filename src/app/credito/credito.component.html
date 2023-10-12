@@ -9,7 +9,7 @@
   }
   tr:hover {background-color: rgba(211, 231, 247, 0.965); color:black}
   .bt-save{margin-right: 5px; background-color:#044076;border-color:  044076;color: white;}
-  .bt-cancel{background-color: rgb(226, 63, 63);border-bottom:  rgb(226, 63, 63);color:white}
+  .bt-cancel{margin-left: 10px;background-color: rgb(226, 63, 63);border-bottom:  rgb(226, 63, 63);color:white}
   .fomTitle{
     text-decoration: underline;
     color: #428bca;
@@ -26,11 +26,12 @@
   }
   .saldos{
   background-color: #4692b9;
-  height: 100px;
+  height: 130px;
   text-align: center;
   margin-right: 30px;
   border-radius:100px;
   }
+
 
   </style>
 
@@ -45,9 +46,10 @@
         <div class="saldos">
           <label for="validationDefault01">Capital</label>
           <h3 style="vertical-align: middle;">{{curCapital.valor}}</h3>
+         <!-- <img  src="assets/capital-bg.png" style="height: 45px;width: 55px;"/>-->
           </div>
       </div>
-      <div class="fromCell"><!---->
+      <div class="fromCell">
         
         <!--[(ngModel)]="credito.valor"     class="box effect7"-->
         <div  class="saldos">
@@ -110,7 +112,7 @@
         <div class="fromCell">
           <label for="validationDefault04" style="width: 100%;height: 30%;float: top;">Produto</label>
           <select  [(ngModel)]="credito.producto"  class="selectItem" style="width: 100%;">
-            <option *ngFor="let producto of productos" [ngValue]="producto">{{producto.descricao}}</option>
+            <option *ngFor="let producto of productos" [ngValue]="producto">{{producto.descricao}}|{{producto.taxa}}%|{{producto.intervaloPrestacao}}</option>
         </select>
         </div>
       </div>
@@ -126,11 +128,11 @@
           </div>
       </div>
     <br>
-      <div class="form-row">  
-        <div class="fromCell">
-      <button class="btn btn-primary, bt-save" (click)="adicionarCredito()" >{{saveCreditoBt}}</button>
+      <div class="form-row" >  
+        <div class="fromCell" style="margin-left: 73%;">
+      <button class="btn btn-primary, bt-save"  (click)="adicionarCredito()" >{{saveCreditoBt}}</button>
 
-      <button class="btn btn-primary, bt-cancel" (click)="cancelarCredito()">cancelar/limpar</button>
+      <button class="btn btn-primary, bt-cancel" (click)="cancelarCredito()">Limpar</button>
         </div>
       </div>
       <hr>

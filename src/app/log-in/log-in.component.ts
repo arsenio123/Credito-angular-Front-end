@@ -59,6 +59,8 @@ export class LogInComponent   implements OnInit
       },error=>{
         console.log(error.error.error_description);
         this.dialog.type=Type.ERROR;
+        this.dialog.title="Credencias erradas";
+        this.dialog.message=error.error.error_description;
           console.log('entrando para o 2 error');
           console.log(this.dialog);
 
