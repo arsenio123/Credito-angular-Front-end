@@ -33,6 +33,32 @@
   }
 
 
+
+  .labeled-div {
+            position: relative;
+            border: 2px solid #428bca;
+            padding: 20px;
+            background-color: rgb(224, 230, 234);
+        }
+
+        .label {
+            position: absolute;
+            top: -10px;
+            left: 1%;
+            background-color: #428bca;
+            padding: 0 5px;
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 14px;
+        }
+        .BottomBar {
+          margin-left: 73%;
+        }
+        .selectBotton {
+          width: 100%;
+          height: 34px;
+        }
+
+
   </style>
 
   <div class="container">
@@ -40,6 +66,7 @@
 
     <br/><br/><br/>
 <!-- dashboard de saldo do laon-->
+
     <div class="form-row">
       <div class="fromCell">
         <!--[(ngModel)]="credito.id"    class="box effect7" -->
@@ -69,6 +96,24 @@
     <hr>
 <!--fim do dashboard de saldos do laon-->
 <!-- inicio do formulario de laon-->
+<div class="labeled-div">
+  <span class="label">Formulario de Criação de Credito</span>
+
+  <div class="form-row">
+          
+    <div class="fromCell">
+      <label for="validationDefault05">numero Cliente</label>
+        <div>
+          <input  [(ngModel)]="credito.cliente.id" stype="number" class="form-control" style="width: 85%; float: left"   required>
+
+            <button class="btn btn-primary, bt-save" (click)="findCliente()" style="float: right;width: 12%;height: 34px;background-color: #dae1e7;">
+              <img  src="assets/lupa-modified.png" style="height: 100%;width: 100%;" ><img>
+            </button>
+          <label style="float: left;width: 100%">{{credito.cliente.nome}}</label>
+        </div>
+      </div>
+  </div>
+
       <div class="form-row">
         <div class="fromCell">
           <label for="validationDefault01">Número do Crédito</label>
@@ -101,7 +146,7 @@
         </div>
         <div class="fromCell">
           <label for="validationDefault04" style="width: 100%;height: 30%;float: top;">Estado</label>
-          <select  [(ngModel)]="credito.estado" class="slectItem" style="width: 100%;">
+          <select  [(ngModel)]="credito.estado" class="slectItem selectBotton">
               <option *ngFor="let estado of estados" value="{{estado}}">{{estado}}</option>
           </select>
         </div>
@@ -111,30 +156,22 @@
         </div>
         <div class="fromCell">
           <label for="validationDefault04" style="width: 100%;height: 30%;float: top;">Produto</label>
-          <select  [(ngModel)]="credito.producto"  class="selectItem" style="width: 100%;">
+          <select  [(ngModel)]="credito.producto"  class="selectItem" style="width: 100%;height: 34px;">
             <option *ngFor="let producto of productos" [ngValue]="producto">{{producto.descricao}}|{{producto.taxa}}%|{{producto.intervaloPrestacao}}</option>
         </select>
         </div>
       </div>
-      <div class="form-row">
-          
-        <div class="fromCell">
-          <label for="validationDefault05">numero Cliente</label>
-            <div>
-              <input  [(ngModel)]="credito.cliente.id" stype="number" class="form-control" style="width: 85%; float: left"   required>
-              <button class="btn btn-primary, bt-save" (click)="findCliente()" style="float: right;width: 13%"> find</button>
-              <label style="float: left;width: 100%">{{credito.cliente.nome}}</label>
-            </div>
-          </div>
-      </div>
+ 
     <br>
       <div class="form-row" >  
-        <div class="fromCell" style="margin-left: 73%;">
+        <div class="fromCell BottomBar" >
       <button class="btn btn-primary, bt-save"  (click)="adicionarCredito()" >{{saveCreditoBt}}</button>
 
       <button class="btn btn-primary, bt-cancel" (click)="cancelarCredito()">Limpar</button>
         </div>
       </div>
+    </div>
+      
       <hr>
 
     <div class="row">
@@ -153,7 +190,7 @@
                     <tr class="filters">
                         <th><input type="text" class="form-control" placeholder="ID Credito" ></th>
                         <th><input type="text" class="form-control" placeholder="Valor" ></th>
-                        <th><input type="text" class="form-control" placeholder="Data de concecao" ></th>
+                        <th><input type="text" class="form-control" placeholder="Concecao" ></th>
                         <th><input type="text" class="form-control" placeholder="Data de termino" ></th>
                         <th><input type="text" class="form-control" placeholder="Taxa de Jurus" ></th>
                         <th><input type="text" class="form-control" placeholder="Estado" ></th>
@@ -183,10 +220,9 @@
 
 
 
-    <div class="row" *ngIf="showPrestacaoForm()" >
+    <div class="labeled-div" *ngIf="showPrestacaoForm()" >
+      <span _ngcontent-pkf-c53="" class="label">Criação de Prestação</span>
       <hr>
-      <h4 class="fomTitle">Criação de Prestação</h4>
-      <br>
       Criando prestacao para cliente <label style="color:red"> {{credito.id}}</label> Numero credito <label style="color:red">{{credito.cliente.nome}}</label>
       <div>
         <div class="form-row">
@@ -198,35 +234,14 @@
               </option>
             </select>
           </div>
-         <!-- <div class="fromCell">
-            <label for="validationDefault02">Capital da prestacao (Jurus+capiral)</label>
-            <input type="number" [(ngModel)]="prestacao.valorCapitaPorPagar" class="form-control"  placeholder="000000"  required>
-          </div>
-          <div class="fromCell">
-            <label for="validationDefault02">valor do jurus</label>
-            <input type="number" [(ngModel)]="prestacao.jurusPago" class="form-control"  placeholder="000000"  required>
-          </div>
-          <div class="fromCell">
-            <label for="validationDefault02">Data de liquidacao</label>
-            <input [(ngModel)]="prestacao.dataPagamento" type="date" class="form-control" placeholder="data liquidacao" aria-describedby="inputGroupPrepend2" required>
-          </div>
-          <div class="fromCell">
-            <label for="validationDefaultUsername" >Data de expericao</label>
-            <div >
-              <div >
-              </div>
-              <input [(ngModel)]="prestacao.vencimento" type="date" class="form-control" placeholder="data limite de pagamento" aria-describedby="inputGroupPrepend2" required>
-            </div>
-          </div>
-          -->
         </div>
   
         <br>
-        <div class="form-row">
-          <div class="fromCell">
-        <button class="btn btn-primary, bt-save" (click)="criarPrestacao()" style="margin-right: 5px; background-color: rgb(34, 14, 104);border-color:  rgb(69, 144, 69);">Confirmar Prestacao</button>
+        <div class="form-row ">
+          <div class="fromCell BottomBar">
+        <button class="btn btn-primary, bt-save" (click)="criarPrestacao()" >Confirmar Prestacao</button> <!--style="margin-right: 5px; background-color: rgb(34, 14, 104);border-color:  rgb(69, 144, 69);"-->
   
-        <button class="btn btn-primary, bt-cancel" (click)="limparPrestacao()" style="background-color: rgb(226, 63, 63);border-bottom:  rgb(226, 63, 63);">cancelar/limpar</button>
+        <button class="btn btn-primary, bt-cancel" (click)="limparPrestacao()" >cancelar/limpar</button><!-- style="background-color: rgb(226, 63, 63);border-bottom:  rgb(226, 63, 63);"  -->
           </div>
         </div>
       </div>
@@ -252,10 +267,10 @@
                       <th><input type="text" class="form-control" placeholder="ID Prestacao" ></th>
                       <th><input type="text" class="form-control" placeholder="estado" ></th>
                       <th><input type="text" class="form-control" placeholder="Data de vencimento" ></th>
-                      <th><input type="text" class="form-control" placeholder="Data de pagamento" disabled></th>
+                      <!--<th><input type="text" class="form-control" placeholder="Data de pagamento" disabled></th>-->
                       <th><input type="text" class="form-control" placeholder="Valor pago" disabled></th>
-                      <th><input type="text" class="form-control" placeholder="fee da prestacao" disabled></th>
-                      <th><input type="text" class="form-control" placeholder="Saldo Total de juros" disabled></th>
+                      <th><input type="text" class="form-control" placeholder="Juros" disabled></th>
+                      <th><input type="text" class="form-control" placeholder="Total" disabled></th>
                       <th><input type="text" class="form-control" placeholder="Fazer fazerPagamento" disabled></th>
                       <th><input type="text" class="form-control" placeholder="Listar pagamento" disabled></th>
                       
@@ -267,7 +282,7 @@
                       <td>{{prestacao.id}}</td>
                       <td>{{prestacao.estado}}</td>
                       <td>{{prestacao.vencimento| date:'yyyy-MM-dd'}}</td>
-                      <td>{{prestacao.dataPagamento| date:'yyyy-MM-dd' }}</td>
+                      <!--<td>{{prestacao.dataPagamento| date:'yyyy-MM-dd' }}</td>-->
                       <td>{{prestacao.capitalPago}}</td>
                       <td>{{prestacao.jurusPago}}</td>
                       <td>{{prestacao.intrest.valor}}</td>
@@ -281,10 +296,9 @@
 
 
   <div class="row"  *ngIf="showPagamentos()">
-    <hr>
-    <h4 class="fomTitle">Criacao de Pagamento</h4>
     <br>
-    <div>
+    <div class="labeled-div">
+      <span class="label">Criacao de Pagamento</span>
       <div class="form-row">
         <div class="fromCell">
           <label for="validationDefault01">Valor Pago</label>
@@ -310,10 +324,10 @@
 
       <br>
       <div class="form-row">
-        <div class="fromCell">
-      <button class="btn btn-primary, bt-save" (click)="pagar()" >Confirmar Pagamento</button>
+        <div class="fromCell BottomBar" >
+      <button class="btn btn-primary bt-save" (click)="pagar()" >Confirmar Pagamento</button>
 
-      <button class="btn btn-primary, bt-cancel" (click)="limparPagamento()">cancelar/limpar</button>
+      <button class="btn btn-primary bt-cancel" (click)="limparPagamento()">Limpar</button>
         </div>
       </div>
     </div>

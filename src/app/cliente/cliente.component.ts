@@ -13,8 +13,10 @@ import { MessageServiceService } from '../service/message-service.service';
 export class ClienteComponent implements OnInit {
 
   clientes:Cliente[]=[];
+  sectores:string[]=["PRIVADO","PUBLICO"];
   cliente:Cliente=new Cliente();
   saveClientBt:string="Adicionar";
+  curCliente:Cliente=new Cliente();
 
   constructor(private clienteRest:ClienteRestService,private router:Router,private messageAlert:MessageServiceService) { }
 
@@ -48,6 +50,7 @@ export class ClienteComponent implements OnInit {
   selectedItem(curCliente:Cliente){
     this.cliente=curCliente;
     this.saveClientBt="Alterar Cliente";
+    this.curCliente=curCliente;
   }
   mostrarCredito(clieteID:any){
     alert(clieteID)

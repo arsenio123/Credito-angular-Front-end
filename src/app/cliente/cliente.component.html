@@ -8,61 +8,112 @@
     width: 30%; margin: 1.5px;
   }
   tr:hover {background-color: rgba(211, 231, 247, 0.965);}
+
+
+
+  .labeled-div {
+            position: relative;
+            border: 2px solid #428bca;
+            padding: 20px;
+            background-color: rgb(224, 230, 234);
+        }
+
+        .label {
+            position: absolute;
+            top: -10px;
+            left: 1%;
+            background-color: #428bca;
+            padding: 0 5px;
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 14px;
+        }
+        .selectTableItem{
+    background-color: #063f70;
+    color:#f6f7f9;
+  }
   </style>
 
 <div class="container">
-  <br/>
-  <div></div>     
-      <div class="form-row">
-        <div class="fromCell"> <!--class="col-md-4 mb-3"-->
-          <label for="" >ID_Cliente</label>
-          <input  [(ngModel)]="cliente.id" type="text"    value="{{cliente.id}}" disabled class="form-control"  autofocus="" >
-        </div>
-        <div class="fromCell"> <!--class="col-md-4 mb-3"-->
-          <label for="" >Nome completo</label>
-          <input  [(ngModel)]="cliente.nome" type="text"    class="form-control"  required="" autofocus="" >
-        </div>
-        <div class="fromCell">
-          <label for="validationDefault02">E-mail</label>
-          <input type="email" [(ngModel)]="cliente.email" class="form-control"  placeholder="exmplo@xpto.com" value="Otto" >
-        </div>
-
+  <br/><br/><br/>
+  <div class="labeled-div">
+    <span _ngcontent-pkf-c53="" class="label">Criação de Cliente</span>
+    <div class="form-row">
+      <div class="fromCell"> <!--class="col-md-4 mb-3"-->
+        <label for="" >ID_Cliente</label>
+        <input  [(ngModel)]="cliente.id" type="text"    value="{{cliente.id}}" disabled class="form-control"  autofocus="" >
       </div>
-      <div class="form-row">
-        <div class="fromCell">
-          <label for="validationDefaultUsername" >Contacto Telefonico</label>
-          <div > <!--class="input-group""-->
-            <div class="input-group-prepend"> <!--class="input-group-prepend"-->
-            </div>
-            <input [(ngModel)]="cliente.telefone" type="number" class="form-control" placeholder="8x0000000" aria-describedby="inputGroupPrepend2" required>
+      <div class="fromCell"> <!--class="col-md-4 mb-3"-->
+        <label for="" >Nome completo</label>
+        <input  [(ngModel)]="cliente.nome" type="text"    class="form-control"  required="" autofocus="" >
+      </div>
+      <div class="fromCell">
+        <label for="validationDefault02">E-mail</label>
+        <input type="email" [(ngModel)]="cliente.email" class="form-control"  placeholder="exmplo@xpto.com" value="Otto" >
+      </div>
+
+    </div>
+    <div class="form-row">
+      <div class="fromCell">
+        <label for="validationDefaultUsername" >Contacto Telefonico</label>
+        <div > <!--class="input-group""-->
+          <div class="input-group-prepend"> <!--class="input-group-prepend"-->
           </div>
+          <input [(ngModel)]="cliente.telefone" type="number" class="form-control" placeholder="8x0000000" aria-describedby="inputGroupPrepend2" required>
         </div>
-        <div class="fromCell">
-          <label for="validationDefault03">Rendimento</label>
-          <input type="number" [(ngModel)]="cliente.rendimento" class="form-control" id="validationDefault03" placeholder="5000" required>
-        </div>
-        
-        <div class="fromCell">
-          <label for="validationDefault04">Tipo de documento</label>
-          <input type="text" [(ngModel)]="cliente.idDoc" class="form-control" id="validationDefault04" placeholder="State" required></div>
-        
+      </div>
+      <div class="fromCell">
+        <label for="validationDefault03">Rendimento</label>
+        <input type="number" [(ngModel)]="cliente.rendimento" class="form-control" id="validationDefault03" placeholder="5000" required>
+      </div>
       
+      <div class="fromCell">
+        <label for="validationDefault04">Tipo de documento</label>
+        <input type="text" [(ngModel)]="cliente.idDoc" class="form-control" id="validationDefault04" placeholder="State" required></div>
+      
+    
 
+    </div>
+    <div class="form-row">
+      <div class="fromCell">
+        <label for="validationDefault05">Morada</label>
+        <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
       </div>
-      <div class="form-row">
-        <div class="fromCell">
-          <label for="validationDefault05">Morada</label>
-          <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
-        </div>
-        <div class="fromCell">
-          <label for="validationDefault04">Número do documento</label>
-          <input type="text" [(ngModel)]="cliente.numberDoc" class="form-control" id="validationDefault04" placeholder="State" required>
-        </div>
+      <div class="fromCell">
+        <label for="validationDefault04">Número do documento</label>
+        <input type="text" [(ngModel)]="cliente.numberDoc" class="form-control" id="validationDefault04" placeholder="State" required>
+      </div>
 
+    </div>
+  <hr>
+    <label><h3><b>Profissão</b></h3></label>
+    
+    <div class="form-row">
+      <div class="fromCell"> <!--class="col-md-4 mb-3"-->
+        <label for="" >Sector de Trabalho</label>
+        <select  [(ngModel)]="cliente.setor"  class="selectItem" style="width: 100%;height: 34px;">
+          <option *ngFor="let sector of sectores" [ngValue]="sector">{{sector}}</option>
+      </select>
       </div>
-      <br/>
+      <div class="fromCell"> <!--class="col-md-4 mb-3"-->
+        <label for="" >Profissão</label>
+        <input  [(ngModel)]="cliente.profissao" type="text"    class="form-control"  required="" autofocus="" >
+      </div>
+      <div class="fromCell">
+        <label for="validationDefault02">Empresa</label>
+        <input type="email" [(ngModel)]="cliente.empresa" class="form-control"  placeholder="Portos de Maputo" value="Otto" >
+      </div>
+
+    </div>
+
+    <br/>
+    <div class="fromCell" style="margin-left: 73%;">
       <button class="btn btn-primary" (click)="adicionarCliente()" style="margin-right: 5px; background-color: rgb(69, 144, 69);border-color:  rgb(69, 144, 69);">{{saveClientBt}}</button>
       <button class="btn btn-primary" (click)="cancelarCliente()" style="background-color: rgb(226, 63, 63);border-bottom:  rgb(226, 63, 63);">cancelar/limpar</button>
+  
+    </div>
+    
+  </div>     
+
 
 <div >
 
@@ -92,7 +143,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let cliente of clientes" (click)="selectedItem(cliente)">
+                    <tr *ngFor="let cliente of clientes" (click)="selectedItem(cliente)" [class.selectTableItem]="cliente===curCliente">
                         <td>{{cliente.id}}</td>
                         <td>{{cliente.nome}}</td>
                         <td>{{cliente.dataNascimento| date:'shortDate'}}</td>
@@ -108,12 +159,3 @@
         </div>
     </div>
 </div>
-
-<!--
-        <div >
-          <input class="form-check-input"  type="checkbox" value="" id="invalidCheck2" required>
-          <label class="form-check-label" for="invalidCheck2">
-           Agree to terms and conditions
-          </label>
-        </div>
--->

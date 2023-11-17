@@ -8,6 +8,10 @@
     width: 30%; margin: 1.5px;
   }
   tr:hover {background-color: rgba(211, 231, 247, 0.965);}
+  .selectTableItem{
+    background-color: #063f70;
+    color:#f6f7f9;
+  }
   </style>
 
 
@@ -82,7 +86,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let producto of productos" (click)="selectedItem(producto)">
+                    <tr *ngFor="let producto of productos" (click)="selectedItem(producto)" [class.selectTableItem]="producto===curProducto">
                         <td>{{producto.id}}</td>
                         <td>{{producto.taxa}}</td>
                         <td>{{producto.capitalMin}}</td>

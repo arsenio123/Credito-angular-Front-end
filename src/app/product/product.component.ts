@@ -13,6 +13,7 @@ export class ProductComponent implements OnInit {
 
 
   productos:Producto[]=[];
+  curProducto:Producto=new Producto();
   estados:string[]=["PENDENTE","NORMAL","EXPIRADO"];
   producto:Producto=new Producto();
   saveClientBt:string="Adicionar";
@@ -36,6 +37,10 @@ export class ProductComponent implements OnInit {
         this.producto=resp;
         this.productos.push(this.producto);
         this.ngOnInit();
+        this.selectedItem;
+        this.producto=this.productos[this.productos.length-1];
+        console.log(this.productos[this.productos.length-1]);
+        this.messageAlert.alertSuccess("Producto crido com sucesso");
       },error=>{
         this.messageAlert.alertError(error)
         console.log("ProductComponent/ adicionarProducto");
@@ -49,6 +54,7 @@ export class ProductComponent implements OnInit {
         this.producto=resp;
         this.productos.push(this.producto);
         this.ngOnInit();
+        this.messageAlert.alertSuccess("Producto Alterado com sucesso");
       },error=>{
         this.messageAlert.alertError(error)
         console.log("ProductComponent/ adicionarProducto");
@@ -63,6 +69,7 @@ export class ProductComponent implements OnInit {
 
   selectedItem(curProducto:Producto){
     this.producto=curProducto;
+    this.curProducto=curProducto;
     this.saveClientBt="Alterar Producto";
   }
   mostrarProducto(productoID:any){

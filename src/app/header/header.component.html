@@ -1,5 +1,8 @@
-<div>
   <style>
+
+    .main{
+      z-index: 99999999999999999999999999999999999999999999999999999999999999;
+    }
     nav ul {
         list-style-type: none;
         margin: 0;
@@ -8,6 +11,7 @@
         background-color: #428bca;
         float:left;
         width:100%;
+        z-index: 99999999999999999999999999999999999999999999999999999999999999;
     
     }
     
@@ -16,6 +20,7 @@
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
+  z-index: 99999999999999999999999999999999999999999999999999999999999999;
 }
     
     nav li {
@@ -25,6 +30,7 @@
         line-height: 50px;
     
         position: relative;
+        z-index: 99999999999999999999999999999999999999999999999999999999999999;
     }
     
     
@@ -38,15 +44,18 @@
         text-decoration: none;
         -webkit-transition: color 1s;
         transition: color 1s;
+        z-index: 99999999999999999999999999999999999999999999999999999999999999;
     }
     
     
        nav li a:hover {
         color: #111;
+        z-index: 99999999999999999999999999999999999999999999999999999999999999;
     
     }
     i:hover {
         color: #111;
+        z-index: 99999999999999999999999999999999999999999999999999999999999999;
     
     }
     
@@ -57,16 +66,21 @@
         display: none;
         background-color:#428bca;
         min-width: 160px;
+        z-index: 99999999999999999999999999999999999999999999999999999999999999;
     
     }
     nav ul li ul li {
-      width:100%;}
+      width:100%;
+      z-index: 99999999999999999999999999999999999999999999999999999999999999;
+    }
       
     nav ul li:hover > ul{
       display:block;
+      z-index: 99999999999999999999999999999999999999999999999999999999999999;
     }
     nav ul ul ul { 
     right:-50%;
+    z-index: 99999999999999999999999999999999999999999999999999999999999999;
     /*top:0*/
     }
 
@@ -75,6 +89,9 @@
   -webkit-transform: rotate(45deg);
 }
     </style>
+    
+    <div class="main">
+
     
     <div style="position:relative; width: 100%;" >
     <nav>

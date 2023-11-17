@@ -8,6 +8,9 @@ export interface ClienteInterface {
     ,email:string
     ,idDoc:string
     ,numberDoc:string
+    ,setor:string
+    ,profissao:string
+    ,empresa:string
 }
 
 export class Cliente implements ClienteInterface{
@@ -20,6 +23,9 @@ export class Cliente implements ClienteInterface{
     email: string="";
     idDoc: string="";
     numberDoc: string="";
+    profissao: string="";
+    setor: string="";
+    empresa: string="";
     constructor(){
 
     };

@@ -8,6 +8,7 @@ export interface ProductoInterface {
     intervaloPrestacao:number
 }
 
+
 export class Producto implements ProductoInterface{
     id: number=0;
     taxa: number=0;

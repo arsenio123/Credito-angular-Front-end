@@ -49,7 +49,7 @@ export class CreditoComponent
   estados:string[]=["CANCELADO","VIGOR"]//deve ser inicilizado por API
   popupDivida:string="display: none;opacity: 1;";
   mainDivStile:string=""  
-  recordsForPage:number=1;
+  recordsForPage:number=4;
   lastCreditId:number=0;
   curIntrest:Intrest=new Intrest();
   curCapital:Capital=new Capital();
@@ -194,6 +194,7 @@ export class CreditoComponent
     this.prestacoes=[];
     this.saveCreditoBt="Editar Credito";
 
+
     this.prestacaoServ.getPrestacaoFromCredito(this.credito.id)
     .subscribe(resp=>{
       this.prestacoes=resp;
@@ -266,6 +267,13 @@ export class CreditoComponent
     this.pagamento.createdBay=LoginService.logedUser.id;
     this.prestacao.credito=this.credito;
     this.pagamento.prestacao=this.prestacao;
+    this.pagamento.intrest.credito=this.credito;
+    this.pagamento.capital.credito=this.credito;
+
+    console.log("debug value Sector this.curCredito:"+this.curCredito.cliente.setor);
+    console.log("debug value Sector this.credito:"+this.credito.cliente.setor);
+
+    //a fachamar o servico de pagamento
     this.payService.makePayment(this.pagamento).subscribe(resp=>{
         this.dialog.message="SUCESSO no pagamento";
         this.dialog.type=Type.SUCESSO;
