@@ -11,6 +11,12 @@ export class CreditoService extends RestGenericService<Credito>{
   
   
   
+  getCreditoByClienteID(clientID: number):Observable<Credito[]> {
+    return this.get(`/credito/list/findCreditoByClientID?clientID=${clientID}`,"",this.http)
+  }
+  
+  
+  
   getCreditsWithPaginationDown(recordsForPage: number, lastCreditId: number):Observable<Credito[]> {
     return this.get(`/credito/list/critirea/previes?id=${lastCreditId}&records=${recordsForPage}`,"",this.http);
   }

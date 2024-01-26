@@ -102,11 +102,22 @@
   <div class="form-row">
           
     <div class="fromCell">
-      <label for="validationDefault05">numero Cliente</label>
+      <label for="validationDefault05">Pesquisa por numero do Cliente</label>
         <div>
           <input  [(ngModel)]="credito.cliente.id" stype="number" class="form-control" style="width: 85%; float: left"   required>
 
             <button class="btn btn-primary, bt-save" (click)="findCliente()" style="float: right;width: 12%;height: 34px;background-color: #dae1e7;">
+              <img  src="assets/lupa-modified.png" style="height: 100%;width: 100%;" ><img>
+            </button>
+          <!--<label style="float: left;width: 100%">{{credito.cliente.nome}}</label> -->
+        </div>
+        <!-- pesquisa por nome -->
+        <!-- pesquisa por id-->
+        <label for="validationDefault05">Pesquisa pelo nome do Cliente</label>
+        <div>
+          <input  [(ngModel)]="credito.cliente.nome" stype="number" class="form-control" style="width: 85%; float: left"   required>
+
+            <button class="btn btn-primary, bt-save" (click)="findClienteByName()" style="float: right;width: 12%;height: 34px;background-color: #dae1e7;">
               <img  src="assets/lupa-modified.png" style="height: 100%;width: 100%;" ><img>
             </button>
           <label style="float: left;width: 100%">{{credito.cliente.nome}}</label>
@@ -129,7 +140,7 @@
             <div >
             </div>
             <input [(ngModel)]="credito.beginDate" type="date" class="form-control" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
-          </div>
+          </div><!--muda a data aqui-->
         </div>
       </div>
       <!--fim do formulario de laon-->
@@ -138,7 +149,7 @@
           
           <label for="validationDefault03">Data de fim</label>
           <input [(ngModel)]="credito.doDate" type="date" class="form-control" id="validationDefault03" placeholder="City" required>
-        </div>
+        </div><!--muda a data aqui-->
         <div class="fromCell">
           
           <label for="validationDefault03">Saldo</label>
@@ -174,7 +185,28 @@
       
       <hr>
 
+
+      <div class="form-row">
+          
+        <div class="fromCell">
+          <label for="validationDefault05">Filtrar por Cliente</label>
+          <div>
+            <input  [(ngModel)]="findCreditoByClientID" stype="number" class="form-control" style="width: 85%; float: left"   required>
+    
+              <button class="btn btn-primary, bt-save" (click)="findCreditByClient()" style="float: right;width: 12%;height: 34px;background-color: #dae1e7;">
+                <img  src="assets/lupa-modified.png" style="height: 100%;width: 100%;" ><img>
+              </button>
+            <!--<label style="float: left;width: 100%">{{credito.cliente.nome}}</label> -->
+          </div>
+        </div>
+      </div>
+<!---->
+
+
     <div class="row">
+
+
+
         <div class="panel panel-primary filterable">
             <div class="panel-heading">
                 <h3 class="panel-title">Investimentos</h3>

@@ -8,6 +8,11 @@ import { RestGenericService } from './rest-generic.service';
   providedIn: 'root'
 })
 export class ClienteRestService extends RestGenericService<Cliente>{
+  findByName(name: string) : Observable<Cliente> {
+    const paramClinetName=`client_Name=${name}`;
+    return this.getOne("/credito/cliente/find?"+paramClinetName,"",this.http);
+    //throw new Error('Method not implemented.');
+  }
  
 
 

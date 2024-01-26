@@ -54,6 +54,8 @@ export class CreditoComponent
   curIntrest:Intrest=new Intrest();
   curCapital:Capital=new Capital();
   curSaldo:number=0;
+  findCreditoByName:string='';
+  findCreditoByClientID:number=0
   prestacao_estados:string[]=["EM_VIGOR","EXPIRADO"];
   
   constructor(private creditoAPI:CreditoService,
@@ -239,13 +241,31 @@ export class CreditoComponent
   findCliente(){
     this.clienteService.findByID(this.credito.cliente.id)
     .subscribe(resp=>{
-      this.credito.cliente=resp
+      this.credito.cliente=resp;
+
+      if(this.credito.cliente==null){
+        this.messageAlert.alertError(`cliente  nao existe`);
+      }
     },
     error=>{
       //alert(`cliente com o id:${this.credito.cliente.id} nao existe`)
       this.messageAlert.alertError(`cliente com o id:${this.credito.cliente.id} nao existe`);
     })
    
+  }
+
+  findClienteByName(){
+    this.clienteService.findByName(this.credito.cliente.nome)
+    .subscribe(resp=>{
+      this.credito.cliente=resp;
+      if(this.credito.cliente==null){
+        this.messageAlert.alertError(`cliente nao existe`);
+      }
+    },
+    error=>{
+      //alert(`cliente com o id:${this.credito.cliente.id} nao existe`)
+      this.messageAlert.alertError(`cliente com o id:${this.credito.cliente.id} nao existe`);
+    })
   }
 
   editarPagamento(selecterPayment:Payment){
@@ -335,6 +355,23 @@ export class CreditoComponent
       this.curCapital=resp;
       this.curSaldo=this.curSaldo+this.curCapital.valor;
     });
+  }
+
+  findCreditByClient(){
+    this.creditoAPI.getCreditoByClienteID(this.findCreditoByClientID)
+    .subscribe(resp=>{
+      this.creditos=resp;
+
+      if(this.creditos==null){
+        this.messageAlert.alertError(`cliente  nao existe`);
+      }
+    },
+    error=>{
+      //alert(`cliente com o id:${this.credito.cliente.id} nao existe`)
+      this.messageAlert.alertError(`creditos para o cliente com o id:${this.findCreditoByClientID} nao existe`);
+    }
+    );
+
   }
 
 }
