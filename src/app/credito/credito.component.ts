@@ -49,7 +49,7 @@ export class CreditoComponent
   estados:string[]=["CANCELADO","VIGOR"]//deve ser inicilizado por API
   popupDivida:string="display: none;opacity: 1;";
   mainDivStile:string=""  
-  recordsForPage:number=4;
+  recordsForPage:number=50;
   lastCreditId:number=0;
   curIntrest:Intrest=new Intrest();
   curCapital:Capital=new Capital();
@@ -57,7 +57,9 @@ export class CreditoComponent
   findCreditoByName:string='';
   findCreditoByClientID:number=0
   prestacao_estados:string[]=["EM_VIGOR","EXPIRADO"];
-  
+  creditoestado:string="";
+  creditoestados:string[]=["VIGOR","PENDENTE","CANCELADO","VENCIDO",""];
+
   constructor(private creditoAPI:CreditoService,
     private prestacaoServ:PrestacoesService,
     private router:Router,
@@ -77,12 +79,13 @@ export class CreditoComponent
         this.productos=resp;
         console.log("response Productos"+resp);
       },error=>{
-        this.messageAlert.alertError(this.dialog.message);
+        this.messageAlert.alertError(error);
+        //this.messageAlert.alertError(this.dialog.message);
         console.log(error);
       })
       this.productos
-      this.consultaCredito();
-    
+    this.consultaCredito();// fazer a passagem dos dados antigos para a nova base de dados
+    //this.consultaCredito_old;// TODO remove this line
 
       console.log(this.creditos);
     }
@@ -105,17 +108,28 @@ export class CreditoComponent
 
     
   }
+
+  filtrarCredit(){
+    this.creditoAPI.getCreditByCriteria(this.recordsForPage, this.creditoestado,this.findCreditoByClientID).subscribe(
+      resp=>{
+        this.creditos=resp;
+      },error=>{
+        this.messageAlert.alertError(error);
+      }
+    )
+  }
   consultaCredito(){
 
     this.creditoAPI
-    .getCreditsWithPagination(this.recordsForPage,this.lastCreditId)
+    .getCreditsWithPagination(this.recordsForPage,this.lastCreditId,this.creditoestado)
     .subscribe(resp=>{
       this.creditos=resp;
       console.log("resposta de consulta de creditos "+resp);
      this.lastCreditId=this.creditos[0].id;
      console.log("laste index is "+this.lastCreditId);
     },error=>{
-      this.messageAlert.alertError("erro ao consultar os creditos")
+      this.messageAlert.alertError(error);
+      //this.messageAlert.alertError("erro ao consultar os creditos")
       console.log("consultaCredito com erro");
       console.log(error);
       }
@@ -137,7 +151,7 @@ export class CreditoComponent
      this.lastCreditId=this.creditos[0].id;
      console.log("laste index is "+this.lastCreditId);
     },error=>{
-      this.messageAlert.alertError("erro na paginacao dos creditos");
+      this.messageAlert.alertError(error);
       console.log("erro no ")
       alert("");
       }
@@ -164,8 +178,9 @@ export class CreditoComponent
           
         },error=>{
           console.log(error);
-          this.messageAlert.alertError(error.error);
-          console.log("ERRO ao adicionar o credito")
+          this.messageAlert.alertError(error);
+          console.log("ERRO ao adicionar o credito "+error)
+          console.log("ERRO ao adicionar o credito "+error)
         });
         this.ngOnInit();
 
@@ -178,7 +193,7 @@ export class CreditoComponent
           this.messageAlert.alertSuccess(this.dialog.message);
         },error=>{
           console.log(error);
-          this.messageAlert.alertError(error.error);
+          this.messageAlert.alertError(error);
           console.log("ERRO ao adicionar o credito")
         });
       }
@@ -302,14 +317,20 @@ export class CreditoComponent
     },error=>{
       this.dialog.message="ERROR ao fazer carregar o pagamento";
         this.dialog.type=Type.ERROR;
+        console.log(error.message)
         this.messageAlert.alertError(this.dialog.message);
     })
   }
 
   criarPrestacao(){
     this.prestacao.credito=this.credito;
+
+    this.prestacao.intrest=new Intrest();
     this.prestacao.intrest.credito=this.credito;
+
+    this.prestacao.capital=new Capital();
     this.prestacao.capital.credito=this.credito;
+
     this.prestacao.id=0;
     console.log("cirando prestacao ");
     console.log(this.prestacao);
@@ -320,6 +341,7 @@ export class CreditoComponent
       this.dialog.message="SUCESSO na criacao/atulizacao da prestacao";
         this.dialog.type=Type.SUCESSO;
         this.messageAlert.alertSuccess(this.dialog.message);
+        this.selectedCreditItem(this.curCredito);
     },error=>{
       this.dialog.message="ERRO na criacao/atulizacao da prestacao";
         this.dialog.type=Type.ERROR;
@@ -368,7 +390,9 @@ export class CreditoComponent
     },
     error=>{
       //alert(`cliente com o id:${this.credito.cliente.id} nao existe`)
-      this.messageAlert.alertError(`creditos para o cliente com o id:${this.findCreditoByClientID} nao existe`);
+      //this.messageAlert.alertError(`creditos para o cliente com o id:${this.findCreditoByClientID} nao existe`);
+      this.messageAlert.alertError(error);
+      console.error(error);
     }
     );
 

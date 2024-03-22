@@ -8,11 +8,15 @@ import { RestGenericService } from './rest-generic.service';
   providedIn: 'root'
 })
 export class CreditoService extends RestGenericService<Credito>{
+  getCreditByCriteria(recordsForPage: number, creditoestado: string, findCreditoByClientID: number):Observable<Credito[]> {
+    return this.get(`/credito/list/critirea/findByCriteria?records=${recordsForPage}&estado=${creditoestado}&clieteID=${findCreditoByClientID}`,"",this.http);
+    // throw new Error('Method not implemented.');
+  }
   
   
   
   getCreditoByClienteID(clientID: number):Observable<Credito[]> {
-    return this.get(`/credito/list/findCreditoByClientID?clientID=${clientID}`,"",this.http)
+    return this.get(`/credito/list/findCreditoByClientID?clientID=${clientID}`,"",this.http);
   }
   
   
@@ -41,8 +45,8 @@ atualizaCredito(credito: Credito):Observable<Credito>{
   return this.post("/credito/atualiza","application/json",this.http,credito);
 }
 
-getCreditsWithPagination(recordsForPage: number, lastCreditId: number):Observable<Credito[]> {
-  return this.get(`/credito/list/critirea/v2?id=${lastCreditId}&records=${recordsForPage}`,"",this.http);
+getCreditsWithPagination(recordsForPage: number, lastCreditId: number,estado:string):Observable<Credito[]> {
+  return this.get(`/credito/list/critirea/v2?id=${lastCreditId}&records=${recordsForPage}&estado=${estado}`,"",this.http);
 }
   
 }

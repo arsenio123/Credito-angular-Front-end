@@ -9,14 +9,33 @@ export class MessageServiceService {
 
   constructor(private router:Router) { }
 
-  alertError(titleParam:any){
-    if(titleParam.error!=null && titleParam.error!=undefined){
-      titleParam=titleParam.error
+  alertError(errorOject:any){
+    console.log(0);
+    var titleParam="";
+    if(errorOject.status==401){
+      titleParam="sem autoridade para fazer a operacao";
+      console.log(2);
     }
-    var titleParamStr=new String(titleParam);
-    if(titleParamStr.includes(": 401 ")||titleParam.status==401){
-      titleParam="sem autoridade para fazer a operacao"
+
+    if(errorOject.status==400){
+      console.log("keep going")
+      if(errorOject.error.message!=null){
+        titleParam=errorOject.error.message;
+         console.log(3);
+        }
+      else{titleParam=errorOject.message; console.log(4);}
     }
+    
+    if(errorOject.error!=null && errorOject.error!=undefined){
+      titleParam=errorOject.error;
+      console.log(1);
+
+    
+   
+
+    }
+    
+
     
 
     Swal.fire({

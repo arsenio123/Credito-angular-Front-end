@@ -23,6 +23,8 @@ export class UtilizadorComponent implements OnInit {
       console.log("[UtilizadorComponent: ngOnInit ]"+resp)
       this.users=resp
 
+    },error=>{
+      this.messageAlert.alertError(error);
     });
     }
     

@@ -64,7 +64,7 @@ export class LogInComponent   implements OnInit
           console.log('entrando para o 2 error');
           console.log(this.dialog);
 
-          this.messageAlert.alertError(error.error.error_description);
+          this.messageAlert.alertError(error);
       });     
 
   }
