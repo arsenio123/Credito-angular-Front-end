@@ -10,13 +10,22 @@ export class MessageServiceService {
   constructor(private router:Router) { }
 
   alertError(errorOject:any){
-    console.log(0);
-    var titleParam="";
+    console.log("alertError: "+errorOject.error);
+    console.log("alertError status: "+errorOject.status);
+    var titleParam=errorOject;
     if(errorOject.status==401){
       titleParam="sem autoridade para fazer a operacao";
       console.log(2);
     }
 
+    
+
+
+    if(errorOject.error!=null && errorOject.error!=undefined){
+      titleParam=errorOject.error;
+      console.log(1);
+
+    }
     if(errorOject.status==400){
       console.log("keep going")
       if(errorOject.error.message!=null){
@@ -25,19 +34,16 @@ export class MessageServiceService {
         }
       else{titleParam=errorOject.message; console.log(4);}
     }
-    
-    if(errorOject.error!=null && errorOject.error!=undefined){
-      titleParam=errorOject.error;
-      console.log(1);
-
-    
-   
-
+    if(errorOject.status==404){
+      alert("404")
+      
+      titleParam=errorOject.error.error;
+      console.log(titleParam);
     }
     
 
     
-
+//fire the message on the screen
     Swal.fire({
       position: 'top-right',
       icon: 'error',
@@ -47,7 +53,7 @@ export class MessageServiceService {
     });
   }
 
-  alertSuccess(titleParam:string){
+  alertSuccess(titleParam:String){
 
     Swal.fire({
       position: 'top-right',

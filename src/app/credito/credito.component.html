@@ -155,27 +155,30 @@
           <label for="validationDefault03">Saldo</label>
           <input [(ngModel)]="credito.balance" type="text" class="form-control" id="validationDefault03" placeholder="City" disabled>
         </div>
+
+
         <div class="fromCell">
           <label for="validationDefault04" style="width: 100%;height: 30%;float: top;">Estado</label>
           <select  [(ngModel)]="credito.estado" class="slectItem selectBotton">
-              <option *ngFor="let estado of estados" value="{{estado}}">{{estado}}</option>
+              <option *ngFor="let estado of estados" [ngValue]="estado">{{estado}}</option>
           </select>
         </div>
+
+
         <div class="fromCell">
           <label for="validationDefault05">Jurus</label>
           <input  [(ngModel)]="credito.jurus" stype="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
         </div>
+
+
         <div class="fromCell">
           <label for="validationDefault04" style="width: 100%;height: 30%;float: top;">Produto</label>
           
           <select  [(ngModel)]="credito.producto"  class="selectItem" style="width: 100%;height: 34px;">
-            <option *ngFor="let producto of productos" [ngValue]="producto">{{producto.descricao}}|{{producto.taxa}}%|{{producto.intervaloPrestacao}}</option>
+            <option *ngFor="let producto of productos" [ngValue]="credito.producto">{{credito.producto.descricao}}|{{credito.producto.taxa}}%|{{credito.producto.intervaloPrestacao}}</option>
             </select>
         </div>
-        <div class="fromCell">
-          <br>
-          {{credito.producto.descricao}}
-        </div>
+
       </div>
  
     <br>
@@ -226,7 +229,6 @@
       </div>
       <br>
 <!---->
-
 
     <div class="row">
 

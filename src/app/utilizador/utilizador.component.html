@@ -24,6 +24,10 @@
     width: 30%; margin: 1.5px;
   }
   tr:hover {background-color: rgba(211, 231, 247, 0.965);}
+
+  #password-form {
+            display: none; /* Initially hide the form */
+        }
   </style>
 <!--<div class="form-signin"> class="form-signin"    ---->
 
@@ -65,7 +69,31 @@
       </div>
     </div>
     
-      
+
+    <!-- Begin change password div-->
+    <div class="labeled-div">
+      <h4><span class="label" style="color: #428bca;" (click)="toggleForm()">Change Password</span></h4>
+    
+
+<div *ngIf="showForm">
+  <form action="/change-password" method="post">
+    <div>
+      <label for="current-password">Current Password:</label>
+      <input type="password" [(ngModel)]="currentPassword" name="current-password" required>
+    </div>
+    <div>
+      <label for="new-password">New Password:</label>
+      <input type="password" [(ngModel)]="newPassword" name="new-password" required>
+    </div>
+    <div>
+      <label for="confirm-password">Confirm New Password:</label>
+      <input type="password" [(ngModel)]="confirmPassword" name="confirm-password" required>
+    </div>
+    <button type="submit" (click)="changePassword()">Change Password</button>
+  </form>
+</div>
+</div>
+<!-- End change password div-->
 
     <hr>
 

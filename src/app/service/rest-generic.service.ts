@@ -61,6 +61,16 @@ return http.get<T[]>(fullUrl,this.preparHeadersReqs(contentType));
     return http.post<T>(fullUrl,t,this.preparHeadersReqs(contentType));
   }
 
+  protected postFullPathString(fullUrl:string,contentType:String,http:HttpClient,t:T):Observable<String>{
+    return http.post<String>(fullUrl,t,this.preparHeadersReqs(contentType));
+  }
+
+  protected postString(uri:string,contentType:String,http:HttpClient,t:T):Observable<String>{
+
+    const fullUrl=this.serverUrl+uri;
+    return http.post<String>(fullUrl,t,this.preparHeadersReqs(contentType));
+  }
+
 
   auth(body:string,http:HttpClient):Observable<Token>{
 
@@ -73,7 +83,7 @@ return http.get<T[]>(fullUrl,this.preparHeadersReqs(contentType));
     return   http.post<Token>(this.ssoUrl+'/oauth/token',body, httpOptions );
   }
 
-  private preparHeadersReqs(contentType:String){
+  protected preparHeadersReqs(contentType:String){
     if(contentType==null||contentType==""){
       console.debug("definindo header");
       contentType='application/x-www-form-urlencoded'

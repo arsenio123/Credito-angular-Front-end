@@ -48,6 +48,7 @@ export class LogInComponent   implements OnInit
         console.log("LoginService: resp{ "+resp);
         this.session=resp;
         localStorage.setItem("token",this.session.access_token);
+        localStorage.setItem("userName",this.usrId);
         if(resp.access_token!=""){
           console.log("autenicado com sucesso "+this.session.access_token);
           this.router.navigate(["/credito"]);

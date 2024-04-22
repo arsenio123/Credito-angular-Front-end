@@ -10,7 +10,7 @@ export interface CreditoInterface {
     valor:number,
     doDate:Date,
     beginDate:Date,
-    estado:string,
+    estado:String,
     jurus:number,
     balance:number,
     proxima_Prestacao:Date,
@@ -30,7 +30,7 @@ export class Credito implements CreditoInterface{
   valor: number=0;
   doDate: Date=new Date();
   beginDate: Date=new Date();
-  estado: string="VIGOR";
+  estado: String="";
   jurus: number=0;
   balance: number=0;
   proxima_Prestacao: Date=new Date();

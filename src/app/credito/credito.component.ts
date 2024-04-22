@@ -46,7 +46,7 @@ export class CreditoComponent
   pagamento:Payment=new Payment();
   prestacao:Prestacao=new Prestacao();
   credito:Credito=new Credito();
-  estados:string[]=["CANCELADO","VIGOR"]//deve ser inicilizado por API
+  estados:string[]=["CANCELADO","VIGOR","PENDENTE","VENCIDO"]//deve ser inicilizado por API
   popupDivida:string="display: none;opacity: 1;";
   mainDivStile:string=""  
   recordsForPage:number=50;
@@ -124,7 +124,8 @@ export class CreditoComponent
     .getCreditsWithPagination(this.recordsForPage,this.lastCreditId,this.creditoestado)
     .subscribe(resp=>{
       this.creditos=resp;
-      console.log("resposta de consulta de creditos "+resp);
+
+      console.log("resposta de consulta de creditos "+resp[1].estado);
      this.lastCreditId=this.creditos[0].id;
      console.log("laste index is "+this.lastCreditId);
     },error=>{
@@ -208,6 +209,12 @@ export class CreditoComponent
     console.debug();
     this.credito=curCredito;
     this.curCredito=curCredito;
+    
+    //logs do corrente producto
+    console.log("**** "+this.curCredito.producto.descricao);
+    this.credito.producto=curCredito.producto;
+    
+    
     this.prestacoes=[];
     this.saveCreditoBt="Editar Credito";
 
@@ -278,8 +285,7 @@ export class CreditoComponent
       }
     },
     error=>{
-      //alert(`cliente com o id:${this.credito.cliente.id} nao existe`)
-      this.messageAlert.alertError(`cliente com o id:${this.credito.cliente.id} nao existe`);
+      this.messageAlert.alertError(error);
     })
   }
 
