@@ -132,7 +132,7 @@
         </div>
         <div class="fromCell">
           <label for="validationDefault02">Capital</label>
-          <input type="text" [(ngModel)]="credito.valor" class="form-control"  placeholder="Valor do crédito"  required>
+          <input type="number" [(ngModel)]="credito.valor" class="form-control"  placeholder="Valor do crédito"  required>
         </div>
         <div class="fromCell">
           <label for="validationDefaultUsername" >Data de conceção</label>
@@ -166,17 +166,20 @@
 
 
         <div class="fromCell">
-          <label for="validationDefault05">Jurus</label>
-          <input  [(ngModel)]="credito.jurus" stype="text" class="form-control" id="validationDefault05" placeholder="Zip" required>
+          <label for="validationDefault05">Jurus em %</label>
+          <input  [(ngModel)]="credito.jurus" type="number" class="form-control" id="validationDefault05" placeholder="%" required>
         </div>
 
 
         <div class="fromCell">
           <label for="validationDefault04" style="width: 100%;height: 30%;float: top;">Produto</label>
-          
           <select  [(ngModel)]="credito.producto"  class="selectItem" style="width: 100%;height: 34px;">
-            <option *ngFor="let producto of productos" [ngValue]="credito.producto">{{credito.producto.descricao}}|{{credito.producto.taxa}}%|{{credito.producto.intervaloPrestacao}}</option>
-            </select>
+            <option *ngFor="let producto of productos" [ngValue]="producto">{{producto.descricao}}|{{producto.taxa}}%|{{producto.intervaloPrestacao}}</option>
+          </select>
+        </div>
+        <div class="fromCell">
+          <label for="validationDefault04" style="width: 100%;height: 30%;float: top;">Current Product:</label>
+          {{credito.producto.descricao}}|{{credito.producto.taxa}}%|{{credito.producto.intervaloPrestacao}}
         </div>
 
       </div>
@@ -330,8 +333,8 @@
                       <th><input type="text" class="form-control" placeholder="estado" ></th>
                       <th><input type="text" class="form-control" placeholder="Data de vencimento" ></th>
                       <!--<th><input type="text" class="form-control" placeholder="Data de pagamento" disabled></th>-->
-                      <th><input type="text" class="form-control" placeholder="Valor pago" disabled></th>
-                      <th><input type="text" class="form-control" placeholder="Juros" disabled></th>
+                      <th><input type="text" class="form-control" placeholder="Capital a pagar" disabled></th>
+                      <th><input type="text" class="form-control" placeholder="Intrest" disabled></th>
                       <th><input type="text" class="form-control" placeholder="Total" disabled></th>
                       <th><input type="text" class="form-control" placeholder="Fazer fazerPagamento" disabled></th>
                       <th><input type="text" class="form-control" placeholder="Listar pagamento" disabled></th>
@@ -345,8 +348,8 @@
                       <td>{{prestacao.estado}}</td>
                       <td>{{prestacao.vencimento| date:'yyyy-MM-dd'}}</td>
                       <!--<td>{{prestacao.dataPagamento| date:'yyyy-MM-dd' }}</td>-->
-                      <td>{{prestacao.capitalPago}}</td>
-                      <td>{{prestacao.jurusPago}}</td>
+                      <td>{{prestacao.capital.valor}}</td>
+                      <td>{{prestacao.intrest.valor}}</td>
                       <td>{{prestacao.intrest.valor}}</td>
                       <td><button class="btn btn-primary" (click)="fazerPagamento(credito.id)">pagamentos</button></td>
                       <td><button class="btn btn-primary" (click)="selectedPrestacao(prestacao)">Lista Pagamentos</button></td>

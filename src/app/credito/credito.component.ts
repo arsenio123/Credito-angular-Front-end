@@ -89,7 +89,7 @@ export class CreditoComponent
 
       console.log(this.creditos);
     }
-     
+    this.filtrarCredit();
       
   }
 
@@ -169,8 +169,6 @@ export class CreditoComponent
       this.credito.createdDate=new Date();
       this.credito.updateDate=this.credito.createdDate;
       if(this.credito.id!=0){
-        //Atualiza o Credito
-        this.credito.estado="PENDENTE";
         this.creditoAPI.atualizaCredito(this.credito).subscribe(resp=>{
           //alert("SUCESSO credito adicionado com ");
           console.log("SUCESSO credito adicionado com ")
@@ -203,6 +201,8 @@ export class CreditoComponent
   }
 
   selectedCreditItem(curCredito:Credito){
+    console.log("***** curCapital credito"+this.curCapital);
+
     this.curCapital=new Capital();
     this.curIntrest=new Intrest();
     this.curSaldo=0;
@@ -237,7 +237,9 @@ export class CreditoComponent
   selectedPrestacao(curPrestacao:Prestacao){
     this.payService.getPaymentByPrestacao(curPrestacao.id).subscribe(resp=>{
       this.payments=resp;
-      this.makingPay_DIV=true
+      this.makingPay_DIV=true;
+      console.log("************************************************");
+      console.log(resp);
     });
     this.prestacao=curPrestacao;
     this.curPrestacao=curPrestacao;
@@ -255,6 +257,9 @@ export class CreditoComponent
     this.payments=[];
     this.limparPagamento();
     this.limparPrestacao();
+    this.curIntrest=new Intrest();
+    this.curCapital=new Capital();
+    this.curSaldo=0;
   }
   fazerPagamento(cred_id:number){
     this.popupDivida="";
@@ -381,6 +386,9 @@ export class CreditoComponent
     });
     this.capiralService.getCapital(curCredito).subscribe(resp=>{
       this.curCapital=resp;
+      if(resp==null){
+        this.curCapital=new Capital();
+      }
       this.curSaldo=this.curSaldo+this.curCapital.valor;
     });
   }

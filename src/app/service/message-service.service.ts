@@ -17,15 +17,6 @@ export class MessageServiceService {
       titleParam="sem autoridade para fazer a operacao";
       console.log(2);
     }
-
-    
-
-
-    if(errorOject.error!=null && errorOject.error!=undefined){
-      titleParam=errorOject.error;
-      console.log(1);
-
-    }
     if(errorOject.status==400){
       console.log("keep going")
       if(errorOject.error.message!=null){
@@ -40,8 +31,17 @@ export class MessageServiceService {
       titleParam=errorOject.error.error;
       console.log(titleParam);
     }
+
     
 
+
+    if(errorOject.error!=null && errorOject.error!=undefined){
+      titleParam=errorOject.error;
+      console.log(1);
+
+    }
+ 
+   
     
 //fire the message on the screen
     Swal.fire({
