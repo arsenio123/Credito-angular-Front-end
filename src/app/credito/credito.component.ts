@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit,  } from '@angular/core';
+import { Component, Input, OnInit,  } from '@angular/core';
 import { Credito } from '../model/credito';
 import { Prestacao } from '../model/prestacao';
 import { PrestacoesService } from '../service/prestacoes.service';
@@ -84,12 +84,12 @@ export class CreditoComponent
         console.log(error);
       })
       this.productos
-    this.consultaCredito();// fazer a passagem dos dados antigos para a nova base de dados
+    this.consultaCredito("VIGOR");// fazer a passagem dos dados antigos para a nova base de dados
     //this.consultaCredito_old;// TODO remove this line
 
       console.log(this.creditos);
     }
-    this.filtrarCredit();
+    //this.filtrarCredit();
       
   }
 
@@ -118,16 +118,18 @@ export class CreditoComponent
       }
     )
   }
-  consultaCredito(){
+  consultaCredito(estado:string){
+
+    console.log("****** consultaCredito[ index is "+this.lastCreditId+", estado:"+estado+", recordsForPage:"+this.recordsForPage+"]");
 
     this.creditoAPI
-    .getCreditsWithPagination(this.recordsForPage,this.lastCreditId,this.creditoestado)
+    .getCreditsWithPagination(this.recordsForPage,this.lastCreditId,estado)
     .subscribe(resp=>{
       this.creditos=resp;
 
       console.log("resposta de consulta de creditos "+resp[1].estado);
      this.lastCreditId=this.creditos[0].id;
-     console.log("laste index is "+this.lastCreditId);
+     console.log("laste index is "+this.lastCreditId+", estado:"+estado+", recordsForPage:"+this.recordsForPage);
     },error=>{
       this.messageAlert.alertError(error);
       //this.messageAlert.alertError("erro ao consultar os creditos")
@@ -259,7 +261,7 @@ export class CreditoComponent
     this.limparPrestacao();
     this.curIntrest=new Intrest();
     this.curCapital=new Capital();
-    this.curSaldo=0;
+    this.curSaldo=0;  
   }
   fazerPagamento(cred_id:number){
     this.popupDivida="";

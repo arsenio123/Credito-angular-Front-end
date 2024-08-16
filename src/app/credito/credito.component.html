@@ -72,7 +72,7 @@
         <!--[(ngModel)]="credito.id"    class="box effect7" -->
         <div class="saldos">
           <label for="validationDefault01">Capital</label>
-          <h3 style="vertical-align: middle;">{{curCapital.valor}}</h3>
+          <h3 style="vertical-align: middle;">{{curCapital.valor| currency:'MZN ':'symbol'}}</h3>
          <!-- <img  src="assets/capital-bg.png" style="height: 45px;width: 55px;"/>-->
           </div>
       </div>
@@ -81,7 +81,7 @@
         <!--[(ngModel)]="credito.valor"     class="box effect7"-->
         <div  class="saldos">
           <label for="validationDefault02">Intrest</label>
-          <h3> {{curIntrest.valor}}</h3>
+          <h3> {{curIntrest.valor| currency:'MZN ':'symbol'}}</h3>
           </div>
       </div>
       <div class="fromCell"><!---->
@@ -89,7 +89,7 @@
         <!--[(ngModel)]="credito.valor"     class="box effect7"-->
         <div  class="saldos">
           <label for="validationDefault02">saldo</label>
-          <h3> {{curSaldo}}</h3>
+          <h3> {{curSaldo| currency:'MZN ':'symbol'}}</h3>
           </div>
       </div>
     </div>
@@ -247,7 +247,7 @@
                 <div class="pull-right">
                   <button class="btn btn-default btn-xs btn-filter" style="margin-right: 5px"><span class="glyphicon glyphicon-filter"></span> Filter</button>
                   <button (click)="consultaCreditopageDown()" class="btn btn-default btn-xs btn-filter, bt-save"><span ></span> &#8249;</button>
-                    <button (click)="consultaCredito()" class="btn btn-default btn-xs btn-filter, bt-save"><span ></span> &#8250;</button>
+                    <button (click)="consultaCredito( creditoestado)" class="btn btn-default btn-xs btn-filter, bt-save"><span ></span> &#8250;</button>
                 </div>
             </div>
             <table class="table">
@@ -269,7 +269,7 @@
                     <tr *ngFor="let credito of creditos" (click)="selectedCreditItem(credito)" 
                     [class.selectTableItem]="credito===curCredito">
                         <td>{{credito.id}}</td>
-                        <td>{{credito.valor}}</td>
+                        <td>{{credito.valor| currency:'MZN ':'symbol'}}</td>
                         <td>{{credito.beginDate | date:'yyyy-MM-dd'}}</td>
                         <td>{{credito.doDate | date:'yyyy-MM-dd'}}</td>
                         <td>{{credito.jurus}}</td>
@@ -348,9 +348,9 @@
                       <td>{{prestacao.estado}}</td>
                       <td>{{prestacao.vencimento| date:'yyyy-MM-dd'}}</td>
                       <!--<td>{{prestacao.dataPagamento| date:'yyyy-MM-dd' }}</td>-->
-                      <td>{{prestacao.capital.valor}}</td>
-                      <td>{{prestacao.intrest.valor}}</td>
-                      <td>{{prestacao.intrest.valor}}</td>
+                      <td>{{prestacao.capital.valor| currency:'MZN ':'symbol'}}</td>
+                      <td>{{prestacao.intrest.valor| currency:'MZN ':'symbol'}}</td>
+                      <td>{{prestacao.intrest.valor| currency:'MZN ':'symbol'}}</td>
                       <td><button class="btn btn-primary" (click)="fazerPagamento(credito.id)">pagamentos</button></td>
                       <td><button class="btn btn-primary" (click)="selectedPrestacao(prestacao)">Lista Pagamentos</button></td>
                   </tr>   
@@ -423,10 +423,10 @@
                     <td>{{payment.dataDePagametno| date:'yyyy-MM-dd'}}</td>
                     <!--<td>{{payment.createdBay.name}}</td>-->
                     <td>{{payment.conta}}</td>
-                    <td>{{payment.valorPago}}</td>
+                    <td>{{payment.valorPago| currency:'MZN ':'symbol'}}</td>
                     <td>{{payment.formaPagamento}}</td>
-                    <td>{{payment.intrest.valor}}</td>
-                    <td>{{payment.capital.valor}}</td>
+                    <td>{{payment.intrest.valor| currency:'MZN ':'symbol'}}</td>
+                    <td>{{payment.capital.valor| currency:'MZN ':'symbol'}}</td>
                     <td><button class="btn btn-primary" (click)="editarPagamento(payment)">editar</button></td>
                 </tr>   
             </tbody>

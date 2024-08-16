@@ -17,6 +17,8 @@ import { MessageServiceService } from '../service/message-service.service';
 })
 export class LogInComponent   implements OnInit
 {
+  userName:String="userName";
+  
   usrId:string="";
   pwdId:string="";
   dialog:Dialog=new Dialog();
