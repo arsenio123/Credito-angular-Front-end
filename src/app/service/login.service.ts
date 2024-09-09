@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
 import{HttpClient} from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
 import { Token } from '../model/token';
 import {  Router } from '@angular/router';
 import { RestGenericService } from '../service/rest-generic.service';
 import { User } from '../model/user';
-import { UserService } from './user-service.service';
 import { Dialog } from '../model/dialog';
-import { Type } from '../model/Type';
 import { Observable } from 'rxjs';
 
 @Injectable({

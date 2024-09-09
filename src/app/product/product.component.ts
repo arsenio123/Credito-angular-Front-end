@@ -33,7 +33,7 @@ export class ProductComponent implements OnInit {
   adicionarProducto(){
 
     if(this.producto.id==0){
-      this.productoService.createProducto(this.producto).subscribe(resp=>{
+      this.productoService.createProducto(this.producto).subscribe({next:(resp)=>{
         this.producto=resp;
         this.productos.push(this.producto);
         this.ngOnInit();
@@ -41,26 +41,26 @@ export class ProductComponent implements OnInit {
         this.producto=this.productos[this.productos.length-1];
         console.log(this.productos[this.productos.length-1]);
         this.messageAlert.alertSuccess("Producto crido com sucesso");
-      },error=>{
-        this.messageAlert.alertError(error)
+      },error:(e)=>{
+        this.messageAlert.alertError(e)
         console.log("ProductComponent/ adicionarProducto");
-        console.log(error)
+        console.log(e)
       }
-      );
+    });
       
     }else{
 
-      this.productoService.actulizarProducto(this.producto).subscribe(resp=>{
+      this.productoService.actulizarProducto(this.producto).subscribe({next:(resp)=>{
         this.producto=resp;
         this.productos.push(this.producto);
         this.ngOnInit();
         this.messageAlert.alertSuccess("Producto Alterado com sucesso");
-      },error=>{
-        this.messageAlert.alertError(error)
+      },error:(e)=>{
+        this.messageAlert.alertError(e)
         console.log("ProductComponent/ adicionarProducto");
-        console.log(error)
+        console.log(e)
       }
-      );
+    });
 
     }
     

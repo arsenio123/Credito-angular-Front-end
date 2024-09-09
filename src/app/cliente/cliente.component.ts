@@ -34,16 +34,16 @@ export class ClienteComponent implements OnInit {
 
   adicionarCliente(){
 
-    this.clienteRest.createCliente(this.cliente).subscribe(resp=>{
+    this.clienteRest.createCliente(this.cliente).subscribe({next: (resp)=>{
       this.cliente=resp;
       this.clientes.push(this.cliente);
       this.messageAlert.alertSuccess("Cleinte adicionado com Sucesso");
-    },error=>{
-      console.log(error);
-      this.messageAlert.alertError(error);
+    },error: (e)=>{
+      console.log(e);
+      this.messageAlert.alertError(e);
     }
-    );
-    
+  });
+
     
   }
 

@@ -1,18 +1,17 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Token } from '../model/token';
 import { Injectable } from '@angular/core';
+import { config } from '../config';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestGenericService <T>{
-  serverUrl:string="http://localhost:8080";
-  ssoUrl:string="http://localhost:8081";
-  //serverUrl:string="http://146.190.124.219:8080";
-  //ssoUrl:string="http://146.190.124.219:8081";
+  serverUrl:string=config.serverUrl;
+  ssoUrl:string=config.ssoUrl
   TOKEN:string="token";
-  barrerPass="cmVhY3Q6cjM0Y3Q=";
+  barrerPass=config.pass;
   headers:HttpHeaders=new HttpHeaders();
  
   

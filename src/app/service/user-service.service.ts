@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../model/user';
+import { config } from '../config';
 import { RestGenericService } from './rest-generic.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService extends RestGenericService<User>{
-  URLpath:string="http://localhost:8081";
+  URLpath:string=config.ssoUrl;
 
   
   changePassword(logedUser: User, changePassword: string,currentPassword:string):Observable<String> {

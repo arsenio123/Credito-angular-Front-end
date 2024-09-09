@@ -27,13 +27,13 @@ export class UtilizadorComponent implements OnInit {
   ngOnInit(): void {
     if(this.messageAlert.isSessiovalide()==true){
       console.log("pedindo a lista de users")
-    this.userService.getUser().subscribe(resp=>{
+    this.userService.getUser().subscribe({next:resp=>{
       console.log("[UtilizadorComponent: ngOnInit ]"+resp)
       this.users=resp
 
-    },error=>{
-      this.messageAlert.alertError(error);
-    });
+    },error:(e)=>{
+      this.messageAlert.alertError(e);
+    }});
     }
     
   }

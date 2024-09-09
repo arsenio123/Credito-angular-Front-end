@@ -13,7 +13,6 @@ import { CreditoService } from '../service/credito-service.service';
 import { LoginService } from '../service/login.service';
 import { Dialog } from '../model/dialog';
 import { Type } from '../model/Type';
-import Swal from 'sweetalert2';
 import { Intrest } from '../model/intrest';
 import { Capital } from '../model/capital';
 import { IntrestSevice } from '../service/Intrest-service.service';
@@ -75,48 +74,48 @@ export class CreditoComponent
   ngOnInit(){
 
     if(this.messageAlert.isSessiovalide()==true){
-      this.productService.getProductByStatus("NORMAL").subscribe(resp=>{
+      this.productService.getProductByStatus("NORMAL").subscribe({next: (resp)=>{
         this.productos=resp;
         console.log("response Productos"+resp);
-      },error=>{
-        this.messageAlert.alertError(error);
+      },error: (e)=>{
+        this.messageAlert.alertError(e);
         //this.messageAlert.alertError(this.dialog.message);
-        console.log(error);
-      })
+        console.log(e);
+      }
+    })
       this.productos
     this.consultaCredito("VIGOR");// fazer a passagem dos dados antigos para a nova base de dados
     //this.consultaCredito_old;// TODO remove this line
 
       console.log(this.creditos);
     }
-    //this.filtrarCredit();
       
   }
 
 
   consultaCredito_old(){
 
-    this.creditoAPI.getAllCredits().subscribe(data=>{
+    this.creditoAPI.getAllCredits().subscribe({next:(data)=>{
       this.creditos=data;
       console.log(data);},
-      error=>{
-        console.log(error);
-        this.messageAlert.alertError(error);
+      error:(e)=>{
+        console.log(e);
+        this.messageAlert.alertError(e);
       }
     
-    );
+  });
 
     
   }
 
   filtrarCredit(){
-    this.creditoAPI.getCreditByCriteria(this.recordsForPage, this.creditoestado,this.findCreditoByClientID).subscribe(
-      resp=>{
+    this.creditoAPI.getCreditByCriteria(this.recordsForPage, this.creditoestado,this.findCreditoByClientID).subscribe({
+      next:(resp)=>{
         this.creditos=resp;
-      },error=>{
-        this.messageAlert.alertError(error);
+      },error:(e)=>{
+        this.messageAlert.alertError(e);
       }
-    )
+  })
   }
   consultaCredito(estado:string){
 
@@ -124,21 +123,21 @@ export class CreditoComponent
 
     this.creditoAPI
     .getCreditsWithPagination(this.recordsForPage,this.lastCreditId,estado)
-    .subscribe(resp=>{
+    .subscribe({next:(resp)=>{
       this.creditos=resp;
 
       console.log("resposta de consulta de creditos "+resp[1].estado);
      this.lastCreditId=this.creditos[0].id;
      console.log("laste index is "+this.lastCreditId+", estado:"+estado+", recordsForPage:"+this.recordsForPage);
-    },error=>{
-      this.messageAlert.alertError(error);
+    },error: (e)=>{
+      this.messageAlert.alertError(e);
       //this.messageAlert.alertError("erro ao consultar os creditos")
       console.log("consultaCredito com erro");
-      console.log(error);
+      console.log(e);
       }
       
     
-    );
+  });
 
     
   }
@@ -147,18 +146,18 @@ export class CreditoComponent
 
     this.creditoAPI
     .getCreditsWithPaginationDown(this.recordsForPage,this.lastCreditId)
-    .subscribe(data=>{
+    .subscribe({next: (data)=>{
       this.creditos=data;
       console.log(data);
       
      this.lastCreditId=this.creditos[0].id;
      console.log("laste index is "+this.lastCreditId);
-    },error=>{
-      this.messageAlert.alertError(error);
+    },error: (e)=>{
+      this.messageAlert.alertError(e);
       console.log("erro no ")
       alert("");
       }
-    );
+  });
 
     
   }
@@ -171,32 +170,32 @@ export class CreditoComponent
       this.credito.createdDate=new Date();
       this.credito.updateDate=this.credito.createdDate;
       if(this.credito.id!=0){
-        this.creditoAPI.atualizaCredito(this.credito).subscribe(resp=>{
+        this.creditoAPI.atualizaCredito(this.credito).subscribe({next :(resp)=>{
           //alert("SUCESSO credito adicionado com ");
           console.log("SUCESSO credito adicionado com ")
           this.creditos.push(this.credito);
           this.messageAlert.alertSuccess(this.dialog.message);
           
-        },error=>{
-          console.log(error);
-          this.messageAlert.alertError(error);
-          console.log("ERRO ao adicionar o credito "+error)
-          console.log("ERRO ao adicionar o credito "+error)
-        });
+        },error:(e)=>{
+          console.log(e);
+          this.messageAlert.alertError(e);
+          console.log("ERRO ao adicionar o credito "+e)
+          console.log("ERRO ao adicionar o credito "+e)
+        }});
         this.ngOnInit();
 
       }else{
         //Cria um Credito
-        this.creditoAPI.createCredito(this.credito).subscribe(resp=>{
+        this.creditoAPI.createCredito(this.credito).subscribe({next:(resp)=>{
           //alert("SUCESSO credito adicionado com ");
           console.log("SUCESSO credito adicionado com ")
           this.creditos.push(this.credito);
           this.messageAlert.alertSuccess(this.dialog.message);
-        },error=>{
-          console.log(error);
-          this.messageAlert.alertError(error);
+        },error: (e)=>{
+          console.log(e);
+          this.messageAlert.alertError(e);
           console.log("ERRO ao adicionar o credito")
-        });
+      }});
       }
       
     
@@ -237,12 +236,13 @@ export class CreditoComponent
 
 
   selectedPrestacao(curPrestacao:Prestacao){
-    this.payService.getPaymentByPrestacao(curPrestacao.id).subscribe(resp=>{
+    this.payService.getPaymentByPrestacao(curPrestacao.id).subscribe({next:(resp)=>{
       this.payments=resp;
       this.makingPay_DIV=true;
-      console.log("************************************************");
       console.log(resp);
-    });
+    },error:(e)=>{
+    this.messageAlert.alertError(e);
+    }});
     this.prestacao=curPrestacao;
     this.curPrestacao=curPrestacao;
     console.log(this.prestacao);
@@ -269,31 +269,31 @@ export class CreditoComponent
 
   findCliente(){
     this.clienteService.findByID(this.credito.cliente.id)
-    .subscribe(resp=>{
+    .subscribe({next:(resp)=>{
       this.credito.cliente=resp;
 
       if(this.credito.cliente==null){
         this.messageAlert.alertError(`cliente  nao existe`);
       }
     },
-    error=>{
+    error:(e)=>{
       //alert(`cliente com o id:${this.credito.cliente.id} nao existe`)
       this.messageAlert.alertError(`cliente com o id:${this.credito.cliente.id} nao existe`);
-    })
+  }})
    
   }
 
   findClienteByName(){
     this.clienteService.findByName(this.credito.cliente.nome)
-    .subscribe(resp=>{
+    .subscribe({next: (resp)=>{
       this.credito.cliente=resp;
       if(this.credito.cliente==null){
         this.messageAlert.alertError(`cliente nao existe`);
       }
     },
-    error=>{
-      this.messageAlert.alertError(error);
-    })
+    error:(e)=>{
+      this.messageAlert.alertError(e);
+  }})
   }
 
   editarPagamento(selecterPayment:Payment){
@@ -348,19 +348,19 @@ export class CreditoComponent
     console.log("cirando prestacao ");
     console.log(this.prestacao);
     
-    this.prestacaoServ.creatUpdate(this.prestacao).subscribe(response=>{
+    this.prestacaoServ.creatUpdate(this.prestacao).subscribe({next :(response)=>{
       this.prestacao=response;
       console.log(response);
       this.dialog.message="SUCESSO na criacao/atulizacao da prestacao";
         this.dialog.type=Type.SUCESSO;
         this.messageAlert.alertSuccess(this.dialog.message);
         this.selectedCreditItem(this.curCredito);
-    },error=>{
+    },error:(e)=>{
       this.dialog.message="ERRO na criacao/atulizacao da prestacao";
         this.dialog.type=Type.ERROR;
         this.messageAlert.alertError(this.dialog.message);
-      console.log(error);
-    });
+      console.log(e);
+  }});
     
   }
 
@@ -376,7 +376,7 @@ export class CreditoComponent
 
   refreshIntressAndCapital(curCredito:Credito){
     this.curSaldo=0;
-    this.intrestService.getIntrest(curCredito).subscribe(resp=>{
+    this.intrestService.getIntrest(curCredito).subscribe({next:(resp)=>{
       this.curIntrest=resp;
       
       if(this.curIntrest==null){
@@ -385,31 +385,35 @@ export class CreditoComponent
       }else{
         this.curSaldo=this.curSaldo+this.curIntrest.valor;
       }
-    });
-    this.capiralService.getCapital(curCredito).subscribe(resp=>{
+    },error:(e)=>{
+      this.messageAlert.alertError(e);
+    }});
+    this.capiralService.getCapital(curCredito).subscribe({next:(resp)=>{
       this.curCapital=resp;
       if(resp==null){
         this.curCapital=new Capital();
       }
       this.curSaldo=this.curSaldo+this.curCapital.valor;
-    });
+    },error:(e)=>{
+      this.messageAlert.alertError(e);
+    }});
   }
 
   findCreditByClient(){
     this.creditoAPI.getCreditoByClienteID(this.findCreditoByClientID)
-    .subscribe(resp=>{
+    .subscribe({next: (resp)=>{
       this.creditos=resp;
 
       if(this.creditos==null){
         this.messageAlert.alertError(`cliente  nao existe`);
       }
     },
-    error=>{
+    error:(e)=>{
       //alert(`cliente com o id:${this.credito.cliente.id} nao existe`)
       //this.messageAlert.alertError(`creditos para o cliente com o id:${this.findCreditoByClientID} nao existe`);
-      this.messageAlert.alertError(error);
-      console.error(error);
-    }
+      this.messageAlert.alertError(e);
+      console.error(e);
+    }}
     );
 
   }
