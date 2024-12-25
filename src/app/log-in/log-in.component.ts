@@ -8,6 +8,7 @@ import { UserService } from '../service/user-service.service';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { MessageServiceService } from '../service/message-service.service';
+import { config } from '../config';
 
 
 @Component({
@@ -46,7 +47,7 @@ export class LogInComponent   implements OnInit
 
   login(){
     console.log('iniciate login... para o user '+this.usrId+' pass: '+ this.pwdId);
-      this.loginServe.login(this.usrId,this.pwdId).subscribe(resp=>{
+      this.loginServe.login(this.usrId,this.pwdId).subscribe({next :(resp)=>{
         console.log("LoginService: resp{ "+resp);
         this.session=resp;
         localStorage.setItem("token",this.session.access_token);
@@ -54,21 +55,21 @@ export class LogInComponent   implements OnInit
         if(resp.access_token!=""){
           console.log("autenicado com sucesso "+this.session.access_token);
           this.router.navigate(["/credito"]);
-          return this.userservice.getOneFull('http://localhost:8081',`/user/login?userName=${this.usrId}`,"",this.http).subscribe(respUser=>{
+          return this.userservice.getOneFull(config.ssoUrl,`/user/login?userName=${this.usrId}`,"",this.http).subscribe(respUser=>{
             LoginService.logedUser=respUser;
           })
         } 
         return this.session;
-      },error=>{
-        console.log(error.error.error_description);
+      },error:(e)=>{
+        console.log(e.error.error_description);
         this.dialog.type=Type.ERROR;
         this.dialog.title="Credencias erradas";
-        this.dialog.message=error.error.error_description;
+        this.dialog.message=e.error.error_description;
           console.log('entrando para o 2 error');
           console.log(this.dialog);
 
-          this.messageAlert.alertError(error);
-      });     
+          this.messageAlert.alertError(e);
+      }});     
 
   }
 

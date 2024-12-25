@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RestGenericService <T>{
-  serverUrl:string=config.serverUrl;
-  ssoUrl:string=config.ssoUrl
+  public serverUrl:string=config.serverUrl;
+  public ssoUrl:string=config.ssoUrl
   TOKEN:string="token";
   barrerPass=config.pass;
   headers:HttpHeaders=new HttpHeaders();
@@ -71,7 +71,7 @@ return http.get<T[]>(fullUrl,this.preparHeadersReqs(contentType));
   }
 
 
-  auth(body:string,http:HttpClient):Observable<Token>{
+    auth(body:string,http:HttpClient):Observable<Token>{
 
     const httpOptions = {
       headers: new HttpHeaders({

@@ -1,9 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit,  } from '@angular/core';
 import { Credito } from '../model/credito';
 import { Prestacao } from '../model/prestacao';
 import { PrestacoesService } from '../service/prestacoes.service';
-import { Router } from '@angular/router';
 import { ClienteRestService } from '../service/cliente-rest.service';
 import { Producto } from '../model/producto';
 import { ProductService } from '../service/product-service.service';
@@ -59,10 +57,18 @@ export class CreditoComponent
   creditoestado:string="";
   creditoestados:string[]=["VIGOR","PENDENTE","CANCELADO","VENCIDO",""];
 
+  //pagination inicio 
+  paginatedCreditos:Credito[] = []; // Loans to display on the current page
+  currentPage = 1;
+  rowsPerPage = 4;
+  totalPages = 0;
+  pages:number[] = [];
+ //pagination fim 
+
   constructor(private creditoAPI:CreditoService,
     private prestacaoServ:PrestacoesService,
-    private router:Router,
-    private http:HttpClient,
+    //private router:Router,
+    //private http:HttpClient,
     private clienteService:ClienteRestService,
     private productService:ProductService,
     private payService:PaymentService,
@@ -72,6 +78,8 @@ export class CreditoComponent
 
 
   ngOnInit(){
+
+    
 
     if(this.messageAlert.isSessiovalide()==true){
       this.productService.getProductByStatus("NORMAL").subscribe({next: (resp)=>{
@@ -89,6 +97,8 @@ export class CreditoComponent
 
       console.log(this.creditos);
     }
+
+    //this.updatePagination();
       
   }
 
@@ -97,6 +107,7 @@ export class CreditoComponent
 
     this.creditoAPI.getAllCredits().subscribe({next:(data)=>{
       this.creditos=data;
+      this.paginatedCreditos=data;
       console.log(data);},
       error:(e)=>{
         console.log(e);
@@ -112,35 +123,43 @@ export class CreditoComponent
     this.creditoAPI.getCreditByCriteria(this.recordsForPage, this.creditoestado,this.findCreditoByClientID).subscribe({
       next:(resp)=>{
         this.creditos=resp;
+        this.updatePagination();
       },error:(e)=>{
         this.messageAlert.alertError(e);
       }
   })
   }
-  consultaCredito(estado:string){
 
-    console.log("****** consultaCredito[ index is "+this.lastCreditId+", estado:"+estado+", recordsForPage:"+this.recordsForPage+"]");
 
+//inicio consulta com paginacao
+  consultaCredito(estado: string, page: number = this.currentPage) {
+    console.log(`Querying credits for page ${page}, estado: ${estado}`);
+
+    //this.creditoAPI.getAllCredits()
     this.creditoAPI
     .getCreditsWithPagination(this.recordsForPage,this.lastCreditId,estado)
-    .subscribe({next:(resp)=>{
-      this.creditos=resp;
+    .subscribe({
+      next: (resp) => {
+        this.creditos = resp; // Assuming `data` contains the credits
+        console.log('Credits fetched:', this.creditos);
 
-      console.log("resposta de consulta de creditos "+resp[1].estado);
-     this.lastCreditId=this.creditos[0].id;
-     console.log("laste index is "+this.lastCreditId+", estado:"+estado+", recordsForPage:"+this.recordsForPage);
-    },error: (e)=>{
-      this.messageAlert.alertError(e);
-      //this.messageAlert.alertError("erro ao consultar os creditos")
-      console.log("consultaCredito com erro");
-      console.log(e);
-      }
-      
-    
-  });
 
-    
+//
+        this.updatePagination();
+
+    //
+      },
+      error: (e) => {
+        this.messageAlert.alertError(e);
+        console.error("Error fetching credits", e);
+      },
+    });
   }
+
+
+  //fim consulta com paginacao
+
+
 
   consultaCreditopageDown(){
 
@@ -170,6 +189,8 @@ export class CreditoComponent
       this.credito.createdDate=new Date();
       this.credito.updateDate=this.credito.createdDate;
       if(this.credito.id!=0){
+        console.log("atualizando o credito");
+        console.log(this.credito);
         this.creditoAPI.atualizaCredito(this.credito).subscribe({next :(resp)=>{
           //alert("SUCESSO credito adicionado com ");
           console.log("SUCESSO credito adicionado com ")
@@ -403,6 +424,8 @@ export class CreditoComponent
     this.creditoAPI.getCreditoByClienteID(this.findCreditoByClientID)
     .subscribe({next: (resp)=>{
       this.creditos=resp;
+      this.paginatedCreditos=resp;
+      this.updatePagination();
 
       if(this.creditos==null){
         this.messageAlert.alertError(`cliente  nao existe`);
@@ -417,5 +440,27 @@ export class CreditoComponent
     );
 
   }
+
+   //pagination inicio 
+ 
+  updatePagination() {
+    console.log(this.creditos);
+    this.totalPages = Math.ceil(this.creditos.length / this.rowsPerPage);
+    this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+    this.paginatedCreditos = this.creditos.slice(
+      (this.currentPage - 1) * this.rowsPerPage,
+      this.currentPage * this.rowsPerPage
+    );
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updatePagination();
+    }
+  }
+
+
+   //pagination fim 
 
 }

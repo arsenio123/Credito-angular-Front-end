@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClienteRestService } from '../service/cliente-rest.service';
 import { Cliente } from '../model/cliente';
-import Swal from 'sweetalert2';
 import { MessageServiceService } from '../service/message-service.service';
 
 @Component({
@@ -43,7 +42,7 @@ export class ClienteComponent implements OnInit {
       this.messageAlert.alertError(e);
     }
   });
-
+  this.ngOnInit();
     
   }
 

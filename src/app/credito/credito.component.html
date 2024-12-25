@@ -236,51 +236,67 @@
     <div class="row">
 
 
-
-        <div class="panel panel-primary filterable">
-            <div class="panel-heading">
-                <h3 class="panel-title">Investimentos</h3>
-
-               
-
-                
-                <div class="pull-right">
-                  <button class="btn btn-default btn-xs btn-filter" style="margin-right: 5px"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                  <button (click)="consultaCreditopageDown()" class="btn btn-default btn-xs btn-filter, bt-save"><span ></span> &#8249;</button>
-                    <button (click)="consultaCredito( creditoestado)" class="btn btn-default btn-xs btn-filter, bt-save"><span ></span> &#8250;</button>
-                </div>
+      <!-- fim -->
+      <div class="panel panel-primary filterable">
+        <div class="panel-heading">
+            <h3 class="panel-title">Investimentos</h3>
+            <div class="pull-right">
+                <button class="btn btn-default btn-xs btn-filter" style="margin-right: 5px">
+                    <span class="glyphicon glyphicon-filter"></span> Filter
+                </button>
             </div>
-            <table class="table">
-                <thead>
-                    <tr class="filters">
-                        <th><input type="text" class="form-control" placeholder="ID Credito" ></th>
-                        <th><input type="text" class="form-control" placeholder="Valor" ></th>
-                        <th><input type="text" class="form-control" placeholder="Concecao" ></th>
-                        <th><input type="text" class="form-control" placeholder="Data de termino" ></th>
-                        <th><input type="text" class="form-control" placeholder="Taxa de Jurus" ></th>
-                        <th><input type="text" class="form-control" placeholder="Estado" ></th>
-                        <th><input type="text" class="form-control" placeholder="nome Cliente" ></th>
-                        <th><input type="text" class="form-control" placeholder="Produto" ></th>
-                        
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let credito of creditos" (click)="selectedCreditItem(credito)" 
-                    [class.selectTableItem]="credito===curCredito">
-                        <td>{{credito.id}}</td>
-                        <td>{{credito.valor| currency:'MZN ':'symbol'}}</td>
-                        <td>{{credito.beginDate | date:'yyyy-MM-dd'}}</td>
-                        <td>{{credito.doDate | date:'yyyy-MM-dd'}}</td>
-                        <td>{{credito.jurus}}</td>
-                        <td>{{credito.estado}}</td>
-                        <td>{{credito.cliente.nome}}</td>
-                        <td>{{credito.producto.descricao}} |{{credito.producto.taxa}}</td>
-                        
-                    </tr>   
-                </tbody>
-            </table>
         </div>
+        <table class="table">
+            <thead>
+                <tr class="filters">
+                    <th><input type="text" class="form-control" placeholder="ID Credito"></th>
+                    <th><input type="text" class="form-control" placeholder="Valor"></th>
+                    <th><input type="text" class="form-control" placeholder="Concecao"></th>
+                    <th><input type="text" class="form-control" placeholder="Data de termino"></th>
+                    <th><input type="text" class="form-control" placeholder="Taxa de Jurus"></th>
+                    <th><input type="text" class="form-control" placeholder="Estado"></th>
+                    <th><input type="text" class="form-control" placeholder="Nome Cliente"></th>
+                    <th><input type="text" class="form-control" placeholder="Produto"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let credito of paginatedCreditos" 
+                    (click)="selectedCreditItem(credito)" 
+                    [class.selectTableItem]="credito === curCredito">
+                    <td>{{credito.id}}</td>
+                    <td>{{credito.valor | currency:'MZN ':'symbol'}}</td>
+                    <td>{{credito.beginDate | date:'yyyy-MM-dd'}}</td>
+                    <td>{{credito.doDate | date:'yyyy-MM-dd'}}</td>
+                    <td>{{credito.jurus}}</td>
+                    <td>{{credito.estado}}</td>
+                    <td>{{credito.cliente.nome}}</td>
+                    <td>{{credito.producto.descricao}} | {{credito.producto.taxa}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Pagination Controls -->
+        <div class="text-center">
+            <nav>
+                <ul class="pagination">
+                    <li [class.disabled]="currentPage === 1">
+                        <a (click)="goToPage(currentPage - 1)" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li *ngFor="let page of pages" [class.active]="page === currentPage">
+                        <a (click)="goToPage(page)">{{page}}</a>
+                    </li>
+                    <li [class.disabled]="currentPage === totalPages">
+                        <a (click)="goToPage(currentPage + 1)" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+        
+        <!-- fim -->
     </div>
 
 
