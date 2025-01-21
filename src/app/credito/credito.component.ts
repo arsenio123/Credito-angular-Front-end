@@ -67,8 +67,6 @@ export class CreditoComponent
 
   constructor(private creditoAPI:CreditoService,
     private prestacaoServ:PrestacoesService,
-    //private router:Router,
-    //private http:HttpClient,
     private clienteService:ClienteRestService,
     private productService:ProductService,
     private payService:PaymentService,
