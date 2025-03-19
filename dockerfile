@@ -1,23 +1,18 @@
-# Use an official Node.js runtime as a parent image
-FROM node:16-alpine
+# Stage 1: Compile and Build angular codebase
 
-# Set the working directory to /app
-WORKDIR /app
+# Use official node image as the base image
+FROM node:latest as build
 
-# Copy package.json and package-lock.json to /app
-COPY package*.json ./
+WORKDIR /usr/local/app
 
-# Install app dependencies
+COPY ./ /usr/local/app/
+
 RUN npm install
+RUN npm run build
+FROM nginx:latest
+COPY --from=build /usr/local/app/dist/credito-workflow /usr/share/nginx/html
 
-# Copy app source code to /app
-COPY ./ /app
-
-# Build the app for production --prod
-RUN npm run build 
-
-# Expose port 80 for the container
 EXPOSE 80
 
-# Start the app
-CMD ["npm", "start"]
+# Start the Nginx server when the container starts
+CMD ["nginx", "-g", "daemon off;"]

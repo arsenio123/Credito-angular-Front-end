@@ -60,7 +60,7 @@ export class CreditoComponent
   //pagination inicio 
   paginatedCreditos:Credito[] = []; // Loans to display on the current page
   currentPage = 1;
-  rowsPerPage = 4;
+  creditRowsPerPage = 4;
   totalPages = 0;
   pages:number[] = [];
  //pagination fim 
@@ -443,11 +443,11 @@ export class CreditoComponent
  
   updatePagination() {
     console.log(this.creditos);
-    this.totalPages = Math.ceil(this.creditos.length / this.rowsPerPage);
+    this.totalPages = Math.ceil(this.creditos.length / this.creditRowsPerPage);
     this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
     this.paginatedCreditos = this.creditos.slice(
-      (this.currentPage - 1) * this.rowsPerPage,
-      this.currentPage * this.rowsPerPage
+      (this.currentPage - 1) * this.creditRowsPerPage,
+      this.currentPage * this.creditRowsPerPage
     );
   }
 
